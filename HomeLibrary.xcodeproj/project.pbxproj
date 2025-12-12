@@ -15,6 +15,7 @@
 		C798D45F2EEB9BC900006414 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D45E2EEB9BC900006414 /* Book.swift */; };
 		C798D4612EEB9C5C00006414 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4602EEB9C5C00006414 /* Genre.swift */; };
 		C798D4632EEB9E5B00006414 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4622EEB9E5B00006414 /* Status.swift */; };
+		C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4642EEBA0EC00006414 /* MyLibraryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		C798D45E2EEB9BC900006414 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		C798D4602EEB9C5C00006414 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		C798D4622EEB9E5B00006414 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		C798D4642EEBA0EC00006414 /* MyLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLibraryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				C798D45C2EEB9A6100006414 /* MyLibraryView.swift */,
+				C798D4642EEBA0EC00006414 /* MyLibraryViewModel.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				C798D45D2EEB9A6100006414 /* MyLibraryView.swift in Sources */,
 				C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */,
+				C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */,
 				C798D4632EEB9E5B00006414 /* Status.swift in Sources */,
 				C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */,
 				C798D4612EEB9C5C00006414 /* Genre.swift in Sources */,
