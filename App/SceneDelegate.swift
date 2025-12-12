@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = ViewController()
+        window.rootViewController = UIHostingController(rootView: MyLibraryView())
         self.window = window
         window.makeKeyAndVisible()
     }
