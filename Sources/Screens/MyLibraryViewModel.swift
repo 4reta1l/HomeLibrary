@@ -19,7 +19,8 @@ final class MyLibraryViewModel {
             year: 2012,
             notes: "Amazing Book",
             status: .completed,
-            isbn: ""
+            isbn: "",
+            pages: 456
         )
 
         let secondBook = Book(
@@ -29,7 +30,8 @@ final class MyLibraryViewModel {
             year: 2014,
             notes: "",
             status: .reading,
-            isbn: ""
+            isbn: "",
+            pages: 322
         )
 
         self.books = [firstBook, secondBook]

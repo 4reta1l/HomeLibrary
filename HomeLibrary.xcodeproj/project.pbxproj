@@ -117,6 +117,9 @@
 		C798D4562EEB993800006414 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C798D45E2EEB9BC900006414 /* Book.swift */,
+				C798D4602EEB9C5C00006414 /* Genre.swift */,
+				C798D4622EEB9E5B00006414 /* Status.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -142,9 +145,6 @@
 		C798D4592EEB99A000006414 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C798D45E2EEB9BC900006414 /* Book.swift */,
-				C798D4602EEB9C5C00006414 /* Genre.swift */,
-				C798D4622EEB9E5B00006414 /* Status.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
