@@ -38,12 +38,10 @@
 		C798D4222EEB877E00006414 = {
 			isa = PBXGroup;
 			children = (
-				C798D42E2EEB877E00006414 /* AppDelegate.swift */,
-				C798D4302EEB877E00006414 /* SceneDelegate.swift */,
-				C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */,
-				C798D43F2EEB878100006414 /* Info.plist */,
-				C798D4322EEB877E00006414 /* ViewController.swift */,
-				C798D43A2EEB878100006414 /* Assets.xcassets */,
+				C798D4502EEB97FB00006414 /* App */,
+				C798D4512EEB986A00006414 /* Sources */,
+				C798D4532EEB98CE00006414 /* Libs */,
+				C798D45B2EEB99E400006414 /* Resources */,
 				C798D42C2EEB877E00006414 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +52,104 @@
 				C798D42B2EEB877E00006414 /* HomeLibrary.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C798D4502EEB97FB00006414 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C798D42E2EEB877E00006414 /* AppDelegate.swift */,
+				C798D4302EEB877E00006414 /* SceneDelegate.swift */,
+				C798D43F2EEB878100006414 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C798D4512EEB986A00006414 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C798D4522EEB987900006414 /* Screens */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		C798D4522EEB987900006414 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C798D4322EEB877E00006414 /* ViewController.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		C798D4532EEB98CE00006414 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				C798D4542EEB98EA00006414 /* LibraryModels */,
+				C798D4572EEB995600006414 /* CoreDataStorage */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		C798D4542EEB98EA00006414 /* LibraryModels */ = {
+			isa = PBXGroup;
+			children = (
+				C798D4552EEB993000006414 /* Interfaces */,
+				C798D4562EEB993800006414 /* Models */,
+			);
+			path = LibraryModels;
+			sourceTree = "<group>";
+		};
+		C798D4552EEB993000006414 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		C798D4562EEB993800006414 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C798D4572EEB995600006414 /* CoreDataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				C798D4582EEB998F00006414 /* DataBase */,
+				C798D4592EEB99A000006414 /* Models */,
+				C798D45A2EEB99A700006414 /* Storage */,
+			);
+			path = CoreDataStorage;
+			sourceTree = "<group>";
+		};
+		C798D4582EEB998F00006414 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		C798D4592EEB99A000006414 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C798D45A2EEB99A700006414 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		C798D45B2EEB99E400006414 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C798D43A2EEB878100006414 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
