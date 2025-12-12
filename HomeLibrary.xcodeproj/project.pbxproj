@@ -12,6 +12,9 @@
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
 		C798D43B2EEB878100006414 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C798D43A2EEB878100006414 /* Assets.xcassets */; };
 		C798D45D2EEB9A6100006414 /* MyLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D45C2EEB9A6100006414 /* MyLibraryView.swift */; };
+		C798D45F2EEB9BC900006414 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D45E2EEB9BC900006414 /* Book.swift */; };
+		C798D4612EEB9C5C00006414 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4602EEB9C5C00006414 /* Genre.swift */; };
+		C798D4632EEB9E5B00006414 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4622EEB9E5B00006414 /* Status.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		C798D43A2EEB878100006414 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C798D43F2EEB878100006414 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C798D45C2EEB9A6100006414 /* MyLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLibraryView.swift; sourceTree = "<group>"; };
+		C798D45E2EEB9BC900006414 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		C798D4602EEB9C5C00006414 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		C798D4622EEB9E5B00006414 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,9 @@
 		C798D4592EEB99A000006414 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C798D45E2EEB9BC900006414 /* Book.swift */,
+				C798D4602EEB9C5C00006414 /* Genre.swift */,
+				C798D4622EEB9E5B00006414 /* Status.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,7 +235,10 @@
 			files = (
 				C798D45D2EEB9A6100006414 /* MyLibraryView.swift in Sources */,
 				C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */,
+				C798D4632EEB9E5B00006414 /* Status.swift in Sources */,
 				C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */,
+				C798D4612EEB9C5C00006414 /* Genre.swift in Sources */,
+				C798D45F2EEB9BC900006414 /* Book.swift in Sources */,
 				C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
