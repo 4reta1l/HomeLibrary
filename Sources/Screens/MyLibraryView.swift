@@ -17,20 +17,21 @@ struct MyLibraryView: View {
                 booksAmount
 
                 List {
-                    ForEach(viewModel.books, id: \.id) { book in
+                    ForEach(viewModel.filteredBooks, id: \.id) { book in
                         bookRowView(book)
                     }
                 }
             }
             .navigationTitle("My Library")
+            .searchable(text: $viewModel.searchText, prompt: "Search for a book")
         }
     }
 
     private var booksAmount: some View {
-        if viewModel.books.count == 1 {
+        if viewModel.filteredBooks.count == 1 {
             Text("1 book")
         } else {
-            Text("\(viewModel.books.count) books")
+            Text("\(viewModel.filteredBooks.count) books")
         }
     }
 
@@ -51,22 +52,25 @@ struct MyLibraryView: View {
                     Spacer()
 
                     Image(systemName: "book.pages")
+                        .padding(.trailing, -5)
                     Text("\(book.pages)")
                         .font(.caption)
                         .foregroundColor(.gray)
 
+
                     Image(systemName: "calendar")
-                    Text("\(book.year)")
+                        .padding(.trailing, -5)
+                    Text(verbatim: String(Int(book.year)))
                         .font(.caption)
                         .foregroundColor(.gray)
+
                 }
             }
 
             Spacer()
 
             Image(systemName: book.status.displaySign)
-                .frame(width: 25, height: 25)
-                .padding(.trailing, 5)
+                .frame(width: 40, height: 40)
         }
         .contentShape(Rectangle())
     }

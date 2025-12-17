@@ -11,6 +11,19 @@ import Foundation
 final class MyLibraryViewModel {
     var books: [Book]
 
+    var searchText: String = ""
+
+    var filteredBooks: [Book] {
+        if searchText.isEmpty {
+            return books
+        }
+
+        return books.filter { book in
+            book.title.localizedCaseInsensitiveContains(searchText) ||
+            book.author.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+
     init() {
         let firstBook = Book(
             title: "Harry Potter 1",
