@@ -11,6 +11,8 @@ struct MyLibraryView: View {
 
     @State private var viewModel = MyLibraryViewModel()
 
+    @State private var showEditBook: Bool = false
+
     var body: some View {
         NavigationView {
             VStack(spacing: 8) {
@@ -21,6 +23,11 @@ struct MyLibraryView: View {
                         bookRowView(book)
                     }
                 }
+                .sheet(isPresented: $showEditBook, onDismiss: viewModel.reloadData) {
+                    EditBookView()
+                }
+
+                addBookButton
             }
             .navigationTitle("My Library")
             .searchable(text: $viewModel.searchText, prompt: "Search for a book")
@@ -73,5 +80,23 @@ struct MyLibraryView: View {
                 .frame(width: 40, height: 40)
         }
         .contentShape(Rectangle())
+    }
+
+    private var addBookButton: some View {
+        Button(
+            action: {
+                showEditBook = true
+            }, label: {
+                Text("Add book")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.blue)
+                    .foregroundStyle(.white)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    .padding(.top, -5)
+            }
+        )
     }
 }

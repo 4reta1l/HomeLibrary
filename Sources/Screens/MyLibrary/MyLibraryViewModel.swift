@@ -49,4 +49,8 @@ final class MyLibraryViewModel {
 
         self.books = [firstBook, secondBook]
     }
+
+    func reloadData() {
+        self.books = books
+    }
 }
