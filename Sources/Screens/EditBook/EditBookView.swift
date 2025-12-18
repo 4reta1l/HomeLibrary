@@ -17,7 +17,7 @@ struct EditBookView: View {
             switch self {
             case .addBook:
                 "Add book"
-            case .editBook(let book):
+            case .editBook:
                 "Edit Book"
             }
         }
@@ -47,10 +47,12 @@ struct EditBookView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Enter book title", text: $viewModel.bookTitle)
-                    .focused($focusField, equals: .bookTitle)
-                TextField("Enter book author", text: $viewModel.bookAuthor)
-                    .focused($focusField, equals: .bookAuthor)
+                Form {
+                    mainSection
+
+                    genreSection
+                }
+
                 Spacer()
                 saveButton
             }
@@ -59,6 +61,35 @@ struct EditBookView: View {
             }
             .navigationTitle(state.title)
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+
+    @ViewBuilder
+    private var mainSection: some View {
+        TextField("Enter book title", text: $viewModel.bookTitle)
+            .focused($focusField, equals: .bookTitle)
+            .submitLabel(.next)
+            .onSubmit {
+                focusField = .bookAuthor
+            }
+        TextField("Enter book author", text: $viewModel.bookAuthor)
+            .focused($focusField, equals: .bookAuthor)
+    }
+
+    private var genreSection: some View {
+        Section {
+            HStack {
+                Text(viewModel.bookGenre.displayString)
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
+            .contentShape(Rectangle())
+        } header: {
+            Text("Genre")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -10)
         }
     }
 
