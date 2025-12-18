@@ -6,6 +6,7 @@
 //
 
 public enum Genre: String, CaseIterable {
+    case general
     case fantasy
     case horror
     case romance
@@ -21,6 +22,7 @@ public enum Genre: String, CaseIterable {
 public extension Genre {
     var displayString: String {
         switch self {
+        case .general: "General"
         case .fantasy: "Fantasy"
         case .horror: "Horror"
         case .romance: "Romance"

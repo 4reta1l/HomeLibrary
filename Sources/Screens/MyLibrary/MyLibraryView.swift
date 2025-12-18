@@ -24,7 +24,7 @@ struct MyLibraryView: View {
                     }
                 }
                 .sheet(isPresented: $showEditBook, onDismiss: viewModel.reloadData) {
-                    EditBookView()
+                    EditBookView(state: .addBook)
                 }
 
                 addBookButton
