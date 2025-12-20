@@ -47,13 +47,7 @@ struct EditBookView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Form {
-                    mainSection
-
-                    genreSection
-
-                    pagesYearSection
-                }
+                mainForm
 
                 Spacer()
                 saveButton
@@ -64,6 +58,24 @@ struct EditBookView: View {
             .navigationTitle(state.title)
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+
+    private var mainForm: some View {
+        Form {
+            mainSection
+
+            genreSection
+
+            pagesYearSection
+
+            statusSection
+        }
+        .simultaneousGesture(
+            TapGesture()
+                .onEnded {
+                    dismissKeyboard()
+                }
+        )
     }
 
     @ViewBuilder
@@ -130,12 +142,23 @@ struct EditBookView: View {
                     .padding(.leading, -10)
             }
         }
-        .simultaneousGesture(
-            TapGesture()
-                .onEnded {
-                    dismissKeyboard()
+    }
+
+    private var statusSection: some View {
+        Section {
+            Picker("Book status", selection: $viewModel.bookStatus) {
+                ForEach(Status.allCases, id: \.self) { status in
+                    Text(status.rawValue.capitalized)
                 }
-        )
+            }
+            .pickerStyle(.menu)
+        } header: {
+            Text("Status")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
     }
 
     private var saveButton: some View {
