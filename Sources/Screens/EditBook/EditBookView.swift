@@ -57,6 +57,9 @@ struct EditBookView: View {
             }
             .navigationTitle(state.title)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                toolBarView
+            }
         }
     }
 
@@ -80,6 +83,14 @@ struct EditBookView: View {
                     dismissKeyboard()
                 }
         )
+    }
+
+    private var toolBarView: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button("Cancel") {
+                dismiss()
+            }
+        }
     }
 
     @ViewBuilder
