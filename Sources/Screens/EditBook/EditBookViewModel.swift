@@ -15,7 +15,7 @@ final class EditBookViewModel {
     var bookAuthor: String
     var bookGenre: Genre
     var bookYear: Int
-    var bookPages: Int
+    var bookPages: String
     var bookStatus: Status
     var bookIsbn: String
 
@@ -26,7 +26,7 @@ final class EditBookViewModel {
             bookAuthor = ""
             bookGenre = .general
             bookYear = Date().year
-            bookPages = 0
+            bookPages = ""
             bookStatus = .unread
             bookIsbn = ""
 
@@ -35,7 +35,7 @@ final class EditBookViewModel {
             bookAuthor = book.author
             bookGenre = book.genre
             bookYear = book.year
-            bookPages = book.pages
+            bookPages = "\(book.pages)"
             bookStatus = book.status
             bookIsbn = book.isbn
         }

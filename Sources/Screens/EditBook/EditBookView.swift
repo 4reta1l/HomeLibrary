@@ -51,6 +51,8 @@ struct EditBookView: View {
                     mainSection
 
                     genreSection
+
+                    pagesYearSection
                 }
 
                 Spacer()
@@ -74,6 +76,10 @@ struct EditBookView: View {
             }
         TextField("Enter book author", text: $viewModel.bookAuthor)
             .focused($focusField, equals: .bookAuthor)
+            .submitLabel(.next)
+            .onSubmit {
+                focusField = .bookPages
+            }
     }
 
     private var genreSection: some View {
@@ -89,8 +95,47 @@ struct EditBookView: View {
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()
-                .padding(.leading, -10)
+                .padding(.leading, -5)
         }
+    }
+
+    private var pagesYearSection: some View {
+        Section {
+            HStack {
+                TextField("Enter amount of pages", text: $viewModel.bookPages)
+                    .keyboardType(.decimalPad)
+                    .focused($focusField, equals: .bookPages)
+                Spacer()
+                Picker("", selection: $viewModel.bookYear) {
+                    let yearsArray = Array(1440...Date().year)
+                    ForEach(yearsArray.reversed(), id: \.self) { year in
+                        Text(String(year))
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(width: 130)
+            }
+        } header: {
+            HStack {
+                Text("Pages")
+                    .textCase(nil)
+                    .font(.subheadline)
+                    .bold()
+                    .padding(.leading, -5)
+                Spacer()
+                Text("Year of publication")
+                    .textCase(nil)
+                    .font(.subheadline)
+                    .bold()
+                    .padding(.leading, -10)
+            }
+        }
+        .simultaneousGesture(
+            TapGesture()
+                .onEnded {
+                    dismissKeyboard()
+                }
+        )
     }
 
     private var saveButton: some View {
@@ -110,5 +155,14 @@ struct EditBookView: View {
 
     private func saveChanges() {
         //TODO: Save Changes
+    }
+
+    private func dismissKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        )
     }
 }
