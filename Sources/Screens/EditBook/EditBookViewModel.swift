@@ -17,6 +17,7 @@ final class EditBookViewModel {
     var bookYear: Int
     var bookPages: String
     var bookStatus: Status
+    var bookNotes: String
     var bookIsbn: String
 
     init(state: EditBookView.ViewState) {
@@ -28,6 +29,7 @@ final class EditBookViewModel {
             bookYear = Date().year
             bookPages = ""
             bookStatus = .unread
+            bookNotes = ""
             bookIsbn = ""
 
         case .editBook(let book):
@@ -37,7 +39,10 @@ final class EditBookViewModel {
             bookYear = book.year
             bookPages = "\(book.pages)"
             bookStatus = book.status
+            bookNotes = book.notes
             bookIsbn = book.isbn
         }
     }
+
+    let yearsArray = Array(1440...Date().year)
 }

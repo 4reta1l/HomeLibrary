@@ -69,6 +69,10 @@ struct EditBookView: View {
             pagesYearSection
 
             statusSection
+
+            notesSection
+
+            isbnSection
         }
         .simultaneousGesture(
             TapGesture()
@@ -119,8 +123,7 @@ struct EditBookView: View {
                     .focused($focusField, equals: .bookPages)
                 Spacer()
                 Picker("", selection: $viewModel.bookYear) {
-                    let yearsArray = Array(1440...Date().year)
-                    ForEach(yearsArray.reversed(), id: \.self) { year in
+                    ForEach(viewModel.yearsArray.reversed(), id: \.self) { year in
                         Text(String(year))
                     }
                 }
@@ -154,6 +157,32 @@ struct EditBookView: View {
             .pickerStyle(.menu)
         } header: {
             Text("Status")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var notesSection: some View {
+        Section {
+            TextEditor(text: $viewModel.bookNotes)
+                .frame(minHeight: 120)
+                .padding(4)
+        } header: {
+            Text("Notes")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var isbnSection: some View {
+        Section {
+            TextField("Optional: Enter book ISBN", text: $viewModel.bookIsbn)
+        } header: {
+            Text("ISBN")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()
