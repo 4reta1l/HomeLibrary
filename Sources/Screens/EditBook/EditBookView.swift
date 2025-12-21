@@ -51,14 +51,7 @@ struct EditBookView: View {
 
                 Spacer()
 
-                HStack(spacing: 8) {
-                    saveButton
-
-                    deleteButton
-
-                }
-                .padding(5)
-                .padding(.top, -10)
+                bottomButtonsSection
             }
             .onAppear {
                 focusField = .bookTitle
@@ -226,7 +219,7 @@ struct EditBookView: View {
 
     private var deleteButton: some View {
         Button {
-            //TODO: delete book
+            //TODO: delete book & ask for confirmation
         } label: {
             Image(systemName: "trash")
                 .font(.system(size: 20, weight: .semibold))
@@ -236,6 +229,17 @@ struct EditBookView: View {
                 .cornerRadius(10)
         }
         .disabled(state == .addBook)
+    }
+
+    private var bottomButtonsSection: some View {
+        HStack(spacing: 8) {
+            saveButton
+
+            deleteButton
+
+        }
+        .padding(5)
+        .padding(.top, -10)
     }
 
     private func saveChanges() {
