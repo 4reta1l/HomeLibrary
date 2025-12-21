@@ -50,7 +50,15 @@ struct EditBookView: View {
                 mainForm
 
                 Spacer()
-                saveButton
+
+                HStack(spacing: 8) {
+                    saveButton
+
+                    deleteButton
+
+                }
+                .padding(5)
+                .padding(.top, -10)
             }
             .onAppear {
                 focusField = .bookTitle
@@ -202,18 +210,32 @@ struct EditBookView: View {
     }
 
     private var saveButton: some View {
-        Button(action: saveChanges) {
+        Button {
+                saveChanges()
+        } label: {
             Text("Save book")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
-                .padding()
+                .frame(height: 50)
                 .background(viewModel.bookTitle.isEmpty ? Color.gray : Color.blue)
                 .foregroundStyle(.white)
                 .cornerRadius(10)
-                .padding(.horizontal)
-                .padding(.top, -5)
         }
         .disabled(viewModel.bookTitle.isEmpty)
+    }
+
+    private var deleteButton: some View {
+        Button {
+            //TODO: delete book
+        } label: {
+            Image(systemName: "trash")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundColor(.white)
+                .frame(width: 50, height: 50)
+                .background(state == .addBook ? Color.gray : Color.red)
+                .cornerRadius(10)
+        }
+        .disabled(state == .addBook)
     }
 
     private func saveChanges() {
