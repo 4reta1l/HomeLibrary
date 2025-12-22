@@ -11,6 +11,7 @@ import Foundation
 @Observable
 final class EditBookViewModel {
 
+    private let booksStorage: BooksStorage
     var bookTitle: String
     var bookAuthor: String
     var bookGenre: Genre
@@ -20,7 +21,12 @@ final class EditBookViewModel {
     var bookNotes: String
     var bookIsbn: String
 
-    init(state: EditBookView.ViewState) {
+    init(
+        booksStorage: BooksStorage = Storage.shared,
+        state: EditBookView.ViewState
+    ) {
+        self.booksStorage = booksStorage
+
         switch state {
         case .addBook:
             bookTitle = ""

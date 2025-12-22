@@ -19,6 +19,8 @@
 		C798D4692EF351D000006414 /* EditBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4682EF351D000006414 /* EditBookView.swift */; };
 		C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46A2EF3573500006414 /* EditBookViewModel.swift */; };
 		C798D46D2EF3E6B000006414 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46C2EF3E6B000006414 /* Date+Extension.swift */; };
+		C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46E2EF8BD9B00006414 /* BooksStorage.swift */; };
+		C798D4712EF8BE4000006414 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4702EF8BE4000006414 /* Storage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		C798D4682EF351D000006414 /* EditBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookView.swift; sourceTree = "<group>"; };
 		C798D46A2EF3573500006414 /* EditBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewModel.swift; sourceTree = "<group>"; };
 		C798D46C2EF3E6B000006414 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		C798D46E2EF8BD9B00006414 /* BooksStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksStorage.swift; sourceTree = "<group>"; };
+		C798D4702EF8BE4000006414 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 			children = (
 				C798D4552EEB993000006414 /* Interfaces */,
 				C798D4562EEB993800006414 /* Models */,
+				C798D45A2EEB99A700006414 /* Storage */,
 			);
 			path = LibraryModels;
 			sourceTree = "<group>";
@@ -116,6 +121,7 @@
 		C798D4552EEB993000006414 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				C798D46E2EF8BD9B00006414 /* BooksStorage.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -136,7 +142,6 @@
 			children = (
 				C798D4582EEB998F00006414 /* DataBase */,
 				C798D4592EEB99A000006414 /* Models */,
-				C798D45A2EEB99A700006414 /* Storage */,
 			);
 			path = CoreDataStorage;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 		C798D45A2EEB99A700006414 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				C798D4702EF8BE4000006414 /* Storage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -269,9 +275,11 @@
 				C798D4632EEB9E5B00006414 /* Status.swift in Sources */,
 				C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */,
 				C798D4612EEB9C5C00006414 /* Genre.swift in Sources */,
+				C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */,
 				C798D45F2EEB9BC900006414 /* Book.swift in Sources */,
 				C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */,
 				C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */,
+				C798D4712EF8BE4000006414 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

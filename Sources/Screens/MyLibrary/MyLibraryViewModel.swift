@@ -9,6 +9,8 @@ import Foundation
 
 @Observable
 final class MyLibraryViewModel {
+
+    private let booksStorage: BooksStorage
     var books: [Book]
 
     var searchText: String = ""
@@ -24,34 +26,12 @@ final class MyLibraryViewModel {
         }
     }
 
-    init() {
-        let firstBook = Book(
-            title: "Harry Potter 1",
-            author: "Who knows",
-            genre: .adventure,
-            year: 2012,
-            notes: "Amazing Book",
-            status: .completed,
-            isbn: "",
-            pages: 456
-        )
-
-        let secondBook = Book(
-            title: "Harry Potter 2",
-            author: "Rouling",
-            genre: .horror,
-            year: 2014,
-            notes: "",
-            status: .reading,
-            isbn: "",
-            pages: 322
-        )
-
-        self.books = [firstBook, secondBook]
+    init(booksStorage: BooksStorage = Storage.shared) {
+        self.booksStorage = booksStorage
+        self.books = booksStorage.getBooks()
     }
 
     func reloadData() {
-        //TODO: Take data from data base
-        self.books = books
+        self.books = booksStorage.getBooks()
     }
 }
