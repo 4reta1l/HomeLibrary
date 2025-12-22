@@ -51,4 +51,23 @@ final class EditBookViewModel {
     }
 
     let yearsArray = Array(1440...Date().year)
+
+    func addBook() {
+        guard let pages = Int(bookPages) else {
+            return
+        }
+
+        let newBook = Book(
+            title: bookTitle,
+            author: bookAuthor,
+            genre: bookGenre,
+            year: bookYear,
+            notes: bookNotes,
+            status: bookStatus,
+            isbn: bookIsbn,
+            pages: pages
+        )
+
+        self.booksStorage.addBook(newBook)
+    }
 }

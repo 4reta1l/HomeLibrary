@@ -204,7 +204,8 @@ struct EditBookView: View {
 
     private var saveButton: some View {
         Button {
-                saveChanges()
+            viewModel.addBook()
+            dismiss()
         } label: {
             Text("Save book")
                 .font(.headline)
@@ -240,10 +241,6 @@ struct EditBookView: View {
         }
         .padding(5)
         .padding(.top, -10)
-    }
-
-    private func saveChanges() {
-        //TODO: Save Changes
     }
 
     private func dismissKeyboard() {

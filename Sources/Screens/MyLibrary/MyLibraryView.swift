@@ -11,7 +11,7 @@ struct MyLibraryView: View {
 
     @State private var viewModel = MyLibraryViewModel()
 
-    @State private var showEditBook: Bool = false
+    @State private var showAddBook: Bool = false
 
     var body: some View {
         NavigationView {
@@ -23,7 +23,7 @@ struct MyLibraryView: View {
                         bookRowView(book)
                     }
                 }
-                .sheet(isPresented: $showEditBook, onDismiss: viewModel.reloadData) {
+                .sheet(isPresented: $showAddBook, onDismiss: viewModel.reloadData) {
                     EditBookView(state: .addBook)
                 }
 
@@ -85,7 +85,7 @@ struct MyLibraryView: View {
     private var addBookButton: some View {
         Button(
             action: {
-                showEditBook = true
+                showAddBook = true
             }, label: {
                 Text("Add book")
                     .font(.headline)
