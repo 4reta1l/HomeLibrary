@@ -60,10 +60,9 @@ struct MyLibraryView: View {
 
                     Image(systemName: "book.pages")
                         .padding(.trailing, -5)
-                    Text(String(book.pages))
+                    Text(book.pages > 0 ? String(book.pages) : "-")
                         .font(.caption)
                         .foregroundColor(.gray)
-
 
                     Image(systemName: "calendar")
                         .padding(.trailing, -5)

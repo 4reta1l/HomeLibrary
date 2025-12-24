@@ -53,9 +53,7 @@ final class EditBookViewModel {
     let yearsArray = Array(1440...Date().year)
 
     func addBook() {
-        guard let pages = Int(bookPages) else {
-            return
-        }
+        let pages = Int(bookPages) ?? 0
 
         let newBook = Book(
             title: bookTitle,
