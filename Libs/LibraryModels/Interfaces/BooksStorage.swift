@@ -11,8 +11,8 @@ public protocol BooksStorage {
     func getBooks() -> [Book]
 
     func addBook(_ book: Book)
-
-    func updateBook(_ book: Book)
-
-    func deleteBook(_ book: Book)
+//
+//    func updateBook(_ book: Book)
+//
+//    func deleteBook(_ book: Book)
 }

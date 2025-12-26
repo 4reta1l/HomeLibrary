@@ -23,6 +23,7 @@
 		C798D4712EF8BE4000006414 /* CDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4702EF8BE4000006414 /* CDStorage.swift */; };
 		C798D4732EFC62FA00006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4722EFC62FA00006414 /* CDBook.swift */; };
 		C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4742EFE109000006414 /* CDStorage+Books.swift */; };
+		C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C798D4702EF8BE4000006414 /* CDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDStorage.swift; sourceTree = "<group>"; };
 		C798D4722EFC62FA00006414 /* CDBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CDBook.swift; path = Libs/CoreDataStorage/CDBook.swift; sourceTree = SOURCE_ROOT; };
 		C798D4742EFE109000006414 /* CDStorage+Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Books.swift"; sourceTree = "<group>"; };
+		C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+LibraryModels.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			children = (
 				C798D4702EF8BE4000006414 /* CDStorage.swift */,
 				C798D4742EFE109000006414 /* CDStorage+Books.swift */,
+				C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				C798D4632EEB9E5B00006414 /* Status.swift in Sources */,
 				C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */,
 				C798D4612EEB9C5C00006414 /* Genre.swift in Sources */,
+				C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */,
 				C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */,
 				C798D4732EFC62FA00006414 /* CDBook.swift in Sources */,
 				C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */,

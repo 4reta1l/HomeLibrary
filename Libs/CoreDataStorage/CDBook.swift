@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 
+@objc(CDBook)
 final class CDBook: NSManagedObject {
 
     static let entityName = "CDBook"
@@ -17,7 +18,13 @@ final class CDBook: NSManagedObject {
     @NSManaged var author: String
     @NSManaged var year: Int32
     @NSManaged var notes: String
-    @NSManaged var status: String
+    @NSManaged var rawStatus: String
     @NSManaged var isbn: String
     @NSManaged var pages: Int32
+}
+
+extension CDBook {
+    @nonobjc class func fetchRequest() -> NSFetchRequest<CDBook> {
+        NSFetchRequest<CDBook>(entityName: entityName)
+    }
 }

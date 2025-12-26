@@ -24,7 +24,7 @@ final class CDStorage: BooksStorage {
         }
     }
 
-    private func saveData(_ context: NSManagedObjectContext? = nil) {
+    func saveData(_ context: NSManagedObjectContext? = nil) {
         let context = context ?? container.viewContext
 
         do {
@@ -32,14 +32,6 @@ final class CDStorage: BooksStorage {
         } catch {
             let nserror = error as NSError
             print("Error while saving \(nserror), \(nserror.userInfo)")
-        }
-    }
-
-    public func saveDataIfNeeded() {
-        let context = container.viewContext
-
-        if context.hasChanges {
-            self.saveData(context)
         }
     }
 }
