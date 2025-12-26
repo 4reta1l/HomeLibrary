@@ -22,7 +22,7 @@ final class EditBookViewModel {
     var bookIsbn: String
 
     init(
-        booksStorage: BooksStorage = Storage.shared,
+        booksStorage: BooksStorage = CDStorage.shared,
         state: EditBookView.ViewState
     ) {
         self.booksStorage = booksStorage

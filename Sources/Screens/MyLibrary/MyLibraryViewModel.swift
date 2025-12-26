@@ -26,7 +26,7 @@ final class MyLibraryViewModel {
         }
     }
 
-    init(booksStorage: BooksStorage = Storage.shared) {
+    init(booksStorage: BooksStorage = CDStorage.shared) {
         self.booksStorage = booksStorage
         self.books = booksStorage.getBooks()
     }
