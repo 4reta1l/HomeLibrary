@@ -40,4 +40,17 @@ extension CDStorage {
 
         self.saveData()
     }
+
+    func updateBook(
+        id: UUID,
+        title: String,
+        author: String,
+        year: Int32,
+        notes: String,
+        rawStatus: String,
+        isbn: String,
+        pages: Int32
+    ) {
+    }
+
 }
