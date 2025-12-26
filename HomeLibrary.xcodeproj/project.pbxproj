@@ -20,7 +20,9 @@
 		C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46A2EF3573500006414 /* EditBookViewModel.swift */; };
 		C798D46D2EF3E6B000006414 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46C2EF3E6B000006414 /* Date+Extension.swift */; };
 		C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46E2EF8BD9B00006414 /* BooksStorage.swift */; };
-		C798D4712EF8BE4000006414 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4702EF8BE4000006414 /* Storage.swift */; };
+		C798D4712EF8BE4000006414 /* CDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4702EF8BE4000006414 /* CDStorage.swift */; };
+		C798D4732EFC62FA00006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4722EFC62FA00006414 /* CDBook.swift */; };
+		C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4742EFE109000006414 /* CDStorage+Books.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +41,9 @@
 		C798D46A2EF3573500006414 /* EditBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewModel.swift; sourceTree = "<group>"; };
 		C798D46C2EF3E6B000006414 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		C798D46E2EF8BD9B00006414 /* BooksStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksStorage.swift; sourceTree = "<group>"; };
-		C798D4702EF8BE4000006414 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		C798D4702EF8BE4000006414 /* CDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDStorage.swift; sourceTree = "<group>"; };
+		C798D4722EFC62FA00006414 /* CDBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CDBook.swift; path = Libs/CoreDataStorage/CDBook.swift; sourceTree = SOURCE_ROOT; };
+		C798D4742EFE109000006414 /* CDStorage+Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Books.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +117,6 @@
 			children = (
 				C798D4552EEB993000006414 /* Interfaces */,
 				C798D4562EEB993800006414 /* Models */,
-				C798D45A2EEB99A700006414 /* Storage */,
 			);
 			path = LibraryModels;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			children = (
 				C798D4582EEB998F00006414 /* DataBase */,
 				C798D4592EEB99A000006414 /* Models */,
+				C798D45A2EEB99A700006414 /* Storage */,
 			);
 			path = CoreDataStorage;
 			sourceTree = "<group>";
@@ -157,6 +161,7 @@
 		C798D4592EEB99A000006414 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C798D4722EFC62FA00006414 /* CDBook.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,7 +169,8 @@
 		C798D45A2EEB99A700006414 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				C798D4702EF8BE4000006414 /* Storage.swift */,
+				C798D4702EF8BE4000006414 /* CDStorage.swift */,
+				C798D4742EFE109000006414 /* CDStorage+Books.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -276,10 +282,12 @@
 				C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */,
 				C798D4612EEB9C5C00006414 /* Genre.swift in Sources */,
 				C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */,
+				C798D4732EFC62FA00006414 /* CDBook.swift in Sources */,
+				C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */,
 				C798D45F2EEB9BC900006414 /* Book.swift in Sources */,
 				C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */,
 				C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */,
-				C798D4712EF8BE4000006414 /* Storage.swift in Sources */,
+				C798D4712EF8BE4000006414 /* CDStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
