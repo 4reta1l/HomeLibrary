@@ -66,6 +66,10 @@ final class EditBookViewModel {
             pages: pages
         )
 
-        self.booksStorage.addBook(newBook)
+        do {
+            try self.booksStorage.addBook(newBook)
+        } catch {
+            print("Failed to add book: \(error)")
+        }
     }
 }

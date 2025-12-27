@@ -27,8 +27,8 @@ extension CDStorage {
         return books
     }
 
-    func addBook(_ book: Book) {
-        self.saveBook(
+    func addBook(_ book: Book) throws {
+        try self.saveBook(
             title: book.title,
             author: book.author,
             year: Int32(book.year),
@@ -37,5 +37,22 @@ extension CDStorage {
             isbn: book.isbn,
             pages: Int32(book.pages)
         )
+    }
+
+    func updateBook(_ book: Book) throws {
+        try self.updateBook(
+            id: book.id,
+            title: book.title,
+            author: book.author,
+            year: Int32(book.year),
+            notes: book.notes,
+            rawStatus: book.status.rawValue,
+            isbn: book.isbn,
+            pages: Int32(book.pages)
+        )
+    }
+
+    func deleteBook(_ book: Book) throws {
+        try self.deleteBook(id: book.id)
     }
 }
