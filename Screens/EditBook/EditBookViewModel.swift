@@ -72,4 +72,34 @@ final class EditBookViewModel {
             print("Failed to add book: \(error)")
         }
     }
+
+    func updateBook(id: UUID) {
+        let pages = Int(bookPages) ?? 0
+
+        let updatingBook = Book(
+            id: id,
+            title: bookTitle,
+            author: bookAuthor,
+            genre: bookGenre,
+            year: bookYear,
+            notes: bookNotes,
+            status: bookStatus,
+            isbn: bookIsbn,
+            pages: pages
+        )
+
+        do {
+            try self.booksStorage.updateBook(updatingBook)
+        } catch {
+            print("Failed to update book: \(error)")
+        }
+    }
+
+    func deleteBook(id: UUID) {
+        do {
+            try self.booksStorage.deleteBook(id)
+        } catch {
+            print("Failed to delete book: \(error)")
+        }
+    }
 }

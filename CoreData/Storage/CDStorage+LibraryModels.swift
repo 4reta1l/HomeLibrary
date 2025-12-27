@@ -52,7 +52,7 @@ extension CDStorage {
         )
     }
 
-    func deleteBook(_ book: Book) throws {
-        try self.deleteBook(id: book.id)
+    func deleteBook(_ id: UUID) throws {
+        try self.deleteBook(id: id)
     }
 }
