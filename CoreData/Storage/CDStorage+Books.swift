@@ -27,7 +27,7 @@ extension CDStorage {
         rawStatus: String,
         isbn: String,
         pages: Int32
-    ) {
+    ) throws {
         let newBook = CDBook(context: container.viewContext)
         newBook.id = UUID()
         newBook.title = title
@@ -50,7 +50,36 @@ extension CDStorage {
         rawStatus: String,
         isbn: String,
         pages: Int32
-    ) {
+    ) throws {
+        let request = CDBook.fetchRequest()
+            .filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+
+        if let existingBook = results.first {
+            existingBook.id = id
+            existingBook.title = title
+            existingBook.author = author
+            existingBook.year = year
+            existingBook.notes = notes
+            existingBook.rawStatus = rawStatus
+            existingBook.isbn = isbn
+            existingBook.pages = pages
+
+            self.saveData()
+        }
+    }
+
+    func deleteBook(id: UUID) throws {
+        let request = CDBook.fetchRequest()
+            .filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+
+        if let deletingBook = results.first {
+            container.viewContext.delete(deletingBook)
+            saveData()
+        }
     }
 
 }

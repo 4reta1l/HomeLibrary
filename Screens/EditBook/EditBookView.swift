@@ -32,8 +32,9 @@ struct EditBookView: View {
     }
 
     @State private var viewModel: EditBookViewModel
-
     @State private var state: ViewState
+
+    @State private var showDeleteConfirmation: Bool = false
 
     @FocusState private var focusField: FocusedField?
 
@@ -60,6 +61,13 @@ struct EditBookView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 toolBarView
+            }
+            .confirmationDialog("Delete book?", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
+                Button("Delete", role: .destructive) {
+                    viewModel.deleteBook()
+                    dismiss()
+                }
+                Button("Cancel", role: .cancel) { }
             }
         }
     }
@@ -204,7 +212,12 @@ struct EditBookView: View {
 
     private var saveButton: some View {
         Button {
-            viewModel.addBook()
+            switch self.state {
+            case .addBook:
+                viewModel.addBook()
+            case .editBook:
+                viewModel.updateBook()
+            }
             dismiss()
         } label: {
             Text("Save book")
@@ -220,7 +233,7 @@ struct EditBookView: View {
 
     private var deleteButton: some View {
         Button {
-            //TODO: delete book & ask for confirmation
+            showDeleteConfirmation.toggle()
         } label: {
             Image(systemName: "trash")
                 .font(.system(size: 20, weight: .semibold))
