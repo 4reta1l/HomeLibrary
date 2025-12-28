@@ -12,6 +12,7 @@ struct MyLibraryView: View {
     @State private var viewModel = MyLibraryViewModel()
 
     @State private var showAddBook: Bool = false
+    @State private var tappedBook: Book?
 
     var body: some View {
         NavigationView {
@@ -23,10 +24,11 @@ struct MyLibraryView: View {
                         bookRowView(book)
                     }
                 }
-                .sheet(isPresented: $showAddBook, onDismiss: viewModel.reloadData) {
-                    EditBookView(state: .addBook)
+                .sheet(item: $tappedBook, onDismiss: viewModel.reloadData) {
+                    EditBookView(
+                        state: .editBook(book: $0)
+                    )
                 }
-
                 addBookButton
             }
             .navigationTitle("My Library")
@@ -79,6 +81,10 @@ struct MyLibraryView: View {
                 .frame(width: 40, height: 40)
         }
         .contentShape(Rectangle())
+        .onTapGesture {
+            tappedBook = book
+        }
+        .opacity(tappedBook == book ? 0.24 : 1)
     }
 
     private var addBookButton: some View {
@@ -97,5 +103,8 @@ struct MyLibraryView: View {
                     .padding(.top, -5)
             }
         )
+        .sheet(isPresented: $showAddBook, onDismiss: viewModel.reloadData) {
+            EditBookView(state: .addBook)
+        }
     }
 }

@@ -12,6 +12,7 @@ import Foundation
 final class EditBookViewModel {
 
     private let booksStorage: BooksStorage
+    private var bookId: UUID?
     var bookTitle: String
     var bookAuthor: String
     var bookGenre: Genre
@@ -39,6 +40,7 @@ final class EditBookViewModel {
             bookIsbn = ""
 
         case .editBook(let book):
+            bookId = book.id
             bookTitle = book.title
             bookAuthor = book.author
             bookGenre = book.genre
@@ -73,7 +75,8 @@ final class EditBookViewModel {
         }
     }
 
-    func updateBook(id: UUID) {
+    func updateBook() {
+        let id = bookId ?? UUID()
         let pages = Int(bookPages) ?? 0
 
         let updatingBook = Book(
@@ -95,7 +98,9 @@ final class EditBookViewModel {
         }
     }
 
-    func deleteBook(id: UUID) {
+    func deleteBook() {
+        let id = bookId ?? UUID()
+
         do {
             try self.booksStorage.deleteBook(id)
         } catch {
