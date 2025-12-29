@@ -82,9 +82,9 @@ struct EditBookView: View {
 
             statusSection
 
-            notesSection
-
             isbnSection
+
+            notesSection
         }
         .simultaneousGesture(
             TapGesture()
@@ -158,7 +158,7 @@ struct EditBookView: View {
                     .bold()
                     .padding(.leading, -5)
                 Spacer()
-                Text("Year of publication")
+                Text("Publication year")
                     .textCase(nil)
                     .font(.subheadline)
                     .bold()

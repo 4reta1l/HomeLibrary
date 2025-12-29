@@ -28,10 +28,10 @@ final class MyLibraryViewModel {
 
     init(booksStorage: BooksStorage = CDStorage.shared) {
         self.booksStorage = booksStorage
-        self.books = booksStorage.getBooks()
+        self.books = booksStorage.getBooks().reversed()
     }
 
     func reloadData() {
-        self.books = booksStorage.getBooks()
+        self.books = booksStorage.getBooks().reversed()
     }
 }
