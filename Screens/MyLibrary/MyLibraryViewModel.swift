@@ -22,7 +22,7 @@ final class MyLibraryViewModel {
 
         return books.filter { book in
             book.title.localizedCaseInsensitiveContains(searchText) ||
-            book.author.localizedCaseInsensitiveContains(searchText)
+            (book.author?.localizedCaseInsensitiveContains(searchText) ?? false)
         }
     }
 

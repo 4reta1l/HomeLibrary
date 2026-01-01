@@ -143,12 +143,15 @@ struct EditBookView: View {
                     .focused($focusField, equals: .bookPages)
                 Spacer()
                 Picker("", selection: $viewModel.bookYear) {
+                    Text("—")
+                        .tag("—")
                     ForEach(viewModel.yearsArray.reversed(), id: \.self) { year in
                         Text(String(year))
+                            .tag(String(year))
                     }
                 }
                 .pickerStyle(.menu)
-                .frame(width: 130)
+                .frame(width: 100)
             }
         } header: {
             HStack {

@@ -15,12 +15,14 @@ final class CDBook: NSManagedObject {
 
     @NSManaged var id: UUID
     @NSManaged var title: String
-    @NSManaged var author: String
-    @NSManaged var year: Int32
-    @NSManaged var notes: String
     @NSManaged var rawStatus: String
-    @NSManaged var isbn: String
-    @NSManaged var pages: Int32
+
+    @NSManaged var author: String?
+    @NSManaged var notes: String?
+    @NSManaged var isbn: String?
+
+    @NSManaged var pages: NSNumber?
+    @NSManaged var year: NSNumber?
 }
 
 extension CDBook {

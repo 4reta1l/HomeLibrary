@@ -12,15 +12,18 @@ import Foundation
 final class EditBookViewModel {
 
     private let booksStorage: BooksStorage
-    private var bookId: UUID?
-    var bookTitle: String
-    var bookAuthor: String
-    var bookGenre: Genre
-    var bookYear: Int
-    var bookPages: String
-    var bookStatus: Status
-    var bookNotes: String
-    var bookIsbn: String
+    private var bookId: UUID
+    var bookTitle: String = ""
+    var bookAuthor: String = ""
+    var bookNotes: String = ""
+    var bookIsbn: String = ""
+
+    var bookPages: String = ""
+    var bookYear: String = ""
+
+    var bookStatus: Status = .unread
+    var bookGenre: Genre = .general
+
 
     init(
         booksStorage: BooksStorage = CDStorage.shared,
@@ -30,42 +33,39 @@ final class EditBookViewModel {
 
         switch state {
         case .addBook:
+            bookId = UUID()
             bookTitle = ""
-            bookAuthor = ""
             bookGenre = .general
-            bookYear = Date().year
-            bookPages = ""
             bookStatus = .unread
-            bookNotes = ""
-            bookIsbn = ""
+            bookYear = "—"
 
         case .editBook(let book):
             bookId = book.id
             bookTitle = book.title
-            bookAuthor = book.author
+            bookAuthor = book.displayAuthor
             bookGenre = book.genre
-            bookYear = book.year
-            bookPages = "\(book.pages)"
+            bookYear = book.displayYear
+            bookPages = book.displayPagesForEdit
             bookStatus = book.status
-            bookNotes = book.notes
-            bookIsbn = book.isbn
+            bookNotes = book.displayNotes
+            bookIsbn = book.displayISBN
         }
     }
 
-    let yearsArray = Array(1440...Date().year)
+    let yearsArray = Array(1800...Date().year)
 
     func addBook() {
-        let pages = Int(bookPages) ?? 0
 
         let newBook = Book(
+            id: bookId,
             title: bookTitle,
-            author: bookAuthor,
+            author: bookAuthor.isEmpty ? nil : bookAuthor,
             genre: bookGenre,
-            year: bookYear,
-            notes: bookNotes,
+            notes: bookNotes.isEmpty ? nil : bookNotes,
             status: bookStatus,
-            isbn: bookIsbn,
-            pages: pages
+            isbn: bookIsbn.isEmpty ? nil : bookIsbn,
+            pages: Int(bookPages),
+            year: Int(bookYear)
         )
 
         do {
@@ -76,19 +76,17 @@ final class EditBookViewModel {
     }
 
     func updateBook() {
-        let id = bookId ?? UUID()
-        let pages = Int(bookPages) ?? 0
 
         let updatingBook = Book(
-            id: id,
+            id: bookId,
             title: bookTitle,
-            author: bookAuthor,
+            author: bookAuthor.isEmpty ? nil : bookAuthor,
             genre: bookGenre,
-            year: bookYear,
-            notes: bookNotes,
+            notes: bookNotes.isEmpty ? nil : bookNotes,
             status: bookStatus,
-            isbn: bookIsbn,
-            pages: pages
+            isbn: bookIsbn.isEmpty ? nil : bookIsbn,
+            pages: Int(bookPages),
+            year: Int(bookYear)
         )
 
         do {
@@ -99,10 +97,8 @@ final class EditBookViewModel {
     }
 
     func deleteBook() {
-        let id = bookId ?? UUID()
-
         do {
-            try self.booksStorage.deleteBook(id)
+            try self.booksStorage.deleteBook(bookId)
         } catch {
             print("Failed to delete book: \(error)")
         }

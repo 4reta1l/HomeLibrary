@@ -52,23 +52,20 @@ struct MyLibraryView: View {
                     .bold()
 
                 HStack {
-                    if !book.author.isEmpty {
-                        Text(book.author)
+                        Text(book.displayAuthor)
                             .font(.caption)
                             .foregroundColor(.gray)
-                    }
-
                     Spacer()
 
                     Image(systemName: "book.pages")
                         .padding(.trailing, -5)
-                    Text(book.pages > 0 ? String(book.pages) : "-")
+                    Text(book.displayPages)
                         .font(.caption)
                         .foregroundColor(.gray)
 
                     Image(systemName: "calendar")
                         .padding(.trailing, -5)
-                    Text(String(book.year))
+                    Text(book.displayYear)
                         .font(.caption)
                         .foregroundColor(.gray)
 
