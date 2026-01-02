@@ -25,6 +25,7 @@
 		C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */; };
 		C798D47A2EFEB64600006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4792EFEB64600006414 /* CDBook.swift */; };
 		C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */; };
+		C798D47F2F0352CB00006414 /* Book+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D47E2F0352CB00006414 /* Book+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+LibraryModels.swift"; sourceTree = "<group>"; };
 		C798D4792EFEB64600006414 /* CDBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBook.swift; sourceTree = "<group>"; };
 		C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Extension.swift"; sourceTree = "<group>"; };
+		C798D47E2F0352CB00006414 /* Book+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				C798D4602EEB9C5C00006414 /* Genre.swift */,
 				C798D4622EEB9E5B00006414 /* Status.swift */,
 				C798D46C2EF3E6B000006414 /* Date+Extension.swift */,
+				C798D47E2F0352CB00006414 /* Book+Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				C798D46D2EF3E6B000006414 /* Date+Extension.swift in Sources */,
 				C798D45D2EEB9A6100006414 /* MyLibraryView.swift in Sources */,
 				C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */,
+				C798D47F2F0352CB00006414 /* Book+Extension.swift in Sources */,
 				C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */,
 				C798D4632EEB9E5B00006414 /* Status.swift in Sources */,
 				C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */,

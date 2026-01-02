@@ -11,17 +11,17 @@ extension CDStorage {
 
     func getBooks() -> [Book] {
         let books = self.fetchBooks()
-            .map {
+            .map { book in
                 return Book(
-                    id: $0.id,
-                    title: $0.title,
-                    author: $0.author,
+                    id: book.id,
+                    title: book.title,
+                    author: book.author,
                     genre: Genre.general,
-                    year: Int($0.year),
-                    notes: $0.notes,
-                    status: Status(rawValue: $0.rawStatus) ?? .unread,
-                    isbn: $0.isbn,
-                    pages: Int($0.pages)
+                    notes: book.notes,
+                    status: Status(rawValue: book.rawStatus) ?? .unread,
+                    isbn: book.isbn,
+                    pages: book.pages.map { Int(truncating: $0) },
+                    year: book.year.map { Int(truncating: $0) }
                 )
             }
         return books
@@ -31,11 +31,11 @@ extension CDStorage {
         try self.saveBook(
             title: book.title,
             author: book.author,
-            year: Int32(book.year),
             notes: book.notes,
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
-            pages: Int32(book.pages)
+            pages: book.pages.map { NSNumber(value: $0) },
+            year: book.year.map { NSNumber(value: $0) }
         )
     }
 
@@ -44,11 +44,11 @@ extension CDStorage {
             id: book.id,
             title: book.title,
             author: book.author,
-            year: Int32(book.year),
             notes: book.notes,
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
-            pages: Int32(book.pages)
+            pages: book.pages.map { NSNumber(value: $0) },
+            year: book.year.map { NSNumber(value: $0) }
         )
     }
 

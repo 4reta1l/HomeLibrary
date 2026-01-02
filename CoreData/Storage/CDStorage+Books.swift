@@ -21,22 +21,22 @@ extension CDStorage {
 
     func saveBook(
         title: String,
-        author: String,
-        year: Int32,
-        notes: String,
+        author: String?,
+        notes: String?,
         rawStatus: String,
-        isbn: String,
-        pages: Int32
+        isbn: String?,
+        pages: NSNumber?,
+        year: NSNumber?
     ) throws {
         let newBook = CDBook(context: container.viewContext)
         newBook.id = UUID()
         newBook.title = title
         newBook.author = author
-        newBook.year = year
         newBook.notes = notes
         newBook.rawStatus = rawStatus
         newBook.isbn = isbn
         newBook.pages = pages
+        newBook.year = year
 
         self.saveData()
     }
@@ -44,12 +44,12 @@ extension CDStorage {
     func updateBook(
         id: UUID,
         title: String,
-        author: String,
-        year: Int32,
-        notes: String,
+        author: String?,
+        notes: String?,
         rawStatus: String,
-        isbn: String,
-        pages: Int32
+        isbn: String?,
+        pages: NSNumber?,
+        year: NSNumber?
     ) throws {
         let request = CDBook.fetchRequest()
             .filteredById(id)

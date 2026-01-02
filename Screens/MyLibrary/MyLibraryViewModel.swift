@@ -22,16 +22,16 @@ final class MyLibraryViewModel {
 
         return books.filter { book in
             book.title.localizedCaseInsensitiveContains(searchText) ||
-            book.author.localizedCaseInsensitiveContains(searchText)
+            (book.author?.localizedCaseInsensitiveContains(searchText) ?? false)
         }
     }
 
     init(booksStorage: BooksStorage = CDStorage.shared) {
         self.booksStorage = booksStorage
-        self.books = booksStorage.getBooks()
+        self.books = booksStorage.getBooks().reversed()
     }
 
     func reloadData() {
-        self.books = booksStorage.getBooks()
+        self.books = booksStorage.getBooks().reversed()
     }
 }

@@ -82,9 +82,9 @@ struct EditBookView: View {
 
             statusSection
 
-            notesSection
-
             isbnSection
+
+            notesSection
         }
         .simultaneousGesture(
             TapGesture()
@@ -143,12 +143,15 @@ struct EditBookView: View {
                     .focused($focusField, equals: .bookPages)
                 Spacer()
                 Picker("", selection: $viewModel.bookYear) {
+                    Text("—")
+                        .tag("—")
                     ForEach(viewModel.yearsArray.reversed(), id: \.self) { year in
                         Text(String(year))
+                            .tag(String(year))
                     }
                 }
                 .pickerStyle(.menu)
-                .frame(width: 130)
+                .frame(width: 100)
             }
         } header: {
             HStack {
@@ -158,7 +161,7 @@ struct EditBookView: View {
                     .bold()
                     .padding(.leading, -5)
                 Spacer()
-                Text("Year of publication")
+                Text("Publication year")
                     .textCase(nil)
                     .font(.subheadline)
                     .bold()
