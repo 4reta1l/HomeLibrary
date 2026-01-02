@@ -62,12 +62,15 @@ struct EditBookView: View {
             .toolbar {
                 toolBarView
             }
-            .confirmationDialog("Delete book?", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
+            .alert("Delete book?",
+                   isPresented: $showDeleteConfirmation) {
+
                 Button("Delete", role: .destructive) {
                     viewModel.deleteBook()
                     dismiss()
                 }
-                Button("Cancel", role: .cancel) { }
+
+                Button("Cancel", role: .cancel) {}
             }
         }
     }
@@ -236,6 +239,7 @@ struct EditBookView: View {
 
     private var deleteButton: some View {
         Button {
+            dismissKeyboard()
             showDeleteConfirmation.toggle()
         } label: {
             Image(systemName: "trash")
