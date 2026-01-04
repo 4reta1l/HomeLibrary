@@ -46,7 +46,7 @@ extension CDStorage {
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
-            genres: genres
+            genres: Set(genres)
         )
     }
 
@@ -65,7 +65,7 @@ extension CDStorage {
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
-            genres: genres
+            genres: Set(genres)
         )
     }
 

@@ -10,13 +10,13 @@ import SwiftUI
 
 struct GenresView: View {
 
-    @Binding var selectedGenres: [Genre]
+    @State private var viewModel = GenresViewModel()
 
-    let allGenres = CDStorage.shared.getGenres()
+    @Binding var selectedGenres: [Genre]
 
     var body: some View {
         List {
-            ForEach(allGenres, id: \.name) { genre in
+            ForEach(viewModel.allgenres, id: \.name) { genre in
                 HStack {
                     Text(genre.name)
 
