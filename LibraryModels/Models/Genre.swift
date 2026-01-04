@@ -5,7 +5,20 @@
 //  Created by Maksym Pyvovarov on 12/12/2025.
 //
 
-public enum Genre: String, CaseIterable {
+public struct Genre: Hashable {
+
+    public let name: String
+
+    public init(name: String) {
+        self.name = name
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}
+
+public enum defaultGenres: String, CaseIterable {
     case general
     case fantasy
     case horror
@@ -19,7 +32,7 @@ public enum Genre: String, CaseIterable {
     case fairyTale
 }
 
-public extension Genre {
+public extension defaultGenres {
     var displayString: String {
         switch self {
         case .general: "General"

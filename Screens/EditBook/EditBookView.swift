@@ -124,7 +124,9 @@ struct EditBookView: View {
     private var genreSection: some View {
         Section {
             HStack {
-                Text(viewModel.bookGenre.displayString)
+                Text(viewModel.bookGenres.isEmpty
+                     ? "No genres selected" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
+                )
                 Spacer()
                 Image(systemName: "chevron.right")
             }

@@ -12,11 +12,16 @@ extension CDStorage {
     func getBooks() -> [Book] {
         let books = self.fetchBooks()
             .map { book in
+                let genres = book.genres
+                    .map {
+                        Genre(name: $0.name)
+                    }
+
                 return Book(
                     id: book.id,
                     title: book.title,
                     author: book.author,
-                    genre: Genre.general,
+                    genres: genres,
                     notes: book.notes,
                     status: Status(rawValue: book.rawStatus) ?? .unread,
                     isbn: book.isbn,
@@ -28,6 +33,11 @@ extension CDStorage {
     }
 
     func addBook(_ book: Book) throws {
+        let genres = try book.genres
+            .map {
+                try self.fetchGenre(name: $0.name)
+            }
+
         try self.saveBook(
             title: book.title,
             author: book.author,
@@ -35,11 +45,17 @@ extension CDStorage {
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
-            year: book.year.map { NSNumber(value: $0) }
+            year: book.year.map { NSNumber(value: $0) },
+            genres: genres
         )
     }
 
     func updateBook(_ book: Book) throws {
+        let genres = try book.genres
+            .map {
+                try self.fetchGenre(name: $0.name)
+            }
+
         try self.updateBook(
             id: book.id,
             title: book.title,
@@ -48,11 +64,21 @@ extension CDStorage {
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
-            year: book.year.map { NSNumber(value: $0) }
+            year: book.year.map { NSNumber(value: $0) },
+            genres: genres
         )
     }
 
     func deleteBook(_ id: UUID) throws {
         try self.deleteBook(id: id)
+    }
+
+    func getGenres() -> [Genre] {
+        let genres = self.fetchGenres()
+            .map {
+                Genre(name: $0.name)
+        }
+
+        return genres
     }
 }
