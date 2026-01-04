@@ -32,7 +32,7 @@ struct MyLibraryView: View {
                 addBookButton
             }
             .navigationTitle("My Library")
-            .searchable(text: $viewModel.searchText, prompt: "Search for a book")
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a book")
         }
     }
 

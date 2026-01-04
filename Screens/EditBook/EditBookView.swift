@@ -62,12 +62,15 @@ struct EditBookView: View {
             .toolbar {
                 toolBarView
             }
-            .confirmationDialog("Delete book?", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
+            .alert("Delete book?",
+                   isPresented: $showDeleteConfirmation) {
+
                 Button("Delete", role: .destructive) {
                     viewModel.deleteBook()
                     dismiss()
                 }
-                Button("Cancel", role: .cancel) { }
+
+                Button("Cancel", role: .cancel) {}
             }
         }
     }
@@ -86,12 +89,7 @@ struct EditBookView: View {
 
             notesSection
         }
-        .simultaneousGesture(
-            TapGesture()
-                .onEnded {
-                    dismissKeyboard()
-                }
-        )
+        .scrollDismissesKeyboard(.immediately)
     }
 
     private var toolBarView: some ToolbarContent {
@@ -120,12 +118,15 @@ struct EditBookView: View {
 
     private var genreSection: some View {
         Section {
-            HStack {
-                Text(viewModel.bookGenre.displayString)
-                Spacer()
-                Image(systemName: "chevron.right")
+            NavigationLink {
+                GenresView(selectedGenres: $viewModel.bookGenres)
+            } label: {
+                HStack {
+                    Text(viewModel.bookGenres.isEmpty
+                         ? "No genres selected" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
+                    )
+                }
             }
-            .contentShape(Rectangle())
         } header: {
             Text("Genre")
                 .textCase(nil)
@@ -236,6 +237,7 @@ struct EditBookView: View {
 
     private var deleteButton: some View {
         Button {
+            dismissKeyboard()
             showDeleteConfirmation.toggle()
         } label: {
             Image(systemName: "trash")

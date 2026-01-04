@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B60F2F0A69A6000C7B6E /* CDGenre.swift */; };
+		C704B6172F0A835E000C7B6E /* CDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6162F0A835E000C7B6E /* CDStorage.swift */; };
+		C704B6192F0A838C000C7B6E /* CDStorage+Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */; };
+		C704B61B2F0A83BA000C7B6E /* GenresStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B61A2F0A83BA000C7B6E /* GenresStorage.swift */; };
+		C704B61D2F0A8DE7000C7B6E /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B61C2F0A8DE7000C7B6E /* CoreDataError.swift */; };
+		C704B6202F0AC0F0000C7B6E /* GenresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B61F2F0AC0F0000C7B6E /* GenresView.swift */; };
+		C704B6222F0AD578000C7B6E /* GenresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6212F0AD578000C7B6E /* GenresViewModel.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
 		C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4302EEB877E00006414 /* SceneDelegate.swift */; };
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
@@ -20,7 +27,6 @@
 		C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46A2EF3573500006414 /* EditBookViewModel.swift */; };
 		C798D46D2EF3E6B000006414 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46C2EF3E6B000006414 /* Date+Extension.swift */; };
 		C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D46E2EF8BD9B00006414 /* BooksStorage.swift */; };
-		C798D4712EF8BE4000006414 /* CDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4702EF8BE4000006414 /* CDStorage.swift */; };
 		C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4742EFE109000006414 /* CDStorage+Books.swift */; };
 		C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */; };
 		C798D47A2EFEB64600006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4792EFEB64600006414 /* CDBook.swift */; };
@@ -29,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C704B60F2F0A69A6000C7B6E /* CDGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDGenre.swift; sourceTree = "<group>"; };
+		C704B6162F0A835E000C7B6E /* CDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDStorage.swift; sourceTree = "<group>"; };
+		C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Genres.swift"; sourceTree = "<group>"; };
+		C704B61A2F0A83BA000C7B6E /* GenresStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresStorage.swift; sourceTree = "<group>"; };
+		C704B61C2F0A8DE7000C7B6E /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		C704B61F2F0AC0F0000C7B6E /* GenresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresView.swift; sourceTree = "<group>"; };
+		C704B6212F0AD578000C7B6E /* GenresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresViewModel.swift; sourceTree = "<group>"; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798D42E2EEB877E00006414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C798D4302EEB877E00006414 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +57,6 @@
 		C798D46A2EF3573500006414 /* EditBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewModel.swift; sourceTree = "<group>"; };
 		C798D46C2EF3E6B000006414 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		C798D46E2EF8BD9B00006414 /* BooksStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksStorage.swift; sourceTree = "<group>"; };
-		C798D4702EF8BE4000006414 /* CDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDStorage.swift; sourceTree = "<group>"; };
 		C798D4742EFE109000006414 /* CDStorage+Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Books.swift"; sourceTree = "<group>"; };
 		C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+LibraryModels.swift"; sourceTree = "<group>"; };
 		C798D4792EFEB64600006414 /* CDBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBook.swift; sourceTree = "<group>"; };
@@ -63,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C704B61E2F0AC0A8000C7B6E /* Genres */ = {
+			isa = PBXGroup;
+			children = (
+				C704B61F2F0AC0F0000C7B6E /* GenresView.swift */,
+				C704B6212F0AD578000C7B6E /* GenresViewModel.swift */,
+			);
+			path = Genres;
+			sourceTree = "<group>";
+		};
 		C798D4222EEB877E00006414 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +119,7 @@
 			children = (
 				C798D4662EF3516600006414 /* MyLibrary */,
 				C798D4672EF3518600006414 /* EditBook */,
+				C704B61E2F0AC0A8000C7B6E /* Genres */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -115,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				C798D46E2EF8BD9B00006414 /* BooksStorage.swift */,
+				C704B61A2F0A83BA000C7B6E /* GenresStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -138,6 +161,7 @@
 				C798D4782EFEB62900006414 /* Models */,
 				C798D45A2EEB99A700006414 /* Storage */,
 				C798D47B2EFEB6CE00006414 /* Utils */,
+				C704B61C2F0A8DE7000C7B6E /* CoreDataError.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -153,8 +177,9 @@
 		C798D45A2EEB99A700006414 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				C798D4702EF8BE4000006414 /* CDStorage.swift */,
+				C704B6162F0A835E000C7B6E /* CDStorage.swift */,
 				C798D4742EFE109000006414 /* CDStorage+Books.swift */,
+				C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */,
 				C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */,
 			);
 			path = Storage;
@@ -190,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				C798D4792EFEB64600006414 /* CDBook.swift */,
+				C704B60F2F0A69A6000C7B6E /* CDGenre.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,9 +301,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C798D4692EF351D000006414 /* EditBookView.swift in Sources */,
+				C704B6202F0AC0F0000C7B6E /* GenresView.swift in Sources */,
+				C704B61B2F0A83BA000C7B6E /* GenresStorage.swift in Sources */,
 				C798D46D2EF3E6B000006414 /* Date+Extension.swift in Sources */,
 				C798D45D2EEB9A6100006414 /* MyLibraryView.swift in Sources */,
 				C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */,
+				C704B6192F0A838C000C7B6E /* CDStorage+Genres.swift in Sources */,
 				C798D47F2F0352CB00006414 /* Book+Extension.swift in Sources */,
 				C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */,
 				C798D4632EEB9E5B00006414 /* Status.swift in Sources */,
@@ -287,11 +316,14 @@
 				C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */,
 				C798D47A2EFEB64600006414 /* CDBook.swift in Sources */,
 				C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */,
+				C704B6222F0AD578000C7B6E /* GenresViewModel.swift in Sources */,
 				C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */,
+				C704B6172F0A835E000C7B6E /* CDStorage.swift in Sources */,
 				C798D45F2EEB9BC900006414 /* Book.swift in Sources */,
+				C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */,
+				C704B61D2F0A8DE7000C7B6E /* CoreDataError.swift in Sources */,
 				C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */,
 				C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */,
-				C798D4712EF8BE4000006414 /* CDStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
