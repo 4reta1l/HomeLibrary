@@ -26,7 +26,8 @@ extension CDStorage {
         rawStatus: String,
         isbn: String?,
         pages: NSNumber?,
-        year: NSNumber?
+        year: NSNumber?,
+        genres: [CDGenre]
     ) throws {
         let newBook = CDBook(context: container.viewContext)
         newBook.id = UUID()
@@ -37,6 +38,7 @@ extension CDStorage {
         newBook.isbn = isbn
         newBook.pages = pages
         newBook.year = year
+        newBook.genres = genres
 
         self.saveData()
     }
@@ -49,7 +51,8 @@ extension CDStorage {
         rawStatus: String,
         isbn: String?,
         pages: NSNumber?,
-        year: NSNumber?
+        year: NSNumber?,
+        genres: [CDGenre]
     ) throws {
         let request = CDBook.fetchRequest()
             .filteredById(id)
@@ -65,6 +68,7 @@ extension CDStorage {
             existingBook.rawStatus = rawStatus
             existingBook.isbn = isbn
             existingBook.pages = pages
+            existingBook.genres = genres
 
             self.saveData()
         }
