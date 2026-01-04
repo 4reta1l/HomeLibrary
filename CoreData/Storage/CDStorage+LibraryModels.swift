@@ -81,4 +81,8 @@ extension CDStorage {
 
         return genres
     }
+
+    func addGenre(name: String) {
+        self.saveGenre(name: name)
+    }
 }

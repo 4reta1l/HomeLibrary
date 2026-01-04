@@ -10,4 +10,6 @@ import Foundation
 public protocol GenresStorage {
 
     func getGenres() -> [Genre]
+
+    func addGenre(name: String)
 }
