@@ -34,6 +34,7 @@ struct EditBookView: View {
     @State private var viewModel: EditBookViewModel
     @State private var state: ViewState
 
+    @State private var showGenresPicker: Bool = false
     @State private var showDeleteConfirmation: Bool = false
 
     @FocusState private var focusField: FocusedField?
@@ -88,6 +89,9 @@ struct EditBookView: View {
             isbnSection
 
             notesSection
+        }
+        .sheet(isPresented: $showGenresPicker) {
+
         }
         .simultaneousGesture(
             TapGesture()
