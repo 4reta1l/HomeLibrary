@@ -34,7 +34,6 @@ struct EditBookView: View {
     @State private var viewModel: EditBookViewModel
     @State private var state: ViewState
 
-    @State private var showGenresPicker: Bool = false
     @State private var showDeleteConfirmation: Bool = false
 
     @FocusState private var focusField: FocusedField?
@@ -90,15 +89,7 @@ struct EditBookView: View {
 
             notesSection
         }
-        .sheet(isPresented: $showGenresPicker) {
-
-        }
-        .simultaneousGesture(
-            TapGesture()
-                .onEnded {
-                    dismissKeyboard()
-                }
-        )
+        .scrollDismissesKeyboard(.immediately)
     }
 
     private var toolBarView: some ToolbarContent {
@@ -127,14 +118,15 @@ struct EditBookView: View {
 
     private var genreSection: some View {
         Section {
-            HStack {
-                Text(viewModel.bookGenres.isEmpty
-                     ? "No genres selected" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
-                )
-                Spacer()
-                Image(systemName: "chevron.right")
+            NavigationLink {
+                GenresView(selectedGenres: $viewModel.bookGenres)
+            } label: {
+                HStack {
+                    Text(viewModel.bookGenres.isEmpty
+                         ? "No genres selected" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
+                    )
+                }
             }
-            .contentShape(Rectangle())
         } header: {
             Text("Genre")
                 .textCase(nil)
