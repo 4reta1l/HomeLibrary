@@ -17,13 +17,13 @@ final class CDBook: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var rawStatus: String
 
-    @NSManaged var author: String?
     @NSManaged var notes: String?
     @NSManaged var isbn: String?
 
     @NSManaged var pages: NSNumber?
     @NSManaged var year: NSNumber?
 
+    @NSManaged var authors: [CDAuthor]
     @NSManaged var genres: Set<CDGenre>
 }
 
