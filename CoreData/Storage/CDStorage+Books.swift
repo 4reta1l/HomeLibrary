@@ -21,7 +21,7 @@ extension CDStorage {
 
     func saveBook(
         title: String,
-        author: String?,
+        authors: [CDAuthor],
         notes: String?,
         rawStatus: String,
         isbn: String?,
@@ -32,7 +32,7 @@ extension CDStorage {
         let newBook = CDBook(context: container.viewContext)
         newBook.id = UUID()
         newBook.title = title
-        newBook.author = author
+        newBook.authors = authors
         newBook.notes = notes
         newBook.rawStatus = rawStatus
         newBook.isbn = isbn
@@ -46,7 +46,7 @@ extension CDStorage {
     func updateBook(
         id: UUID,
         title: String,
-        author: String?,
+        authors: [CDAuthor],
         notes: String?,
         rawStatus: String,
         isbn: String?,
@@ -62,7 +62,7 @@ extension CDStorage {
         if let existingBook = results.first {
             existingBook.id = id
             existingBook.title = title
-            existingBook.author = author
+            existingBook.authors = authors
             existingBook.year = year
             existingBook.notes = notes
             existingBook.rawStatus = rawStatus
@@ -84,6 +84,8 @@ extension CDStorage {
             container.viewContext.delete(deletingBook)
             saveData()
         }
+
+        //TODO: check whether it is last book for authors, if so, delete them
     }
 
 }
