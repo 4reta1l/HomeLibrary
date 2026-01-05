@@ -108,7 +108,7 @@ struct EditBookView: View {
             .onSubmit {
                 focusField = .bookAuthor
             }
-        TextField("Enter book author", text: $viewModel.bookAuthor)
+        TextField("Enter book author", text: $viewModel.formattedAuthors)
             .focused($focusField, equals: .bookAuthor)
             .submitLabel(.next)
             .onSubmit {

@@ -47,6 +47,8 @@ final class EditBookViewModel {
             bookStatus = book.status
             bookNotes = book.displayNotes
             bookIsbn = book.displayISBN
+
+            formatAuthors()
         }
     }
 
@@ -99,6 +101,12 @@ final class EditBookViewModel {
             try self.booksStorage.deleteBook(bookId)
         } catch {
             print("Failed to delete book: \(error)")
+        }
+    }
+
+    func formatAuthors() {
+        if !bookAuthors.isEmpty {
+            formattedAuthors = bookAuthors.map(\.displayName).joined(separator: ", ")
         }
     }
 }
