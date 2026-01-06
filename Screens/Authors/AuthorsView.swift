@@ -1,0 +1,69 @@
+//
+//  AuthorsView.swift
+//  HomeLibrary
+//
+//  Created by Maksym Pyvovarov on 05/01/2026.
+//
+
+import Foundation
+import SwiftUI
+
+struct AuthorsView: View {
+
+    @State private var viewModel = AuthorsViewModel()
+
+    @Binding var selectedAuthors: [Author]
+
+    @State private var showAddAuthor: Bool = false
+
+    var body: some View {
+        VStack {
+            authorsList
+
+            addAuthorButton
+        }
+        .navigationTitle("Authors")
+    }
+
+    private var authorsList: some View {
+        List {
+            ForEach(viewModel.authors, id: \.id) { author in
+                HStack {
+                    Text(author.displayName)
+
+                    Spacer()
+
+                    if selectedAuthors.contains(author) {
+                        Image(systemName: "checkmark")
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    toggle(author)
+                }
+            }
+        }
+    }
+
+    private var addAuthorButton: some View {
+        Button {
+            showAddAuthor = true
+        } label: {
+            Label("Add author", systemImage: "plus.circle.fill")
+                .font(.title2)
+        }
+       .padding()
+       .sheet(isPresented: $showAddAuthor, onDismiss: viewModel.reloadAuthors) {
+           EditAuthorView()
+       }
+    }
+
+    private func toggle(_ author: Author) {
+
+        if let index = selectedAuthors.firstIndex(of: author) {
+            selectedAuthors.remove(at: index)
+        } else {
+            selectedAuthors.append(author)
+        }
+    }
+}
