@@ -12,7 +12,7 @@ public struct Book: Identifiable, Equatable, Hashable {
     public let id: UUID
     public let title: String
     public let status: Status
-    public let author: String?
+    public let authors: [Author]
     public let genres: [Genre]
     public let notes: String?
     public let isbn: String?
@@ -22,7 +22,7 @@ public struct Book: Identifiable, Equatable, Hashable {
     public init(
         id: UUID,
         title: String,
-        author: String? = nil,
+        authors: [Author],
         genres: [Genre],
         notes: String? = nil,
         status: Status,
@@ -32,7 +32,7 @@ public struct Book: Identifiable, Equatable, Hashable {
     ) {
         self.id = id
         self.title = title
-        self.author = author
+        self.authors = authors
         self.genres = genres
         self.notes = notes
         self.status = status
@@ -44,7 +44,7 @@ public struct Book: Identifiable, Equatable, Hashable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
-        lhs.author == rhs.author &&
+        lhs.authors == rhs.authors &&
         lhs.genres == rhs.genres &&
         lhs.year == rhs.year &&
         lhs.notes == rhs.notes &&

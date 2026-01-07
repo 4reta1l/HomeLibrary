@@ -14,16 +14,13 @@ final class EditBookViewModel {
     private let booksStorage: BooksStorage
     private var bookId: UUID
     var bookTitle: String = ""
-    var bookAuthor: String = ""
+    var bookAuthors: [Author] = []
     var bookNotes: String = ""
     var bookIsbn: String = ""
-
     var bookPages: String = ""
     var bookYear: String = ""
-
     var bookStatus: Status = .unread
     var bookGenres: [Genre] = []
-
 
     init(
         booksStorage: BooksStorage = CDStorage.shared,
@@ -41,7 +38,7 @@ final class EditBookViewModel {
         case .editBook(let book):
             bookId = book.id
             bookTitle = book.title
-            bookAuthor = book.displayAuthor
+            bookAuthors = book.authors
             bookGenres = book.genres
             bookYear = book.displayYear
             bookPages = book.displayPagesForEdit
@@ -58,7 +55,7 @@ final class EditBookViewModel {
         let newBook = Book(
             id: bookId,
             title: bookTitle,
-            author: bookAuthor.isEmpty ? nil : bookAuthor,
+            authors: bookAuthors,
             genres: bookGenres,
             notes: bookNotes.isEmpty ? nil : bookNotes,
             status: bookStatus,
@@ -79,7 +76,7 @@ final class EditBookViewModel {
         let updatingBook = Book(
             id: bookId,
             title: bookTitle,
-            author: bookAuthor.isEmpty ? nil : bookAuthor,
+            authors: bookAuthors,
             genres: bookGenres,
             notes: bookNotes.isEmpty ? nil : bookNotes,
             status: bookStatus,

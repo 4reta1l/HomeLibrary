@@ -8,10 +8,6 @@
 import Foundation
 
 extension Book {
-    var displayAuthor: String {
-        author?.isEmpty == false ? author! : ""
-    }
-
     var displayNotes: String {
         notes?.isEmpty == false ? notes! : ""
     }

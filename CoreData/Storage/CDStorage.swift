@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-final class CDStorage: BooksStorage, GenresStorage {
+final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage {
 
     public static let shared = CDStorage()
 

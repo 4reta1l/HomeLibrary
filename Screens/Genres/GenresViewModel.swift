@@ -15,7 +15,7 @@ final class GenresViewModel {
 
     init(genresStorage: GenresStorage = CDStorage.shared) {
         self.genresStorage = genresStorage
-        self.allgenres = CDStorage.shared.getGenres()
+        self.allgenres = genresStorage.getGenres()
             .sorted {
                 $0.name < $1.name
             }

@@ -52,7 +52,11 @@ struct MyLibraryView: View {
                     .bold()
 
                 HStack {
-                        Text(book.displayAuthor)
+                    Text(
+                        book.authors.isEmpty
+                        ? "Unknown author"
+                        : book.authors.map(\.displayName).joined(separator: ", ")
+                    )
                             .font(.caption)
                             .foregroundColor(.gray)
                     Spacer()

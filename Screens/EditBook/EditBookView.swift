@@ -25,10 +25,7 @@ struct EditBookView: View {
 
     enum FocusedField {
         case bookTitle
-        case bookAuthor
         case bookPages
-        case bookNotes
-        case bookIsbn
     }
 
     @State private var viewModel: EditBookViewModel
@@ -77,7 +74,9 @@ struct EditBookView: View {
 
     private var mainForm: some View {
         Form {
-            mainSection
+            titleSection
+
+            authorSection
 
             genreSection
 
@@ -100,20 +99,39 @@ struct EditBookView: View {
         }
     }
 
-    @ViewBuilder
-    private var mainSection: some View {
-        TextField("Enter book title", text: $viewModel.bookTitle)
-            .focused($focusField, equals: .bookTitle)
-            .submitLabel(.next)
-            .onSubmit {
-                focusField = .bookAuthor
+    private var titleSection: some View {
+        Section {
+            TextField("Enter book title", text: $viewModel.bookTitle)
+                .focused($focusField, equals: .bookTitle)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusField = .bookPages
+                }
+        } header: {
+            Text("Genre")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var authorSection: some View {
+        Section {
+            NavigationLink {
+                AuthorsView(selectedAuthors: $viewModel.bookAuthors)
+            } label: {
+                Text(viewModel.bookAuthors.isEmpty
+                     ? "Add author" : viewModel.bookAuthors.map(\.displayName).joined(separator: ", ")
+                )
             }
-        TextField("Enter book author", text: $viewModel.bookAuthor)
-            .focused($focusField, equals: .bookAuthor)
-            .submitLabel(.next)
-            .onSubmit {
-                focusField = .bookPages
-            }
+        } header: {
+            Text("Author")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
     }
 
     private var genreSection: some View {
@@ -123,7 +141,7 @@ struct EditBookView: View {
             } label: {
                 HStack {
                     Text(viewModel.bookGenres.isEmpty
-                         ? "No genres selected" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
+                         ? "Add genre" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
                     )
                 }
             }

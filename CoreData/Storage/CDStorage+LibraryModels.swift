@@ -12,6 +12,11 @@ extension CDStorage {
     func getBooks() -> [Book] {
         let books = self.fetchBooks()
             .map { book in
+                let authors = book.authors
+                    .map {
+                        Author(id: $0.id, displayName: $0.displayName)
+                    }
+
                 let genres = book.genres
                     .map {
                         Genre(name: $0.name)
@@ -20,7 +25,7 @@ extension CDStorage {
                 return Book(
                     id: book.id,
                     title: book.title,
-                    author: book.author,
+                    authors: authors,
                     genres: genres,
                     notes: book.notes,
                     status: Status(rawValue: book.rawStatus) ?? .unread,
@@ -33,6 +38,11 @@ extension CDStorage {
     }
 
     func addBook(_ book: Book) throws {
+        let authors = try book.authors
+            .map {
+                try self.fetchOrSaveAuthor($0)
+            }
+
         let genres = try book.genres
             .map {
                 try self.fetchGenre(name: $0.name)
@@ -40,7 +50,7 @@ extension CDStorage {
 
         try self.saveBook(
             title: book.title,
-            author: book.author,
+            authors: Set(authors),
             notes: book.notes,
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
@@ -51,6 +61,11 @@ extension CDStorage {
     }
 
     func updateBook(_ book: Book) throws {
+        let authors = try book.authors
+            .map {
+                try self.fetchOrSaveAuthor($0)
+            }
+
         let genres = try book.genres
             .map {
                 try self.fetchGenre(name: $0.name)
@@ -59,7 +74,7 @@ extension CDStorage {
         try self.updateBook(
             id: book.id,
             title: book.title,
-            author: book.author,
+            authors: Set(authors),
             notes: book.notes,
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
@@ -84,5 +99,27 @@ extension CDStorage {
 
     func addGenre(name: String) {
         self.saveGenre(name: name)
+    }
+
+    func getAuthors() -> [Author] {
+        self.fetchAuthors()
+            .map {
+                Author(id: $0.id, displayName: $0.displayName)
+            }
+    }
+
+    private func saveThenReturnAuthor(_ author: Author) -> CDAuthor {
+        self.saveAuthor(
+            id: author.id,
+            displayName: author.displayName
+        )
+    }
+
+    func fetchOrSaveAuthor(_ author: Author) throws -> CDAuthor {
+        do {
+            return try fetchAuthor(id: author.id)
+        } catch CoreDataError.authorNotFound {
+            return self.saveThenReturnAuthor(author)
+        }
     }
 }
