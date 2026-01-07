@@ -50,7 +50,7 @@ extension CDStorage {
 
         try self.saveBook(
             title: book.title,
-            authors: authors,
+            authors: Set(authors),
             notes: book.notes,
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
@@ -74,7 +74,7 @@ extension CDStorage {
         try self.updateBook(
             id: book.id,
             title: book.title,
-            authors: authors,
+            authors: Set(authors),
             notes: book.notes,
             rawStatus: book.status.rawValue,
             isbn: book.isbn,
@@ -110,6 +110,7 @@ extension CDStorage {
 
     private func saveThenReturnAuthor(_ author: Author) -> CDAuthor {
         self.saveAuthor(
+            id: author.id,
             displayName: author.displayName
         )
     }

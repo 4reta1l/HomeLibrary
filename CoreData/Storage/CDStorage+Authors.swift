@@ -33,9 +33,9 @@ extension CDStorage {
         return author
     }
 
-    func saveAuthor(displayName: String) -> CDAuthor {
+    func saveAuthor(id: UUID, displayName: String) -> CDAuthor {
         let author = CDAuthor(context: container.viewContext)
-        author.id = UUID()
+        author.id = id
         author.displayName = displayName
 
         saveData()

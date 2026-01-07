@@ -12,7 +12,7 @@ public struct Author: Identifiable, Equatable, Hashable {
     public let id: UUID
     public let displayName: String
 
-    public init(id: UUID, displayName: String) {
+    public init(id: UUID = UUID(), displayName: String) {
         self.id = id
         self.displayName = displayName
     }

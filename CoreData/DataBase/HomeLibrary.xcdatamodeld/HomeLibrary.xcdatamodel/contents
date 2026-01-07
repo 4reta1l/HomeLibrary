@@ -3,7 +3,7 @@
     <entity name="CDAuthor" representedClassName="CDAuthor" syncable="YES">
         <attribute name="displayName" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="books" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDBook" inverseName="authors" inverseEntity="CDBook"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDBook" inverseName="authors" inverseEntity="CDBook"/>
     </entity>
     <entity name="CDBook" representedClassName="CDBook" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>

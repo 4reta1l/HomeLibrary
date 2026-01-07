@@ -21,7 +21,7 @@ extension CDStorage {
 
     func saveBook(
         title: String,
-        authors: [CDAuthor],
+        authors: Set<CDAuthor>,
         notes: String?,
         rawStatus: String,
         isbn: String?,
@@ -46,7 +46,7 @@ extension CDStorage {
     func updateBook(
         id: UUID,
         title: String,
-        authors: [CDAuthor],
+        authors: Set<CDAuthor>,
         notes: String?,
         rawStatus: String,
         isbn: String?,

@@ -10,11 +10,16 @@ import SwiftUI
 
 struct AuthorsView: View {
 
-    @State private var viewModel = AuthorsViewModel()
+    private var viewModel: AuthorsViewModel
 
     @Binding var selectedAuthors: [Author]
 
     @State private var showAddAuthor: Bool = false
+
+    init(selectedAuthors: Binding<[Author]>) {
+        _selectedAuthors = selectedAuthors
+        viewModel = AuthorsViewModel(selectedAuthors: selectedAuthors.wrappedValue)
+    }
 
     var body: some View {
         VStack {
@@ -53,8 +58,11 @@ struct AuthorsView: View {
                 .font(.title2)
         }
        .padding()
-       .sheet(isPresented: $showAddAuthor, onDismiss: viewModel.reloadAuthors) {
-           EditAuthorView()
+       .sheet(isPresented: $showAddAuthor) {
+           EditAuthorView { newAuthor in
+               selectedAuthors.append(newAuthor)
+               viewModel.authors.append(newAuthor)
+           }
        }
     }
 
