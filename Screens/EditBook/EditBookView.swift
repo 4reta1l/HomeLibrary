@@ -108,7 +108,7 @@ struct EditBookView: View {
                     focusField = .bookPages
                 }
         } header: {
-            Text("Genre")
+            Text("Title")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()
