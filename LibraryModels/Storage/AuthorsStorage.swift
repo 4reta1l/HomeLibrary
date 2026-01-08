@@ -10,4 +10,6 @@ import Foundation
 public protocol AuthorsStorage {
 
     func getAuthors() -> [Author]
+
+    func deleteAuthor(_ id: UUID) throws
 }

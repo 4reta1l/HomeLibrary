@@ -55,7 +55,7 @@ struct MyLibraryView: View {
                     Text(
                         book.authors.isEmpty
                         ? "Unknown author"
-                        : book.authors.map(\.displayName).joined(separator: ", ")
+                        : viewModel.filteredAuthorsString(book.authors)
                     )
                             .font(.caption)
                             .foregroundColor(.gray)

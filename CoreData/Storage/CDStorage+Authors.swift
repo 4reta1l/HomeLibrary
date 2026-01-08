@@ -55,4 +55,16 @@ extension CDStorage {
             saveData()
         }
     }
+
+    func deleteAuthor(id: UUID) throws {
+        let request = CDAuthor.fetchRequest()
+            .filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+
+        if let deletingAuthor = results.first {
+            container.viewContext.delete(deletingAuthor)
+            saveData()
+        }
+    }
 }

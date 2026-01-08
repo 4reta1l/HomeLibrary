@@ -27,6 +27,16 @@ final class AuthorsViewModel {
 
     }
 
+    func removeAuthor(id: UUID) {
+        do {
+            try self.authorsStorage.deleteAuthor(id)
+        } catch {
+            print("Failed to delete author: \(error)")
+        }
+
+        reloadAuthors()
+    }
+
     func reloadAuthors() {
         self.authors = authorsStorage.getAuthors()
     }

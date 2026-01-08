@@ -122,4 +122,8 @@ extension CDStorage {
             return self.saveThenReturnAuthor(author)
         }
     }
+
+    func deleteAuthor(_ id: UUID) throws {
+        try self.deleteAuthor(id: id)
+    }
 }
