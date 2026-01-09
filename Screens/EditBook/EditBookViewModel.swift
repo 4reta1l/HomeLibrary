@@ -22,6 +22,8 @@ final class EditBookViewModel {
     var bookStatus: Status = .unread
     var bookGenres: [Genre] = []
 
+    var editedBook: Book?
+
     init(
         booksStorage: BooksStorage = CDStorage.shared,
         state: EditBookView.ViewState
@@ -45,10 +47,18 @@ final class EditBookViewModel {
             bookStatus = book.status
             bookNotes = book.displayNotes
             bookIsbn = book.displayISBN
+            editedBook = book
         }
     }
 
     let yearsArray = Array(1800...Date().year)
+
+    func filteredAuthorsString() -> String {
+        bookAuthors
+        .sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
+        .map(\.displayName)
+        .joined(separator: ", ")
+    }
 
     func addBook() {
 
@@ -93,10 +103,12 @@ final class EditBookViewModel {
     }
 
     func deleteBook() {
-        do {
-            try self.booksStorage.deleteBook(bookId)
-        } catch {
-            print("Failed to delete book: \(error)")
+        if let book = self.editedBook {
+            do {
+                try self.booksStorage.deleteBook(book)
+            } catch {
+                print("Failed to delete book: \(error)")
+            }
         }
     }
 }

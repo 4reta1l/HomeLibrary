@@ -108,7 +108,7 @@ struct EditBookView: View {
                     focusField = .bookPages
                 }
         } header: {
-            Text("Genre")
+            Text("Title")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()
@@ -122,7 +122,7 @@ struct EditBookView: View {
                 AuthorsView(selectedAuthors: $viewModel.bookAuthors)
             } label: {
                 Text(viewModel.bookAuthors.isEmpty
-                     ? "Add author" : viewModel.bookAuthors.map(\.displayName).joined(separator: ", ")
+                     ? "Add author" : viewModel.filteredAuthorsString()
                 )
             }
         } header: {

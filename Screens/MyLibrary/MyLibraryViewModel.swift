@@ -23,15 +23,22 @@ final class MyLibraryViewModel {
         return books.filter { book in
             book.title.localizedCaseInsensitiveContains(searchText) ||
             book.authors
-                    .map(\.displayName)
-                    .joined(separator: " ")
-                    .localizedCaseInsensitiveContains(searchText)
+                .map(\.displayName)
+                .joined(separator: " ")
+                .localizedCaseInsensitiveContains(searchText)
         }
     }
 
     init(booksStorage: BooksStorage = CDStorage.shared) {
         self.booksStorage = booksStorage
         self.books = booksStorage.getBooks().reversed()
+    }
+
+    func filteredAuthorsString(_ authors: [Author]) -> String {
+        authors
+        .sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
+        .map(\.displayName)
+        .joined(separator: ", ")
     }
 
     func reloadData() {

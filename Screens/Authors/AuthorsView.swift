@@ -46,6 +46,15 @@ struct AuthorsView: View {
                 .onTapGesture {
                     toggle(author)
                 }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        toggle(author)
+                        viewModel.removeAuthor(id: author.id)
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+
             }
         }
     }

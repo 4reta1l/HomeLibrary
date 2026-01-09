@@ -14,5 +14,5 @@ public protocol BooksStorage {
 
     func updateBook(_ book: Book) throws
 
-    func deleteBook(_ id: UUID) throws
+    func deleteBook(_ book: Book) throws
 }
