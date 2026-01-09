@@ -84,8 +84,5 @@ extension CDStorage {
             container.viewContext.delete(deletingBook)
             saveData()
         }
-
-        //TODO: check whether it is last book for authors, if so, delete them
     }
-
 }

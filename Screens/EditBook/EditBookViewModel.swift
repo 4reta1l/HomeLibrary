@@ -22,6 +22,8 @@ final class EditBookViewModel {
     var bookStatus: Status = .unread
     var bookGenres: [Genre] = []
 
+    var editedBook: Book?
+
     init(
         booksStorage: BooksStorage = CDStorage.shared,
         state: EditBookView.ViewState
@@ -45,6 +47,7 @@ final class EditBookViewModel {
             bookStatus = book.status
             bookNotes = book.displayNotes
             bookIsbn = book.displayISBN
+            editedBook = book
         }
     }
 
@@ -100,10 +103,12 @@ final class EditBookViewModel {
     }
 
     func deleteBook() {
-        do {
-            try self.booksStorage.deleteBook(bookId)
-        } catch {
-            print("Failed to delete book: \(error)")
+        if let book = self.editedBook {
+            do {
+                try self.booksStorage.deleteBook(book)
+            } catch {
+                print("Failed to delete book: \(error)")
+            }
         }
     }
 }

@@ -82,10 +82,29 @@ extension CDStorage {
             year: book.year.map { NSNumber(value: $0) },
             genres: Set(genres)
         )
+
+        let allAuthors = self.fetchAuthors()
+
+        for author in allAuthors {
+            if author.books.isEmpty {
+                try self.deleteAuthor(author.id)
+            }
+        }
     }
 
-    func deleteBook(_ id: UUID) throws {
-        try self.deleteBook(id: id)
+    func deleteBook(_ book: Book) throws {
+        let bookAuthors = try book.authors
+            .map {
+                try self.fetchOrSaveAuthor($0)
+            }
+
+        for author in bookAuthors {
+            if author.books.count == 1 {
+                try self.deleteAuthor(author.id)
+            }
+        }
+
+        try self.deleteBook(id: book.id)
     }
 
     func getGenres() -> [Genre] {
