@@ -13,6 +13,7 @@ struct MyLibraryView: View {
 
     @State private var showAddBook: Bool = false
     @State private var tappedBook: Book?
+    @State private var showFilters = false
 
     var body: some View {
         NavigationView {
@@ -32,7 +33,33 @@ struct MyLibraryView: View {
                 addBookButton
             }
             .navigationTitle("My Library")
-            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search for a book")
+            .searchable(
+                text: $viewModel.searchText,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Search for a book"
+            )
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showFilters.toggle()
+                    } label: {
+                        RoundedRectangle(cornerRadius: 6)
+                            .frame(width: 28, height: 28)
+                            .overlay {
+                                Image(systemName: "line.3.horizontal.decrease")
+                                    .font(.system(size: 12, weight: .semibold))
+
+                            }
+
+                        Text("Filters")
+                            .font(.caption)
+                            .foregroundColor(.primary)
+                    }
+                }
+            }
+            .popover(isPresented: $showFilters, arrowEdge: .top) {
+                FiltersView()
+            }
         }
     }
 
