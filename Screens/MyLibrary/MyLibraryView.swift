@@ -58,7 +58,7 @@ struct MyLibraryView: View {
                 }
             }
             .popover(isPresented: $showFilters, arrowEdge: .top) {
-                FiltersView()
+                FiltersView(authors: viewModel.authors, genres: viewModel.genres, filters: $viewModel.filters)
             }
         }
     }

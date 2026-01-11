@@ -11,7 +11,7 @@ import Foundation
 final class BookFilters {
     var selectedGenres: Set<Genre> = []
     var selectedAuthors: Set<Author> = []
-    var selectedYear: Int?
+    var selectedYear: String = "—"
 }
 
 @Observable
@@ -65,7 +65,7 @@ final class MyLibraryViewModel {
 
 
     private func matchesYear(_ book: Book) -> Bool {
-        guard let year = filters.selectedYear else { return true }
+        guard let year = Int(filters.selectedYear ?? "") else { return true }
         return book.year == year
     }
 
