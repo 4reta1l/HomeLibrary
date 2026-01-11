@@ -8,30 +8,65 @@
 import Foundation
 
 @Observable
+final class BookFilters {
+    var selectedGenres: Set<Genre> = []
+    var selectedAuthors: Set<Author> = []
+    var selectedYear: String = "—"
+}
+
+@Observable
 final class MyLibraryViewModel {
 
-    private let booksStorage: BooksStorage
+    private let storage: CDStorage
     var books: [Book]
+    var authors: [Author]
+    var genres: [Genre]
 
     var searchText: String = ""
+    var filters = BookFilters()
 
     var filteredBooks: [Book] {
-        if searchText.isEmpty {
-            return books
-        }
-
-        return books.filter { book in
-            book.title.localizedCaseInsensitiveContains(searchText) ||
-            book.authors
-                .map(\.displayName)
-                .joined(separator: " ")
-                .localizedCaseInsensitiveContains(searchText)
-        }
+        books
+            .filter(matchesSearch)
+            .filter(matchesGenre)
+            .filter(matchesAuthor)
+            .filter(matchesYear)
     }
 
-    init(booksStorage: BooksStorage = CDStorage.shared) {
-        self.booksStorage = booksStorage
-        self.books = booksStorage.getBooks().reversed()
+    init(storage: CDStorage = CDStorage.shared) {
+        self.storage = storage
+        self.books = storage.getBooks().reversed()
+        self.authors = storage.getAuthors()
+        self.genres = storage.getGenres()
+    }
+
+    private func matchesSearch(_ book: Book) -> Bool {
+        guard !searchText.isEmpty else { return true }
+
+        return book.title.localizedCaseInsensitiveContains(searchText) ||
+        book.authors
+            .map(\.displayName)
+            .joined(separator: ", ")
+            .localizedCaseInsensitiveContains(searchText)
+    }
+
+    private func matchesGenre(_ book: Book) -> Bool {
+        guard !filters.selectedGenres.isEmpty else { return true }
+
+        return !Set(book.genres).isDisjoint(with: filters.selectedGenres)
+    }
+
+
+    private func matchesAuthor(_ book: Book) -> Bool {
+        guard !filters.selectedAuthors.isEmpty else { return true }
+
+        return !Set(book.authors).isDisjoint(with: filters.selectedAuthors)
+    }
+
+
+    private func matchesYear(_ book: Book) -> Bool {
+        guard let year = Int(filters.selectedYear ?? "") else { return true }
+        return book.year == year
     }
 
     func filteredAuthorsString(_ authors: [Author]) -> String {
@@ -42,6 +77,8 @@ final class MyLibraryViewModel {
     }
 
     func reloadData() {
-        self.books = booksStorage.getBooks().reversed()
+        self.books = storage.getBooks().reversed()
+        self.authors = storage.getAuthors()
+        self.genres = storage.getGenres()
     }
 }
