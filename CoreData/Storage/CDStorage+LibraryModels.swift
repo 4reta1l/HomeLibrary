@@ -96,6 +96,18 @@ extension CDStorage {
             publisher: publisher
         )
 
+        try checkAuthorPublisherRules()
+    }
+
+    func deleteBook(_ book: Book) throws {
+        try checkWhetherDeleteAuthor(book)
+
+        try checkWhetherDeletePublisher(book)
+
+        try self.deleteBook(id: book.id)
+    }
+
+    func checkAuthorPublisherRules() throws {
         let allAuthors = self.fetchAuthors()
 
         for author in allAuthors {
@@ -103,12 +115,20 @@ extension CDStorage {
                 try self.deleteAuthor(author.id)
             }
         }
+
+        let allPublishers = self.fetchPublishers()
+
+        for publisher in allPublishers {
+            if publisher.books.isEmpty {
+                try self.deletePublisher(publisher.id)
+            }
+        }
     }
 
-    func deleteBook(_ book: Book) throws {
+    func checkWhetherDeleteAuthor(_ book: Book) throws {
         let bookAuthors = try book.authors
             .map {
-                try self.fetchOrSaveAuthor($0)
+                try self.fetchAuthor(id: $0.id)
             }
 
         for author in bookAuthors {
@@ -116,8 +136,18 @@ extension CDStorage {
                 try self.deleteAuthor(author.id)
             }
         }
+    }
 
-        try self.deleteBook(id: book.id)
+    func checkWhetherDeletePublisher(_ book: Book) throws {
+        guard let bookPublisher = book.publisher else {
+            return
+        }
+
+        let publisher = try fetchPublisher(id: bookPublisher.id)
+
+        if publisher.books.count == 1 {
+            try deletePublisher(publisher.id)
+        }
     }
 
     func getGenres() -> [Genre] {
