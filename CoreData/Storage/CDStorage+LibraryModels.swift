@@ -22,6 +22,11 @@ extension CDStorage {
                         Genre(name: $0.name)
                     }
 
+                let publisher = book.publisher
+                    .map {
+                        Publisher(id: $0.id, name: $0.name)
+                    }
+
                 return Book(
                     id: book.id,
                     title: book.title,
@@ -31,7 +36,8 @@ extension CDStorage {
                     status: Status(rawValue: book.rawStatus) ?? .unread,
                     isbn: book.isbn,
                     pages: book.pages.map { Int(truncating: $0) },
-                    year: book.year.map { Int(truncating: $0) }
+                    year: book.year.map { Int(truncating: $0) },
+                    publisher: publisher
                 )
             }
         return books
@@ -48,6 +54,9 @@ extension CDStorage {
                 try self.fetchGenre(name: $0.name)
             }
 
+        let publisher = try fetchOrSavePublisher(book.publisher)
+
+
         try self.saveBook(
             title: book.title,
             authors: Set(authors),
@@ -56,7 +65,8 @@ extension CDStorage {
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
-            genres: Set(genres)
+            genres: Set(genres),
+            publisher: publisher
         )
     }
 
@@ -71,6 +81,8 @@ extension CDStorage {
                 try self.fetchGenre(name: $0.name)
             }
 
+        let publisher = try fetchOrSavePublisher(book.publisher)
+
         try self.updateBook(
             id: book.id,
             title: book.title,
@@ -80,7 +92,8 @@ extension CDStorage {
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
-            genres: Set(genres)
+            genres: Set(genres),
+            publisher: publisher
         )
 
         let allAuthors = self.fetchAuthors()
@@ -144,5 +157,28 @@ extension CDStorage {
 
     func deleteAuthor(_ id: UUID) throws {
         try self.deleteAuthor(id: id)
+    }
+
+    private func saveThenReturnPublisher(_ publisher: Publisher) -> CDPublisher {
+        self.savePublisher(
+            id: publisher.id,
+            name: publisher.name
+        )
+    }
+
+    func fetchOrSavePublisher(_ publisher: Publisher?) throws -> CDPublisher? {
+        guard let publisher else {
+            return nil
+        }
+
+        do {
+            return try fetchPublisher(id: publisher.id)
+        } catch CoreDataError.publisherNotFound {
+            return self.saveThenReturnPublisher(publisher)
+        }
+    }
+
+    func deletePublisher(_ id: UUID) throws {
+        try self.deletePublisher(id: id)
     }
 }

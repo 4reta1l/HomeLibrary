@@ -14,7 +14,7 @@ final class CDPublisher: NSManagedObject {
     static let entityName = "CDPublished"
 
     @NSManaged var id: UUID
-    @NSManaged var displayName: String
+    @NSManaged var name: String
 
     @NSManaged var books: Set<CDBook>
 }
