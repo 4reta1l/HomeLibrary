@@ -32,6 +32,7 @@ struct EditBookView: View {
     @State private var state: ViewState
 
     @State private var showDeleteConfirmation: Bool = false
+    @State private var showMoreOptions = false
 
     @FocusState private var focusField: FocusedField?
 
@@ -86,7 +87,12 @@ struct EditBookView: View {
 
             isbnSection
 
-            notesSection
+            showMoreButton
+
+            if showMoreOptions {
+                notesSection
+                
+            }
         }
         .scrollDismissesKeyboard(.immediately)
     }
@@ -277,6 +283,20 @@ struct EditBookView: View {
         }
         .padding(5)
         .padding(.top, -10)
+    }
+
+    private var showMoreButton: some View {
+        Button {
+            withAnimation {
+                showMoreOptions.toggle()
+            }
+        } label: {
+            HStack {
+                Text(showMoreOptions ? "Hide additional options" : "Show more options")
+                Spacer()
+                Image(systemName: showMoreOptions ? "chevron.up" : "chevron.down")
+            }
+        }
     }
 
     private func dismissKeyboard() {
