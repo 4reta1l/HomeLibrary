@@ -10,6 +10,17 @@ import CoreData
 
 extension CDStorage {
 
+    func fetchPublishers() -> [CDPublisher] {
+        let request = CDPublisher.fetchRequest()
+
+        do {
+            return try container.viewContext.fetch(request)
+        } catch {
+            print("Error fetching authors")
+            return []
+        }
+    }
+
     func fetchPublisher(id: UUID) throws -> CDPublisher {
         let request = CDPublisher.fetchRequest()
             .filteredById(id)

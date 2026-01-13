@@ -85,13 +85,14 @@ struct EditBookView: View {
 
             statusSection
 
-            isbnSection
-
             showMoreButton
 
             if showMoreOptions {
+                isbnSection
+
+                publisherSection
+
                 notesSection
-                
             }
         }
         .scrollDismissesKeyboard(.immediately)
@@ -228,9 +229,25 @@ struct EditBookView: View {
 
     private var isbnSection: some View {
         Section {
-            TextField("Optional: Enter book ISBN", text: $viewModel.bookIsbn)
+            TextField("Enter book ISBN", text: $viewModel.bookIsbn)
         } header: {
             Text("ISBN")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var publisherSection: some View {
+        Section {
+            NavigationLink {
+                PublishersView(selectedPublisher: $viewModel.bookPublisher)
+            } label: {
+                Text(viewModel.bookPublisher?.name ?? "Add publisher")
+            }
+        } header: {
+            Text("Publisher")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()

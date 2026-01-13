@@ -159,6 +159,13 @@ extension CDStorage {
         try self.deleteAuthor(id: id)
     }
 
+    func getPublishers() -> [Publisher] {
+        self.fetchPublishers()
+            .map {
+                Publisher(id: $0.id, name: $0.name)
+            }
+    }
+
     private func saveThenReturnPublisher(_ publisher: Publisher) -> CDPublisher {
         self.savePublisher(
             id: publisher.id,

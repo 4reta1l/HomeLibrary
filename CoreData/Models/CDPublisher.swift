@@ -11,7 +11,7 @@ import CoreData
 @objc(CDPublisher)
 final class CDPublisher: NSManagedObject {
 
-    static let entityName = "CDPublished"
+    static let entityName = "CDPublisher"
 
     @NSManaged var id: UUID
     @NSManaged var name: String

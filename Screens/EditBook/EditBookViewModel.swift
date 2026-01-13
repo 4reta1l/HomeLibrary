@@ -21,6 +21,7 @@ final class EditBookViewModel {
     var bookYear: String = ""
     var bookStatus: Status = .unread
     var bookGenres: [Genre] = []
+    var bookPublisher: Publisher?
 
     var editedBook: Book?
 
@@ -33,7 +34,6 @@ final class EditBookViewModel {
         switch state {
         case .addBook:
             bookId = UUID()
-            bookTitle = ""
             bookStatus = .unread
             bookYear = "—"
 
@@ -48,6 +48,7 @@ final class EditBookViewModel {
             bookNotes = book.displayNotes
             bookIsbn = book.displayISBN
             editedBook = book
+            bookPublisher = book.publisher
         }
     }
 
@@ -71,7 +72,8 @@ final class EditBookViewModel {
             status: bookStatus,
             isbn: bookIsbn.isEmpty ? nil : bookIsbn,
             pages: Int(bookPages),
-            year: Int(bookYear)
+            year: Int(bookYear),
+            publisher: bookPublisher
         )
 
         do {
@@ -92,7 +94,8 @@ final class EditBookViewModel {
             status: bookStatus,
             isbn: bookIsbn.isEmpty ? nil : bookIsbn,
             pages: Int(bookPages),
-            year: Int(bookYear)
+            year: Int(bookYear),
+            publisher: bookPublisher
         )
 
         do {

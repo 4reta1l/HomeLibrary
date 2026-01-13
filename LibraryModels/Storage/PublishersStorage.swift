@@ -9,5 +9,7 @@ import Foundation
 
 public protocol PublishersStorage {
 
+    func getPublishers() -> [Publisher]
+
     func deletePublisher(_ id: UUID) throws
 }
