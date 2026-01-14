@@ -26,4 +26,8 @@
         <attribute name="name" attributeType="String"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDBook" inverseName="publisher" inverseEntity="CDBook"/>
     </entity>
+    <entity name="CDSeries" representedClassName="CDSeries" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+    </entity>
 </model>
