@@ -32,6 +32,7 @@ struct EditBookView: View {
     @State private var state: ViewState
 
     @State private var showDeleteConfirmation: Bool = false
+    @State private var showMoreOptions = false
 
     @FocusState private var focusField: FocusedField?
 
@@ -84,9 +85,15 @@ struct EditBookView: View {
 
             statusSection
 
-            isbnSection
+            showMoreButton
 
-            notesSection
+            if showMoreOptions {
+                isbnSection
+
+                publisherSection
+
+                notesSection
+            }
         }
         .scrollDismissesKeyboard(.immediately)
     }
@@ -222,9 +229,25 @@ struct EditBookView: View {
 
     private var isbnSection: some View {
         Section {
-            TextField("Optional: Enter book ISBN", text: $viewModel.bookIsbn)
+            TextField("Enter book ISBN", text: $viewModel.bookIsbn)
         } header: {
             Text("ISBN")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var publisherSection: some View {
+        Section {
+            NavigationLink {
+                PublishersView(selectedPublisher: $viewModel.bookPublisher)
+            } label: {
+                Text(viewModel.bookPublisher?.name ?? "Add publisher")
+            }
+        } header: {
+            Text("Publisher")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()
@@ -277,6 +300,20 @@ struct EditBookView: View {
         }
         .padding(5)
         .padding(.top, -10)
+    }
+
+    private var showMoreButton: some View {
+        Button {
+            withAnimation {
+                showMoreOptions.toggle()
+            }
+        } label: {
+            HStack {
+                Text(showMoreOptions ? "Hide additional options" : "Show more options")
+                Spacer()
+                Image(systemName: showMoreOptions ? "chevron.up" : "chevron.down")
+            }
+        }
     }
 
     private func dismissKeyboard() {

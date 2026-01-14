@@ -22,6 +22,11 @@ extension CDStorage {
                         Genre(name: $0.name)
                     }
 
+                let publisher = book.publisher
+                    .map {
+                        Publisher(id: $0.id, name: $0.name)
+                    }
+
                 return Book(
                     id: book.id,
                     title: book.title,
@@ -31,7 +36,8 @@ extension CDStorage {
                     status: Status(rawValue: book.rawStatus) ?? .unread,
                     isbn: book.isbn,
                     pages: book.pages.map { Int(truncating: $0) },
-                    year: book.year.map { Int(truncating: $0) }
+                    year: book.year.map { Int(truncating: $0) },
+                    publisher: publisher
                 )
             }
         return books
@@ -48,6 +54,9 @@ extension CDStorage {
                 try self.fetchGenre(name: $0.name)
             }
 
+        let publisher = try fetchOrSavePublisher(book.publisher)
+
+
         try self.saveBook(
             title: book.title,
             authors: Set(authors),
@@ -56,7 +65,8 @@ extension CDStorage {
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
-            genres: Set(genres)
+            genres: Set(genres),
+            publisher: publisher
         )
     }
 
@@ -71,6 +81,8 @@ extension CDStorage {
                 try self.fetchGenre(name: $0.name)
             }
 
+        let publisher = try fetchOrSavePublisher(book.publisher)
+
         try self.updateBook(
             id: book.id,
             title: book.title,
@@ -80,9 +92,22 @@ extension CDStorage {
             isbn: book.isbn,
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
-            genres: Set(genres)
+            genres: Set(genres),
+            publisher: publisher
         )
 
+        try checkAuthorPublisherRules()
+    }
+
+    func deleteBook(_ book: Book) throws {
+        try checkWhetherDeleteAuthor(book)
+
+        try checkWhetherDeletePublisher(book)
+
+        try self.deleteBook(id: book.id)
+    }
+
+    func checkAuthorPublisherRules() throws {
         let allAuthors = self.fetchAuthors()
 
         for author in allAuthors {
@@ -90,12 +115,20 @@ extension CDStorage {
                 try self.deleteAuthor(author.id)
             }
         }
+
+        let allPublishers = self.fetchPublishers()
+
+        for publisher in allPublishers {
+            if publisher.books.isEmpty {
+                try self.deletePublisher(publisher.id)
+            }
+        }
     }
 
-    func deleteBook(_ book: Book) throws {
+    func checkWhetherDeleteAuthor(_ book: Book) throws {
         let bookAuthors = try book.authors
             .map {
-                try self.fetchOrSaveAuthor($0)
+                try self.fetchAuthor(id: $0.id)
             }
 
         for author in bookAuthors {
@@ -103,8 +136,18 @@ extension CDStorage {
                 try self.deleteAuthor(author.id)
             }
         }
+    }
 
-        try self.deleteBook(id: book.id)
+    func checkWhetherDeletePublisher(_ book: Book) throws {
+        guard let bookPublisher = book.publisher else {
+            return
+        }
+
+        let publisher = try fetchPublisher(id: bookPublisher.id)
+
+        if publisher.books.count == 1 {
+            try deletePublisher(publisher.id)
+        }
     }
 
     func getGenres() -> [Genre] {
@@ -144,5 +187,35 @@ extension CDStorage {
 
     func deleteAuthor(_ id: UUID) throws {
         try self.deleteAuthor(id: id)
+    }
+
+    func getPublishers() -> [Publisher] {
+        self.fetchPublishers()
+            .map {
+                Publisher(id: $0.id, name: $0.name)
+            }
+    }
+
+    private func saveThenReturnPublisher(_ publisher: Publisher) -> CDPublisher {
+        self.savePublisher(
+            id: publisher.id,
+            name: publisher.name
+        )
+    }
+
+    func fetchOrSavePublisher(_ publisher: Publisher?) throws -> CDPublisher? {
+        guard let publisher else {
+            return nil
+        }
+
+        do {
+            return try fetchPublisher(id: publisher.id)
+        } catch CoreDataError.publisherNotFound {
+            return self.saveThenReturnPublisher(publisher)
+        }
+    }
+
+    func deletePublisher(_ id: UUID) throws {
+        try self.deletePublisher(id: id)
     }
 }

@@ -10,4 +10,5 @@ import Foundation
 enum CoreDataError: Error {
     case genreNotFound
     case authorNotFound
+    case publisherNotFound
 }

@@ -25,6 +25,7 @@ final class CDBook: NSManagedObject {
 
     @NSManaged var authors: Set<CDAuthor>
     @NSManaged var genres: Set<CDGenre>
+    @NSManaged var publisher: CDPublisher?
 }
 
 extension CDBook {
