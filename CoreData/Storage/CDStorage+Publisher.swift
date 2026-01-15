@@ -16,7 +16,7 @@ extension CDStorage {
         do {
             return try container.viewContext.fetch(request)
         } catch {
-            print("Error fetching authors")
+            print("Error fetching publishers: \(error)")
             return []
         }
     }
@@ -26,11 +26,11 @@ extension CDStorage {
             .filteredById(id)
 
         let results = try container.viewContext.fetch(request)
-        guard let author = results.first else {
+        guard let publisher = results.first else {
             throw CoreDataError.publisherNotFound
         }
 
-        return author
+        return publisher
     }
 
     func savePublisher(id: UUID, name: String) -> CDPublisher {

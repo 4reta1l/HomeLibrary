@@ -27,6 +27,11 @@ extension CDStorage {
                         Publisher(id: $0.id, name: $0.name)
                     }
 
+                let series = book.series
+                    .map {
+                        Series(id: $0.id, name: $0.name)
+                    }
+
                 return Book(
                     id: book.id,
                     title: book.title,
@@ -37,7 +42,8 @@ extension CDStorage {
                     isbn: book.isbn,
                     pages: book.pages.map { Int(truncating: $0) },
                     year: book.year.map { Int(truncating: $0) },
-                    publisher: publisher
+                    publisher: publisher,
+                    series: series
                 )
             }
         return books
@@ -54,7 +60,9 @@ extension CDStorage {
                 try self.fetchGenre(name: $0.name)
             }
 
-        let publisher = try fetchOrSavePublisher(book.publisher)
+        let publisher = try self.fetchOrSavePublisher(book.publisher)
+
+        let series = try self.fetchOrSaveSeries(book.series)
 
 
         try self.saveBook(
@@ -66,7 +74,8 @@ extension CDStorage {
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
             genres: Set(genres),
-            publisher: publisher
+            publisher: publisher,
+            series: series
         )
     }
 
@@ -83,6 +92,8 @@ extension CDStorage {
 
         let publisher = try fetchOrSavePublisher(book.publisher)
 
+        let series = try self.fetchOrSaveSeries(book.series)
+
         try self.updateBook(
             id: book.id,
             title: book.title,
@@ -93,10 +104,11 @@ extension CDStorage {
             pages: book.pages.map { NSNumber(value: $0) },
             year: book.year.map { NSNumber(value: $0) },
             genres: Set(genres),
-            publisher: publisher
+            publisher: publisher,
+            series: series
         )
 
-        try checkAuthorPublisherRules()
+        try checkBusinessRules()
     }
 
     func deleteBook(_ book: Book) throws {
@@ -104,10 +116,12 @@ extension CDStorage {
 
         try checkWhetherDeletePublisher(book)
 
+        try checkWhetherDeleteSeries(book)
+
         try self.deleteBook(id: book.id)
     }
 
-    func checkAuthorPublisherRules() throws {
+    func checkBusinessRules() throws {
         let allAuthors = self.fetchAuthors()
 
         for author in allAuthors {
@@ -121,6 +135,14 @@ extension CDStorage {
         for publisher in allPublishers {
             if publisher.books.isEmpty {
                 try self.deletePublisher(publisher.id)
+            }
+        }
+
+        let allSeries = self.fetchSeries()
+
+        for series in allSeries {
+            if series.books.isEmpty {
+                try self.deleteSeries(series.id)
             }
         }
     }
@@ -147,6 +169,18 @@ extension CDStorage {
 
         if publisher.books.count == 1 {
             try deletePublisher(publisher.id)
+        }
+    }
+
+    func checkWhetherDeleteSeries(_ book: Book) throws {
+        guard let bookSeries = book.series else {
+            return
+        }
+
+        let series = try fetchSeries(id: bookSeries.id)
+
+        if series.books.count == 1 {
+            try deleteSeries(series.id)
         }
     }
 
@@ -218,4 +252,35 @@ extension CDStorage {
     func deletePublisher(_ id: UUID) throws {
         try self.deletePublisher(id: id)
     }
+
+    func getSeries() -> [Series] {
+        self.fetchSeries()
+            .map {
+                Series(id: $0.id, name: $0.name)
+            }
+    }
+
+    private func saveThenReturnSeries(_ series: Series) -> CDSeries {
+        self.saveSeries(
+            id: series.id,
+            name: series.name
+        )
+    }
+
+    func fetchOrSaveSeries(_ series: Series?) throws -> CDSeries? {
+        guard let series else {
+            return nil
+        }
+
+        do {
+            return try fetchSeries(id: series.id)
+        } catch CoreDataError.seriesNotFound {
+            return self.saveThenReturnSeries(series)
+        }
+    }
+
+    func deleteSeries(_ id: UUID) throws {
+        try self.deleteSeries(id: id)
+    }
+
 }

@@ -22,6 +22,7 @@ final class EditBookViewModel {
     var bookStatus: Status = .unread
     var bookGenres: [Genre] = []
     var bookPublisher: Publisher?
+    var bookSeries: Series?
 
     var editedBook: Book?
 
@@ -49,6 +50,7 @@ final class EditBookViewModel {
             bookIsbn = book.displayISBN
             editedBook = book
             bookPublisher = book.publisher
+            bookSeries = book.series
         }
     }
 
@@ -73,7 +75,8 @@ final class EditBookViewModel {
             isbn: bookIsbn.isEmpty ? nil : bookIsbn,
             pages: Int(bookPages),
             year: Int(bookYear),
-            publisher: bookPublisher
+            publisher: bookPublisher,
+            series: bookSeries
         )
 
         do {
@@ -95,7 +98,8 @@ final class EditBookViewModel {
             isbn: bookIsbn.isEmpty ? nil : bookIsbn,
             pages: Int(bookPages),
             year: Int(bookYear),
-            publisher: bookPublisher
+            publisher: bookPublisher,
+            series: bookSeries
         )
 
         do {

@@ -90,6 +90,8 @@ struct EditBookView: View {
             if showMoreOptions {
                 isbnSection
 
+                seriesSection
+
                 publisherSection
 
                 notesSection
@@ -248,6 +250,22 @@ struct EditBookView: View {
             }
         } header: {
             Text("Publisher")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var seriesSection: some View {
+        Section {
+            NavigationLink {
+                SeriesView(selectedSeries: $viewModel.bookSeries)
+            } label: {
+                Text(viewModel.bookSeries?.name ?? "Add series")
+            }
+        } header: {
+            Text("Series")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()

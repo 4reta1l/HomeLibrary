@@ -18,7 +18,7 @@ struct PublishersView: View {
 
     init(selectedPublisher: Binding<Publisher?>) {
         _selectedPublisher = selectedPublisher
-        viewModel = PublishersViewModel(selectedPublisher: selectedPublisher.wrappedValue)
+        _viewModel = State(initialValue: PublishersViewModel(selectedPublisher: selectedPublisher.wrappedValue))
     }
 
     var body: some View {

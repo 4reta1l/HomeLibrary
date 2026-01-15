@@ -37,6 +37,13 @@
 		C704B6612F16FF42000C7B6E /* PublishersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6602F16FF42000C7B6E /* PublishersView.swift */; };
 		C704B6632F16FF60000C7B6E /* PublishersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6622F16FF60000C7B6E /* PublishersViewModel.swift */; };
 		C704B6662F170694000C7B6E /* EditPublisherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6652F170694000C7B6E /* EditPublisherView.swift */; };
+		C704B6682F18412E000C7B6E /* Series.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6672F18412E000C7B6E /* Series.swift */; };
+		C704B66A2F186213000C7B6E /* CDSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6692F186213000C7B6E /* CDSeries.swift */; };
+		C704B66C2F187128000C7B6E /* CDStorage+Series.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B66B2F187128000C7B6E /* CDStorage+Series.swift */; };
+		C704B66E2F187351000C7B6E /* SeriesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B66D2F187351000C7B6E /* SeriesStorage.swift */; };
+		C704B6722F1874E0000C7B6E /* SeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6712F1874E0000C7B6E /* SeriesView.swift */; };
+		C704B6742F1874FC000C7B6E /* SeriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6732F1874FC000C7B6E /* SeriesViewModel.swift */; };
+		C704B6772F187682000C7B6E /* EditSeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6762F187682000C7B6E /* EditSeriesView.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
 		C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4302EEB877E00006414 /* SceneDelegate.swift */; };
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
@@ -83,6 +90,13 @@
 		C704B6602F16FF42000C7B6E /* PublishersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersView.swift; sourceTree = "<group>"; };
 		C704B6622F16FF60000C7B6E /* PublishersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishersViewModel.swift; sourceTree = "<group>"; };
 		C704B6652F170694000C7B6E /* EditPublisherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPublisherView.swift; sourceTree = "<group>"; };
+		C704B6672F18412E000C7B6E /* Series.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Series.swift; sourceTree = "<group>"; };
+		C704B6692F186213000C7B6E /* CDSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDSeries.swift; sourceTree = "<group>"; };
+		C704B66B2F187128000C7B6E /* CDStorage+Series.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Series.swift"; sourceTree = "<group>"; };
+		C704B66D2F187351000C7B6E /* SeriesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SeriesStorage.swift; path = CoreData/Storage/SeriesStorage.swift; sourceTree = SOURCE_ROOT; };
+		C704B6712F1874E0000C7B6E /* SeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesView.swift; sourceTree = "<group>"; };
+		C704B6732F1874FC000C7B6E /* SeriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesViewModel.swift; sourceTree = "<group>"; };
+		C704B6762F187682000C7B6E /* EditSeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditSeriesView.swift; path = Screens/Series/EditSeriesView.swift; sourceTree = SOURCE_ROOT; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798D42E2EEB877E00006414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C798D4302EEB877E00006414 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,9 +141,10 @@
 				C704B63D2F0C50E6000C7B6E /* Author.swift */,
 				C704B6322F0C5083000C7B6E /* Genre.swift */,
 				C704B6332F0C5083000C7B6E /* Status.swift */,
+				C704B6572F16F0F2000C7B6E /* Publisher.swift */,
+				C704B6672F18412E000C7B6E /* Series.swift */,
 				C704B6342F0C5083000C7B6E /* Date+Extension.swift */,
 				C704B6352F0C5083000C7B6E /* Book+Extension.swift */,
-				C704B6572F16F0F2000C7B6E /* Publisher.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -188,6 +203,24 @@
 			path = EditPublisher;
 			sourceTree = "<group>";
 		};
+		C704B6702F1874D0000C7B6E /* Series */ = {
+			isa = PBXGroup;
+			children = (
+				C704B6712F1874E0000C7B6E /* SeriesView.swift */,
+				C704B6732F1874FC000C7B6E /* SeriesViewModel.swift */,
+				C704B6752F187672000C7B6E /* EditSeries */,
+			);
+			path = Series;
+			sourceTree = "<group>";
+		};
+		C704B6752F187672000C7B6E /* EditSeries */ = {
+			isa = PBXGroup;
+			children = (
+				C704B6762F187682000C7B6E /* EditSeriesView.swift */,
+			);
+			path = EditSeries;
+			sourceTree = "<group>";
+		};
 		C798D4222EEB877E00006414 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +258,7 @@
 				C798D4672EF3518600006414 /* EditBook */,
 				C704B6432F0C7771000C7B6E /* Authors */,
 				C704B61E2F0AC0A8000C7B6E /* Genres */,
+				C704B6702F1874D0000C7B6E /* Series */,
 				C704B65F2F16FF12000C7B6E /* Publishers */,
 				C704B6502F1402D9000C7B6E /* Filters */,
 				C704B64D2F14025D000C7B6E /* Utils */,
@@ -248,6 +282,7 @@
 				C704B6412F0C5F72000C7B6E /* AuthorsStorage.swift */,
 				C704B61A2F0A83BA000C7B6E /* GenresStorage.swift */,
 				C704B65D2F16F55F000C7B6E /* PublishersStorage.swift */,
+				C704B66D2F187351000C7B6E /* SeriesStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -280,6 +315,7 @@
 				C704B63F2F0C58B4000C7B6E /* CDStorage+Authors.swift */,
 				C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */,
 				C704B65B2F16F42D000C7B6E /* CDStorage+Publisher.swift */,
+				C704B66B2F187128000C7B6E /* CDStorage+Series.swift */,
 				C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */,
 			);
 			path = Storage;
@@ -318,6 +354,7 @@
 				C704B6232F0C4DFE000C7B6E /* CDAuthor.swift */,
 				C704B60F2F0A69A6000C7B6E /* CDGenre.swift */,
 				C704B6592F16F1ED000C7B6E /* CDPublisher.swift */,
+				C704B6692F186213000C7B6E /* CDSeries.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -404,7 +441,9 @@
 			files = (
 				C704B6582F16F0F2000C7B6E /* Publisher.swift in Sources */,
 				C798D4692EF351D000006414 /* EditBookView.swift in Sources */,
+				C704B66E2F187351000C7B6E /* SeriesStorage.swift in Sources */,
 				C704B6202F0AC0F0000C7B6E /* GenresView.swift in Sources */,
+				C704B6682F18412E000C7B6E /* Series.swift in Sources */,
 				C704B64F2F14027E000C7B6E /* Set+Extension.swift in Sources */,
 				C704B61B2F0A83BA000C7B6E /* GenresStorage.swift in Sources */,
 				C704B6522F1402F8000C7B6E /* FiltersView.swift in Sources */,
@@ -413,6 +452,7 @@
 				C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */,
 				C704B6192F0A838C000C7B6E /* CDStorage+Genres.swift in Sources */,
 				C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */,
+				C704B6772F187682000C7B6E /* EditSeriesView.swift in Sources */,
 				C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */,
 				C704B63B2F0C5083000C7B6E /* Status.swift in Sources */,
 				C704B64A2F0D4C8A000C7B6E /* EditAuthorView.swift in Sources */,
@@ -424,18 +464,22 @@
 				C704B6372F0C5083000C7B6E /* Book+Extension.swift in Sources */,
 				C704B65E2F16F55F000C7B6E /* PublishersStorage.swift in Sources */,
 				C704B63A2F0C5083000C7B6E /* Date+Extension.swift in Sources */,
+				C704B6722F1874E0000C7B6E /* SeriesView.swift in Sources */,
 				C704B6402F0C58B4000C7B6E /* CDStorage+Authors.swift in Sources */,
 				C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */,
+				C704B66C2F187128000C7B6E /* CDStorage+Series.swift in Sources */,
 				C704B6222F0AD578000C7B6E /* GenresViewModel.swift in Sources */,
 				C798D4752EFE109000006414 /* CDStorage+Books.swift in Sources */,
 				C704B6172F0A835E000C7B6E /* CDStorage.swift in Sources */,
 				C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */,
 				C704B6482F0C7A40000C7B6E /* AuthorsViewModel.swift in Sources */,
 				C704B61D2F0A8DE7000C7B6E /* CoreDataError.swift in Sources */,
+				C704B66A2F186213000C7B6E /* CDSeries.swift in Sources */,
 				C704B6542F1408CE000C7B6E /* GenresFilterView.swift in Sources */,
 				C704B6382F0C5083000C7B6E /* Book.swift in Sources */,
 				C704B6562F141616000C7B6E /* AuthorsFilterView.swift in Sources */,
 				C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */,
+				C704B6742F1874FC000C7B6E /* SeriesViewModel.swift in Sources */,
 				C704B63E2F0C50E6000C7B6E /* Author.swift in Sources */,
 				C704B6242F0C4DFE000C7B6E /* CDAuthor.swift in Sources */,
 				C704B6612F16FF42000C7B6E /* PublishersView.swift in Sources */,
