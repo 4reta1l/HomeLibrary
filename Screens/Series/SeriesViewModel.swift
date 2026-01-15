@@ -28,7 +28,7 @@ final class SeriesViewModel {
         do {
             try self.seriesStorage.deleteSeries(id)
         } catch {
-            print("Failed to delete publisher: \(error)")
+            print("Failed to delete series: \(error)")
         }
 
         reloadSeries()

@@ -18,7 +18,7 @@ struct SeriesView: View {
 
     init(selectedSeries: Binding<Series?>) {
         _selectedSeries = selectedSeries
-        viewModel = SeriesViewModel(selectedSeries: selectedSeries.wrappedValue)
+        _viewModel = State(initialValue: SeriesViewModel(selectedSeries: selectedSeries.wrappedValue))
     }
 
     var body: some View {
