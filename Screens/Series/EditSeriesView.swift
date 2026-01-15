@@ -11,6 +11,7 @@ import SwiftUI
 struct EditSeriesView: View {
 
     @State private var seriesName: String = ""
+    @State private var selectedAuthors: [Author] = []
 
     @Environment(\.dismiss) private var dismiss
 
@@ -46,6 +47,26 @@ struct EditSeriesView: View {
                     .bold()
                     .padding(.leading, -5)
             }
+
+            authorsSection
+        }
+    }
+
+    private var authorsSection: some View {
+        Section {
+            NavigationLink {
+                AuthorsView(selectedAuthors: $selectedAuthors)
+            } label: {
+                Text(selectedAuthors.isEmpty
+                     ? "Necessary to add author" : filteredAuthorsString()
+                )
+            }
+        } header: {
+            Text("Author")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
         }
     }
 
@@ -59,13 +80,21 @@ struct EditSeriesView: View {
 
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
-                    let newSeries = Series(name: seriesName)
+                    let newSeries = Series(name: seriesName, authors: selectedAuthors)
 
                     onSave(newSeries)
                     dismiss()
                 }
-                .disabled(seriesName.isEmpty)
+                .disabled(seriesName.isEmpty || selectedAuthors.isEmpty)
             }
         }
+    }
+
+    //TODO: Move out of here
+    func filteredAuthorsString() -> String {
+        selectedAuthors
+        .sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
+        .map(\.displayName)
+        .joined(separator: ", ")
     }
 }

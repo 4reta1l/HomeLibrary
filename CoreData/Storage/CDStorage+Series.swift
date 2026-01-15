@@ -35,11 +35,13 @@ extension CDStorage {
 
     func saveSeries(
         id: UUID,
-        name: String
+        name: String,
+        authors: Set<CDAuthor>
     ) -> CDSeries {
         let newSeries = CDSeries(context: container.viewContext)
         newSeries.id = id
         newSeries.name = name
+        newSeries.authors = authors
 
         saveData()
 
@@ -48,7 +50,8 @@ extension CDStorage {
 
     func updateSeries(
         id: UUID,
-        name: String
+        name: String,
+        authors: Set<CDAuthor>
     ) throws {
         let request = CDSeries.fetchRequest()
             .filteredById(id)
@@ -57,6 +60,7 @@ extension CDStorage {
         if let seriesToUpdate = results.first {
             seriesToUpdate.id = UUID()
             seriesToUpdate.name = name
+            seriesToUpdate.authors = authors
 
             saveData()
         }

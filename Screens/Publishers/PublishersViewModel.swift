@@ -17,9 +17,12 @@ final class PublishersViewModel {
     init(publishersStorage: PublishersStorage = CDStorage.shared, selectedPublisher: Publisher?) {
         self.publishersStorage = publishersStorage
         self.selectedPublisher = selectedPublisher
-        self.publishers = publishersStorage
-            .getPublishers()
-            .sorted {
+        self.publishers = publishersStorage.getPublishers()
+
+        mergeSelectedPublisher()
+
+        self.publishers
+            .sort {
                 $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
             }
     }
@@ -40,5 +43,15 @@ final class PublishersViewModel {
             .sorted {
                 $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
             }
+    }
+
+    func mergeSelectedPublisher() {
+        guard let selectedPublisher else {
+            return
+        }
+
+        if !publishers.contains(selectedPublisher) {
+            publishers.append(selectedPublisher)
+        }
     }
 }

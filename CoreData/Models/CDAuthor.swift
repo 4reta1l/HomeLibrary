@@ -17,6 +17,7 @@ final class CDAuthor: NSManagedObject {
     @NSManaged var displayName: String
 
     @NSManaged var books: Set<CDBook>
+    @NSManaged var series: Set<CDSeries>
 }
 
 extension CDAuthor {

@@ -4,6 +4,7 @@
         <attribute name="displayName" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="books" toMany="YES" deletionRule="Nullify" destinationEntity="CDBook" inverseName="authors" inverseEntity="CDBook"/>
+        <relationship name="series" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSeries" inverseName="authors" inverseEntity="CDSeries"/>
     </entity>
     <entity name="CDBook" representedClassName="CDBook" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
@@ -30,6 +31,7 @@
     <entity name="CDSeries" representedClassName="CDSeries" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
+        <relationship name="authors" toMany="YES" deletionRule="Nullify" destinationEntity="CDAuthor" inverseName="series" inverseEntity="CDAuthor"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDBook" inverseName="series" inverseEntity="CDBook"/>
     </entity>
 </model>

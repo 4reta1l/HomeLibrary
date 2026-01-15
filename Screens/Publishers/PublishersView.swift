@@ -69,8 +69,8 @@ struct PublishersView: View {
        .padding()
        .sheet(isPresented: $showAddPublisher) {
            EditPublisherView { newPublisher in
-               viewModel.publishers.append(newPublisher)
                selectedPublisher = newPublisher
+               viewModel.publishers.append(newPublisher)
            }
        }
     }
