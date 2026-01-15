@@ -9,7 +9,7 @@ import Foundation
 
 public protocol SeriesStorage {
 
-    func getSeries() -> [Publisher]
+    func getSeries() -> [Series]
 
     func deleteSeries(_ id: UUID) throws
 }
