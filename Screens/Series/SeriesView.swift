@@ -69,8 +69,8 @@ struct SeriesView: View {
        .padding()
        .sheet(isPresented: $showAddSeries) {
            EditSeriesView { newSeries in
-               viewModel.series.append(newSeries)
                selectedSeries = newSeries
+               viewModel.series.append(newSeries)
            }
        }
     }

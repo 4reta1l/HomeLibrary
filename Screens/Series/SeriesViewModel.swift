@@ -17,9 +17,12 @@ final class SeriesViewModel {
     init(seriesStorage: SeriesStorage = CDStorage.shared, selectedSeries: Series?) {
         self.seriesStorage = seriesStorage
         self.selectedSeries = selectedSeries
-        self.series = seriesStorage
-            .getSeries()
-            .sorted {
+        self.series = seriesStorage.getSeries()
+
+        mergeSelectedSeries()
+
+        self.series
+            .sort {
                 $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
             }
     }
@@ -40,5 +43,15 @@ final class SeriesViewModel {
             .sorted {
                 $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
             }
+    }
+
+    func mergeSelectedSeries() {
+        guard let selectedSeries else {
+            return
+        }
+
+        if !series.contains(selectedSeries) {
+            series.append(selectedSeries)
+        }
     }
 }
