@@ -27,6 +27,11 @@ extension CDStorage {
                         Publisher(id: $0.id, name: $0.name)
                     }
 
+                let series = book.series
+                    .map {
+                        Series(id: $0.id, name: $0.name)
+                    }
+
                 return Book(
                     id: book.id,
                     title: book.title,
@@ -37,7 +42,8 @@ extension CDStorage {
                     isbn: book.isbn,
                     pages: book.pages.map { Int(truncating: $0) },
                     year: book.year.map { Int(truncating: $0) },
-                    publisher: publisher
+                    publisher: publisher,
+                    series: series
                 )
             }
         return books
@@ -218,4 +224,35 @@ extension CDStorage {
     func deletePublisher(_ id: UUID) throws {
         try self.deletePublisher(id: id)
     }
+
+    func getSeries() -> [Series] {
+        self.fetchSeries()
+            .map {
+                Series(id: $0.id, name: $0.name)
+            }
+    }
+
+    private func saveThenReturnSeries(_ series: Series) -> CDSeries {
+        self.saveSeries(
+            id: series.id,
+            name: series.name
+        )
+    }
+
+    func fetchOrSaveSeries(_ series: Series?) throws -> CDSeries? {
+        guard let series else {
+            return nil
+        }
+
+        do {
+            return try fetchSeries(id: series.id)
+        } catch CoreDataError.seriesNotFound {
+            return self.saveThenReturnSeries(series)
+        }
+    }
+
+    func deleteSeries(_ id: UUID) throws {
+        try self.deleteSeries(id: id)
+    }
+
 }
