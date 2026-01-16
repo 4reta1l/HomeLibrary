@@ -9,11 +9,24 @@ import SwiftUI
 
 struct MyLibraryView: View {
 
-    @State private var viewModel = MyLibraryViewModel()
+    enum ViewState: Equatable {
+        case defaultView
+        case forCategory(category: Category)
+    }
+
+    @State private var viewModel: MyLibraryViewModel
+    @Environment(LibraryStore.self) private var store
+    @State private var state: ViewState
 
     @State private var showAddBook: Bool = false
     @State private var tappedBook: Book?
     @State private var showFilters = false
+
+
+    init(state: ViewState) {
+        _viewModel = State(initialValue: MyLibraryViewModel(state: state))
+        self.state = state
+    }
 
     var body: some View {
         NavigationView {
@@ -21,11 +34,11 @@ struct MyLibraryView: View {
                 booksAmount
 
                 List {
-                    ForEach(viewModel.filteredBooks, id: \.id) { book in
+                    ForEach(viewModel.filteredBooks(from: store.books), id: \.id) { book in
                         bookRowView(book)
                     }
                 }
-                .sheet(item: $tappedBook, onDismiss: viewModel.reloadData) {
+                .sheet(item: $tappedBook) {
                     EditBookView(
                         state: .editBook(book: $0)
                     )
@@ -39,36 +52,37 @@ struct MyLibraryView: View {
                 prompt: "Search for a book"
             )
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showFilters.toggle()
-                    } label: {
-                        RoundedRectangle(cornerRadius: 6)
-                            .frame(width: 28, height: 28)
-                            .overlay {
-                                Image(systemName: "line.3.horizontal.decrease")
-                                    .font(.system(size: 12, weight: .semibold))
-
-                            }
-
-                        Text("Filters")
-                            .font(.caption)
-                            .foregroundColor(.primary)
-                    }
-                }
+                filtersToolBar
             }
             .popover(isPresented: $showFilters, arrowEdge: .top) {
-                FiltersView(authors: viewModel.authors, genres: viewModel.genres, filters: $viewModel.filters)
+                FiltersView(authors: store.authors, genres: store.genres, filters: $viewModel.filters)
+            }
+        }
+    }
+
+    private var filtersToolBar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                showFilters.toggle()
+            } label: {
+                RoundedRectangle(cornerRadius: 6)
+                    .frame(width: 28, height: 28)
+                    .overlay {
+                        Image(systemName: "line.3.horizontal.decrease")
+                            .font(.system(size: 12, weight: .semibold))
+
+                    }
+
+                Text("Filters")
+                    .font(.caption)
+                    .foregroundColor(.primary)
             }
         }
     }
 
     private var booksAmount: some View {
-        if viewModel.filteredBooks.count == 1 {
-            Text("1 book")
-        } else {
-            Text("\(viewModel.filteredBooks.count) books")
-        }
+        let count = viewModel.filteredBooks(from: store.books).count
+        return Text(count == 1 ? "1 book" : "\(count) books")
     }
 
     private func bookRowView(_ book: Book) -> some View {
@@ -131,8 +145,14 @@ struct MyLibraryView: View {
                     .padding(.top, -5)
             }
         )
-        .sheet(isPresented: $showAddBook, onDismiss: viewModel.reloadData) {
-            EditBookView(state: .addBook)
+        .sheet(isPresented: $showAddBook) {
+            switch self.state {
+            case .defaultView:
+                EditBookView(state: .addBook(category: .default))
+
+            case .forCategory(let category):
+                EditBookView(state: .addBook(category: category))
+            }
         }
     }
 }

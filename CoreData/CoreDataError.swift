@@ -12,4 +12,5 @@ enum CoreDataError: Error {
     case authorNotFound
     case publisherNotFound
     case seriesNotFound
+    case categoryNotFound
 }

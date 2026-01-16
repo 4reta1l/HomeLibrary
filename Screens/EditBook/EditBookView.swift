@@ -10,8 +10,13 @@ import SwiftUI
 struct EditBookView: View {
 
     enum ViewState: Equatable {
-        case addBook
+        case addBook(category: Category)
         case editBook(book: Book)
+
+        var isAddBook: Bool {
+            if case .addBook = self { return true }
+            return false
+        }
 
         var title: String {
             switch self {
@@ -36,6 +41,7 @@ struct EditBookView: View {
 
     @FocusState private var focusField: FocusedField?
 
+    @Environment(LibraryStore.self) private var store
     @Environment(\.dismiss) private var dismiss
 
     init(state: ViewState) {
@@ -64,7 +70,9 @@ struct EditBookView: View {
                    isPresented: $showDeleteConfirmation) {
 
                 Button("Delete", role: .destructive) {
-                    viewModel.deleteBook()
+                    if let book = viewModel.editedBook {
+                        try? store.deleteBook(book)
+                    }
                     dismiss()
                 }
 
@@ -88,6 +96,8 @@ struct EditBookView: View {
             showMoreButton
 
             if showMoreOptions {
+                categoriesSection
+
                 isbnSection
 
                 seriesSection
@@ -273,13 +283,29 @@ struct EditBookView: View {
         }
     }
 
+    private var categoriesSection: some View {
+        Section {
+            NavigationLink {
+                CategoryChoosingView(selectedCategory: $viewModel.bookCategory)
+            } label: {
+                Text(viewModel.bookCategory.name)
+            }
+        } header: {
+            Text("Categories")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
     private var saveButton: some View {
         Button {
             switch self.state {
             case .addBook:
-                viewModel.addBook()
+                try? store.addBook(viewModel.makeBook())
             case .editBook:
-                viewModel.updateBook()
+                try? store.updateBook(viewModel.makeBook())
             }
             dismiss()
         } label: {
@@ -303,10 +329,10 @@ struct EditBookView: View {
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(width: 50, height: 50)
-                .background(state == .addBook ? Color.gray : Color.red)
+                .background(state.isAddBook ? Color.gray : Color.red)
                 .cornerRadius(10)
         }
-        .disabled(state == .addBook)
+        .disabled(state.isAddBook)
     }
 
     private var bottomButtonsSection: some View {
