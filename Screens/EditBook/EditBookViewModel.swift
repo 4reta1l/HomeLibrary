@@ -36,7 +36,13 @@ final class EditBookViewModel {
             bookId = UUID()
             bookStatus = .unread
             bookYear = "—"
-            bookCategory = category
+
+            do {
+                let realCategory = try CDStorage.shared.getCategoryByName(category.name)
+                bookCategory = realCategory
+            } catch {
+                bookCategory = Category.default
+            }
 
         case .editBook(let book):
             bookId = book.id
