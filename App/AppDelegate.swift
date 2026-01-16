@@ -25,6 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        let categories = CDStorage.shared.getCategories()
+
+        if categories.isEmpty {
+            let defaultCategories = DefaultCategories.allCases
+            for category in defaultCategories {
+                let category = Category(name: category.name)
+                CDStorage.shared.addCategory(category)
+            }
+        }
+
         return true
     }
 
