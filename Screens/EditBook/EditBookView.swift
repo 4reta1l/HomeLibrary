@@ -41,6 +41,7 @@ struct EditBookView: View {
 
     @FocusState private var focusField: FocusedField?
 
+    @Environment(LibraryStore.self) private var store
     @Environment(\.dismiss) private var dismiss
 
     init(state: ViewState) {
@@ -69,7 +70,9 @@ struct EditBookView: View {
                    isPresented: $showDeleteConfirmation) {
 
                 Button("Delete", role: .destructive) {
-                    viewModel.deleteBook()
+                    if let book = viewModel.editedBook {
+                        try? store.deleteBook(book)
+                    }
                     dismiss()
                 }
 
@@ -300,9 +303,9 @@ struct EditBookView: View {
         Button {
             switch self.state {
             case .addBook:
-                viewModel.addBook()
+                try? store.addBook(viewModel.makeBook())
             case .editBook:
-                viewModel.updateBook()
+                try? store.updateBook(viewModel.makeBook())
             }
             dismiss()
         } label: {

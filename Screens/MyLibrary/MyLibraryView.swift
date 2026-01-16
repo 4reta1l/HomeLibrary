@@ -15,6 +15,7 @@ struct MyLibraryView: View {
     }
 
     @State private var viewModel: MyLibraryViewModel
+    @Environment(LibraryStore.self) private var store
     @State private var state: ViewState
 
     @State private var showAddBook: Bool = false
@@ -33,11 +34,11 @@ struct MyLibraryView: View {
                 booksAmount
 
                 List {
-                    ForEach(viewModel.filteredBooks, id: \.id) { book in
+                    ForEach(viewModel.filteredBooks(from: store.books), id: \.id) { book in
                         bookRowView(book)
                     }
                 }
-                .sheet(item: $tappedBook, onDismiss: viewModel.reloadData) {
+                .sheet(item: $tappedBook) {
                     EditBookView(
                         state: .editBook(book: $0)
                     )
@@ -54,7 +55,7 @@ struct MyLibraryView: View {
                 filtersToolBar
             }
             .popover(isPresented: $showFilters, arrowEdge: .top) {
-                FiltersView(authors: viewModel.authors, genres: viewModel.genres, filters: $viewModel.filters)
+                FiltersView(authors: store.authors, genres: store.genres, filters: $viewModel.filters)
             }
         }
     }
@@ -80,11 +81,8 @@ struct MyLibraryView: View {
     }
 
     private var booksAmount: some View {
-        if viewModel.filteredBooks.count == 1 {
-            Text("1 book")
-        } else {
-            Text("\(viewModel.filteredBooks.count) books")
-        }
+        let count = viewModel.filteredBooks(from: store.books).count
+        return Text(count == 1 ? "1 book" : "\(count) books")
     }
 
     private func bookRowView(_ book: Book) -> some View {
@@ -147,7 +145,7 @@ struct MyLibraryView: View {
                     .padding(.top, -5)
             }
         )
-        .sheet(isPresented: $showAddBook, onDismiss: viewModel.reloadData) {
+        .sheet(isPresented: $showAddBook) {
             switch self.state {
             case .defaultView:
                 EditBookView(state: .addBook(category: .default))

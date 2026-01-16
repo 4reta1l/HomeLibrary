@@ -61,6 +61,7 @@ struct CategoryChoosingView: View {
        .sheet(isPresented: $showAddCategory) {
            EditCategoryView { newCategory in
                viewModel.addCategory(newCategory)
+               selectedCategory = newCategory
            }
        }
     }

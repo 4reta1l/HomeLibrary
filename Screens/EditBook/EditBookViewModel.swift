@@ -11,8 +11,8 @@ import Foundation
 @Observable
 final class EditBookViewModel {
 
-    private let booksStorage: BooksStorage
     private var bookId: UUID
+
     var bookTitle: String = ""
     var bookAuthors: [Author] = []
     var bookNotes: String = ""
@@ -28,27 +28,15 @@ final class EditBookViewModel {
     var editedBook: Book?
 
     init(
-        booksStorage: BooksStorage = CDStorage.shared,
         state: EditBookView.ViewState
     ) {
-        self.booksStorage = booksStorage
 
         switch state {
         case .addBook(let category):
             bookId = UUID()
             bookStatus = .unread
             bookYear = "—"
-
-            do {
-                let realCategory = try CDStorage.shared.getCategoryByName(
-                    category.name
-                )
-
-                bookCategory = realCategory
-            } catch {
-                print("Failed to fetch category: \(error)")
-                bookCategory = Category.default
-            }
+            bookCategory = category
 
         case .editBook(let book):
             bookId = book.id
@@ -76,9 +64,8 @@ final class EditBookViewModel {
         .joined(separator: ", ")
     }
 
-    func addBook() {
-
-        let newBook = Book(
+    func makeBook() -> Book {
+        Book(
             id: bookId,
             title: bookTitle,
             authors: bookAuthors,
@@ -92,45 +79,5 @@ final class EditBookViewModel {
             series: bookSeries,
             category: bookCategory
         )
-
-        do {
-            try self.booksStorage.addBook(newBook)
-        } catch {
-            print("Failed to add book: \(error)")
-        }
-    }
-
-    func updateBook() {
-
-        let updatingBook = Book(
-            id: bookId,
-            title: bookTitle,
-            authors: bookAuthors,
-            genres: bookGenres,
-            notes: bookNotes.isEmpty ? nil : bookNotes,
-            status: bookStatus,
-            isbn: bookIsbn.isEmpty ? nil : bookIsbn,
-            pages: Int(bookPages),
-            year: Int(bookYear),
-            publisher: bookPublisher,
-            series: bookSeries,
-            category: bookCategory
-        )
-
-        do {
-            try self.booksStorage.updateBook(updatingBook)
-        } catch {
-            print("Failed to update book: \(error)")
-        }
-    }
-
-    func deleteBook() {
-        if let book = self.editedBook {
-            do {
-                try self.booksStorage.deleteBook(book)
-            } catch {
-                print("Failed to delete book: \(error)")
-            }
-        }
     }
 }
