@@ -51,6 +51,8 @@
 		C704B6852F1A8CF3000C7B6E /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6842F1A8CF2000C7B6E /* AppView.swift */; };
 		C704B6882F1A9661000C7B6E /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6872F1A9661000C7B6E /* CategoriesView.swift */; };
 		C704B68A2F1A97C7000C7B6E /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6892F1A97C7000C7B6E /* CategoriesViewModel.swift */; };
+		C704B68D2F1ABEDB000C7B6E /* CategoryChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B68C2F1ABEDB000C7B6E /* CategoryChoosingView.swift */; };
+		C704B68F2F1ABF10000C7B6E /* CategoryChoosingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B68E2F1ABF0F000C7B6E /* CategoryChoosingViewModel.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
 		C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4302EEB877E00006414 /* SceneDelegate.swift */; };
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
@@ -111,6 +113,8 @@
 		C704B6842F1A8CF2000C7B6E /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		C704B6872F1A9661000C7B6E /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		C704B6892F1A97C7000C7B6E /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		C704B68C2F1ABEDB000C7B6E /* CategoryChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosingView.swift; sourceTree = "<group>"; };
+		C704B68E2F1ABF0F000C7B6E /* CategoryChoosingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosingViewModel.swift; sourceTree = "<group>"; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798D42E2EEB877E00006414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C798D4302EEB877E00006414 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -239,10 +243,20 @@
 		C704B6862F1A9645000C7B6E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C704B68B2F1ABEC0000C7B6E /* CategoryChoosing */,
 				C704B6872F1A9661000C7B6E /* CategoriesView.swift */,
 				C704B6892F1A97C7000C7B6E /* CategoriesViewModel.swift */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		C704B68B2F1ABEC0000C7B6E /* CategoryChoosing */ = {
+			isa = PBXGroup;
+			children = (
+				C704B68C2F1ABEDB000C7B6E /* CategoryChoosingView.swift */,
+				C704B68E2F1ABF0F000C7B6E /* CategoryChoosingViewModel.swift */,
+			);
+			path = CategoryChoosing;
 			sourceTree = "<group>";
 		};
 		C798D4222EEB877E00006414 = {
@@ -480,6 +494,7 @@
 				C704B6882F1A9661000C7B6E /* CategoriesView.swift in Sources */,
 				C798D45D2EEB9A6100006414 /* MyLibraryView.swift in Sources */,
 				C704B6662F170694000C7B6E /* EditPublisherView.swift in Sources */,
+				C704B68F2F1ABF10000C7B6E /* CategoryChoosingViewModel.swift in Sources */,
 				C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */,
 				C704B6192F0A838C000C7B6E /* CDStorage+Genres.swift in Sources */,
 				C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */,
@@ -496,6 +511,7 @@
 				C704B6372F0C5083000C7B6E /* Book+Extension.swift in Sources */,
 				C704B65E2F16F55F000C7B6E /* PublishersStorage.swift in Sources */,
 				C704B63A2F0C5083000C7B6E /* Date+Extension.swift in Sources */,
+				C704B68D2F1ABEDB000C7B6E /* CategoryChoosingView.swift in Sources */,
 				C704B6722F1874E0000C7B6E /* SeriesView.swift in Sources */,
 				C704B6402F0C58B4000C7B6E /* CDStorage+Authors.swift in Sources */,
 				C798D46F2EF8BD9B00006414 /* BooksStorage.swift in Sources */,

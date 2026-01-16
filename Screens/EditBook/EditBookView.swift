@@ -88,6 +88,8 @@ struct EditBookView: View {
             showMoreButton
 
             if showMoreOptions {
+                categoriesSection
+
                 isbnSection
 
                 seriesSection
@@ -266,6 +268,18 @@ struct EditBookView: View {
             }
         } header: {
             Text("Series")
+                .textCase(nil)
+                .font(.subheadline)
+                .bold()
+                .padding(.leading, -5)
+        }
+    }
+
+    private var categoriesSection: some View {
+        Section {
+
+        } header: {
+            Text("Categories")
                 .textCase(nil)
                 .font(.subheadline)
                 .bold()
