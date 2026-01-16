@@ -16,7 +16,7 @@ final class CDCategory: NSManagedObject {
     @NSManaged var id: UUID
     @NSManaged var name: String
 
-    @NSManaged var books: Set<CDBook>
+    @NSManaged var books: Set<CDBook>?
 }
 
 extension CDCategory {

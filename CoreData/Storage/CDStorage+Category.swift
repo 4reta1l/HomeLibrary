@@ -47,9 +47,9 @@ extension CDStorage {
         if let categoryToUpdate = results.first {
             categoryToUpdate.id = id
             categoryToUpdate.name = name
-        }
 
-        saveData()
+            saveData()
+        }
     }
 
     func saveCategoryThenReturn(id: UUID, name: String) -> CDCategory {
