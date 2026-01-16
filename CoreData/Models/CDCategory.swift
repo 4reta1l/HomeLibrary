@@ -18,3 +18,10 @@ final class CDCategory: NSManagedObject {
 
     @NSManaged var books: Set<CDBook>
 }
+
+extension CDCategory {
+    @nonobjc
+    class func fetchRequest() -> NSFetchRequest<CDCategory> {
+        NSFetchRequest<CDCategory>(entityName: entityName)
+    }
+}
