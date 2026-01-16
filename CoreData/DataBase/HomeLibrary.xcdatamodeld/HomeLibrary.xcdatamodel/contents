@@ -15,9 +15,15 @@
         <attribute name="title" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <relationship name="authors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDAuthor" inverseName="books" inverseEntity="CDAuthor"/>
+        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="CDCategory" inverseName="books" inverseEntity="CDCategory"/>
         <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDGenre" inverseName="books" inverseEntity="CDGenre"/>
         <relationship name="publisher" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPublisher" inverseName="books" inverseEntity="CDPublisher"/>
         <relationship name="series" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSeries" inverseName="books" inverseEntity="CDSeries"/>
+    </entity>
+    <entity name="CDCategory" representedClassName="CDCategory" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDBook" inverseName="category" inverseEntity="CDBook"/>
     </entity>
     <entity name="CDGenre" representedClassName="CDGenre" syncable="YES">
         <attribute name="name" attributeType="String"/>

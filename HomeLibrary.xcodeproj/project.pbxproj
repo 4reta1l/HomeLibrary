@@ -44,6 +44,7 @@
 		C704B6722F1874E0000C7B6E /* SeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6712F1874E0000C7B6E /* SeriesView.swift */; };
 		C704B6742F1874FC000C7B6E /* SeriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6732F1874FC000C7B6E /* SeriesViewModel.swift */; };
 		C704B6772F187682000C7B6E /* EditSeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6762F187682000C7B6E /* EditSeriesView.swift */; };
+		C704B67D2F19B7D4000C7B6E /* CDCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B67C2F19B7D4000C7B6E /* CDCategory.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
 		C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4302EEB877E00006414 /* SceneDelegate.swift */; };
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
@@ -97,6 +98,7 @@
 		C704B6712F1874E0000C7B6E /* SeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesView.swift; sourceTree = "<group>"; };
 		C704B6732F1874FC000C7B6E /* SeriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesViewModel.swift; sourceTree = "<group>"; };
 		C704B6762F187682000C7B6E /* EditSeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditSeriesView.swift; path = Screens/Series/EditSeriesView.swift; sourceTree = SOURCE_ROOT; };
+		C704B67C2F19B7D4000C7B6E /* CDCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDCategory.swift; sourceTree = "<group>"; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798D42E2EEB877E00006414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C798D4302EEB877E00006414 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				C704B60F2F0A69A6000C7B6E /* CDGenre.swift */,
 				C704B6592F16F1ED000C7B6E /* CDPublisher.swift */,
 				C704B6692F186213000C7B6E /* CDSeries.swift */,
+				C704B67C2F19B7D4000C7B6E /* CDCategory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				C704B6172F0A835E000C7B6E /* CDStorage.swift in Sources */,
 				C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */,
 				C704B6482F0C7A40000C7B6E /* AuthorsViewModel.swift in Sources */,
+				C704B67D2F19B7D4000C7B6E /* CDCategory.swift in Sources */,
 				C704B61D2F0A8DE7000C7B6E /* CoreDataError.swift in Sources */,
 				C704B66A2F186213000C7B6E /* CDSeries.swift in Sources */,
 				C704B6542F1408CE000C7B6E /* GenresFilterView.swift in Sources */,
