@@ -16,13 +16,22 @@ struct CategoriesView: View {
             VStack(spacing: 8) {
                 List {
                     ForEach(viewModel.categories, id: \.id) { category in
-                        HStack {
-                            Text(category.name)
+                        NavigationLink {
+                            MyLibraryView()
+                        } label: {
+                            HStack {
+                                Text(category.name)
+                                Spacer()
+                                Text(viewModel.amountForSpecificCategory(category))
+                            }
                         }
                     }
                 }
             }
             .navigationTitle("My categories")
+        }
+        .onAppear {
+            viewModel.reloadData()
         }
     }
 }
