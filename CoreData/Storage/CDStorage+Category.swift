@@ -21,10 +21,23 @@ extension CDStorage {
         }
     }
 
+    func fetchCategory(id: UUID) throws -> CDCategory {
+        let request = CDCategory.fetchRequest().filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+        guard let category = results.first else {
+            throw CoreDataError.categoryNotFound
+        }
+
+        return category
+    }
+
     func saveCategory(id: UUID, name: String) {
         let newCategory = CDCategory(context: container.viewContext)
         newCategory.id = id
         newCategory.name = name
+
+        saveData()
     }
 
     func updateCategory(id: UUID, name: String) throws {
@@ -35,5 +48,17 @@ extension CDStorage {
             categoryToUpdate.id = id
             categoryToUpdate.name = name
         }
+
+        saveData()
+    }
+
+    func saveCategoryThenReturn(id: UUID, name: String) -> CDCategory {
+        let newCategory = CDCategory(context: container.viewContext)
+        newCategory.id = id
+        newCategory.name = name
+
+        saveData()
+
+        return newCategory
     }
 }

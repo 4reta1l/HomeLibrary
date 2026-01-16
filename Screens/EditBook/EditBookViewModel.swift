@@ -23,6 +23,7 @@ final class EditBookViewModel {
     var bookGenres: [Genre] = []
     var bookPublisher: Publisher?
     var bookSeries: Series?
+    var bookCategory: Category = Category(name: "Owned")
 
     var editedBook: Book?
 
@@ -76,7 +77,8 @@ final class EditBookViewModel {
             pages: Int(bookPages),
             year: Int(bookYear),
             publisher: bookPublisher,
-            series: bookSeries
+            series: bookSeries,
+            category: bookCategory
         )
 
         do {
@@ -99,7 +101,8 @@ final class EditBookViewModel {
             pages: Int(bookPages),
             year: Int(bookYear),
             publisher: bookPublisher,
-            series: bookSeries
+            series: bookSeries,
+            category: bookCategory
         )
 
         do {

@@ -40,6 +40,8 @@ extension CDStorage {
                     )
                 }
 
+                let category = Category(id: book.category.id, name: book.category.name)
+
                 return Book(
                     id: book.id,
                     title: book.title,
@@ -51,7 +53,8 @@ extension CDStorage {
                     pages: book.pages.map { Int(truncating: $0) },
                     year: book.year.map { Int(truncating: $0) },
                     publisher: publisher,
-                    series: series
+                    series: series,
+                    category: category
                 )
             }
         return books
@@ -72,6 +75,7 @@ extension CDStorage {
 
         let series = try self.fetchOrSaveSeries(book.series)
 
+        let category = try self.fetchOrSaveCategory(book.category)
 
         try self.saveBook(
             title: book.title,
@@ -83,7 +87,8 @@ extension CDStorage {
             year: book.year.map { NSNumber(value: $0) },
             genres: Set(genres),
             publisher: publisher,
-            series: series
+            series: series,
+            category: category
         )
     }
 
@@ -102,6 +107,8 @@ extension CDStorage {
 
         let series = try self.fetchOrSaveSeries(book.series)
 
+        let category = try self.fetchOrSaveCategory(book.category)
+
         try self.updateBook(
             id: book.id,
             title: book.title,
@@ -113,7 +120,8 @@ extension CDStorage {
             year: book.year.map { NSNumber(value: $0) },
             genres: Set(genres),
             publisher: publisher,
-            series: series
+            series: series,
+            category: category
         )
 
         try checkBusinessRules()
@@ -260,6 +268,15 @@ extension CDStorage {
 
     func editCategory(_ category: Category) throws {
         try self.updateCategory(id: category.id, name: category.name)
+    }
+
+    func fetchOrSaveCategory(_ category: Category) throws -> CDCategory {
+        do {
+            return try self.fetchCategory(id: category.id)
+        } catch CoreDataError.categoryNotFound {
+            return self.saveCategoryThenReturn(id: category.id, name: category.name)
+        }
+
     }
 
     // MARK: Check Business Rules
