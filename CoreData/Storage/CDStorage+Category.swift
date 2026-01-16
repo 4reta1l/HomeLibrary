@@ -21,8 +21,8 @@ extension CDStorage {
         }
     }
 
-    func fetchCategory(id: UUID) throws -> CDCategory {
-        let request = CDCategory.fetchRequest().filteredById(id)
+    func fetchCategoryByName(name: String) throws -> CDCategory {
+        let request = CDCategory.fetchRequest().filteredByName(name)
 
         let results = try container.viewContext.fetch(request)
         guard let category = results.first else {

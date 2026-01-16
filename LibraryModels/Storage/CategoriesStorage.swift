@@ -11,6 +11,8 @@ public protocol CategoriesStorage {
 
     func getCategories() -> [Category]
 
+    func getCategoryByName(_ name: String) throws -> Category
+
     func addCategory(_ category: Category)
 
     func editCategory(_ category: Category) throws

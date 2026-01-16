@@ -262,6 +262,12 @@ extension CDStorage {
         }
     }
 
+    func getCategoryByName(_ name: String) throws -> Category {
+        let category = try self.fetchCategoryByName(name: name)
+
+        return Category(id: category.id, name: category.name)
+    }
+
     func addCategory(_ category: Category) {
         self.saveCategory(id: category.id, name: category.name)
     }
@@ -272,7 +278,7 @@ extension CDStorage {
 
     func fetchOrSaveCategory(_ category: Category) throws -> CDCategory {
         do {
-            return try self.fetchCategory(id: category.id)
+            return try self.fetchCategoryByName(name: category.name)
         } catch CoreDataError.categoryNotFound {
             return self.saveCategoryThenReturn(id: category.id, name: category.name)
         }

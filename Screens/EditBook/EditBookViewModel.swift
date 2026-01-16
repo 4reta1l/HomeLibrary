@@ -23,7 +23,7 @@ final class EditBookViewModel {
     var bookGenres: [Genre] = []
     var bookPublisher: Publisher?
     var bookSeries: Series?
-    var bookCategory: Category = Category(name: "Owned")
+    var bookCategory: Category
 
     var editedBook: Book?
 
@@ -39,6 +39,17 @@ final class EditBookViewModel {
             bookStatus = .unread
             bookYear = "—"
 
+            do {
+                let category = try CDStorage.shared.getCategoryByName(
+                    Category.default.name
+                )
+
+                bookCategory = category
+            } catch {
+                print("Failed to fetch category: \(error)")
+                bookCategory = Category.default
+            }
+
         case .editBook(let book):
             bookId = book.id
             bookTitle = book.title
@@ -52,6 +63,7 @@ final class EditBookViewModel {
             editedBook = book
             bookPublisher = book.publisher
             bookSeries = book.series
+            bookCategory = book.category
         }
     }
 
