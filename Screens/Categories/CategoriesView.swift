@@ -17,7 +17,7 @@ struct CategoriesView: View {
                 List {
                     ForEach(viewModel.categories, id: \.id) { category in
                         NavigationLink {
-                            MyLibraryView()
+                            MyLibraryView(state: .forCategory(category: category))
                         } label: {
                             HStack {
                                 Text(category.name)

@@ -10,8 +10,13 @@ import SwiftUI
 struct EditBookView: View {
 
     enum ViewState: Equatable {
-        case addBook
+        case addBook(category: Category)
         case editBook(book: Book)
+
+        var isAddBook: Bool {
+            if case .addBook = self { return true }
+            return false
+        }
 
         var title: String {
             switch self {
@@ -277,7 +282,11 @@ struct EditBookView: View {
 
     private var categoriesSection: some View {
         Section {
-
+            NavigationLink {
+                CategoryChoosingView(selectedCategory: $viewModel.bookCategory)
+            } label: {
+                Text(viewModel.bookCategory.name)
+            }
         } header: {
             Text("Categories")
                 .textCase(nil)
@@ -317,10 +326,10 @@ struct EditBookView: View {
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(width: 50, height: 50)
-                .background(state == .addBook ? Color.gray : Color.red)
+                .background(state.isAddBook ? Color.gray : Color.red)
                 .cornerRadius(10)
         }
-        .disabled(state == .addBook)
+        .disabled(state.isAddBook)
     }
 
     private var bottomButtonsSection: some View {

@@ -34,17 +34,17 @@ final class EditBookViewModel {
         self.booksStorage = booksStorage
 
         switch state {
-        case .addBook:
+        case .addBook(let category):
             bookId = UUID()
             bookStatus = .unread
             bookYear = "—"
 
             do {
-                let category = try CDStorage.shared.getCategoryByName(
-                    Category.default.name
+                let realCategory = try CDStorage.shared.getCategoryByName(
+                    category.name
                 )
 
-                bookCategory = category
+                bookCategory = realCategory
             } catch {
                 print("Failed to fetch category: \(error)")
                 bookCategory = Category.default

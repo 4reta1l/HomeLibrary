@@ -18,19 +18,10 @@ final class CategoryChoosingViewModel {
         self.categoriesStorage = categoriesStorage
         self.selectedCategory = selectedCategory
         self.categories = categoriesStorage.getCategories()
-
-        self.categories
-            .sort {
-                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
-            }
     }
 
     func reloadCategories() {
-        self.categories = categoriesStorage
-            .getCategories()
-            .sorted {
-                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
-            }
+        self.categories = categoriesStorage.getCategories()
     }
 
     func addCategory(_ category: Category) {

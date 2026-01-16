@@ -24,20 +24,30 @@ final class MyLibraryViewModel {
 
     var searchText: String = ""
     var filters = BookFilters()
+    var state: MyLibraryView.ViewState
 
     var filteredBooks: [Book] {
-        books
+
+        switch state {
+        case .defaultView:
+            books = storage.getBooks()
+        case .forCategory(let category):
+            books = storage.getBooks().filter { $0.category == category }
+        }
+
+        return books
             .filter(matchesSearch)
             .filter(matchesGenre)
             .filter(matchesAuthor)
             .filter(matchesYear)
     }
 
-    init(storage: CDStorage = CDStorage.shared) {
+    init(storage: CDStorage = CDStorage.shared, state: MyLibraryView.ViewState) {
         self.storage = storage
         self.books = storage.getBooks().reversed()
         self.authors = storage.getAuthors()
         self.genres = storage.getGenres()
+        self.state = state
     }
 
     private func matchesSearch(_ book: Book) -> Bool {

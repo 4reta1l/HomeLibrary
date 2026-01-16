@@ -12,7 +12,7 @@ struct AppView: View {
     var body: some View{
         TabView {
             Tab("Library", systemImage: "books.vertical") {
-                MyLibraryView()
+                MyLibraryView(state: .defaultView)
             }
             Tab("Categories", systemImage: "square.grid.2x2") {
                 CategoriesView()
