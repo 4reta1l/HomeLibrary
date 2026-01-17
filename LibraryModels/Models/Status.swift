@@ -24,7 +24,7 @@ public extension Status {
         switch self {
         case .unread: "xmark"
         case .reading: "book.fill"
-        case .completed: "checkmark"
+        case .completed: "checkmark.seal"
         }
     }
 }

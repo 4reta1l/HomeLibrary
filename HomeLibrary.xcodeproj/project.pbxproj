@@ -55,6 +55,8 @@
 		C704B68F2F1ABF10000C7B6E /* CategoryChoosingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B68E2F1ABF0F000C7B6E /* CategoryChoosingViewModel.swift */; };
 		C704B6922F1AC326000C7B6E /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6912F1AC326000C7B6E /* EditCategoryView.swift */; };
 		C704B6962F1ADB80000C7B6E /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6952F1ADB80000C7B6E /* LibraryStore.swift */; };
+		C704B6992F1B11B2000C7B6E /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6982F1B11B2000C7B6E /* OverviewView.swift */; };
+		C704B69B2F1B12B7000C7B6E /* ReadingStatusProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
 		C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4302EEB877E00006414 /* SceneDelegate.swift */; };
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
@@ -119,6 +121,8 @@
 		C704B68E2F1ABF0F000C7B6E /* CategoryChoosingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChoosingViewModel.swift; sourceTree = "<group>"; };
 		C704B6912F1AC326000C7B6E /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
 		C704B6952F1ADB80000C7B6E /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
+		C704B6982F1B11B2000C7B6E /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
+		C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStatusProgress.swift; sourceTree = "<group>"; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798D42E2EEB877E00006414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C798D4302EEB877E00006414 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -272,6 +276,15 @@
 			path = EditCategory;
 			sourceTree = "<group>";
 		};
+		C704B6972F1B117E000C7B6E /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				C704B6982F1B11B2000C7B6E /* OverviewView.swift */,
+				C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
 		C798D4222EEB877E00006414 = {
 			isa = PBXGroup;
 			children = (
@@ -308,8 +321,9 @@
 			isa = PBXGroup;
 			children = (
 				C798D4662EF3516600006414 /* MyLibrary */,
-				C798D4672EF3518600006414 /* EditBook */,
 				C704B6862F1A9645000C7B6E /* Categories */,
+				C704B6972F1B117E000C7B6E /* Overview */,
+				C798D4672EF3518600006414 /* EditBook */,
 				C704B6432F0C7771000C7B6E /* Authors */,
 				C704B61E2F0AC0A8000C7B6E /* Genres */,
 				C704B6702F1874D0000C7B6E /* Series */,
@@ -501,6 +515,7 @@
 				C704B66E2F187351000C7B6E /* SeriesStorage.swift in Sources */,
 				C704B6202F0AC0F0000C7B6E /* GenresView.swift in Sources */,
 				C704B6682F18412E000C7B6E /* Series.swift in Sources */,
+				C704B6992F1B11B2000C7B6E /* OverviewView.swift in Sources */,
 				C704B64F2F14027E000C7B6E /* Set+Extension.swift in Sources */,
 				C704B68A2F1A97C7000C7B6E /* CategoriesViewModel.swift in Sources */,
 				C704B61B2F0A83BA000C7B6E /* GenresStorage.swift in Sources */,
@@ -538,6 +553,7 @@
 				C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */,
 				C704B6482F0C7A40000C7B6E /* AuthorsViewModel.swift in Sources */,
 				C704B67D2F19B7D4000C7B6E /* CDCategory.swift in Sources */,
+				C704B69B2F1B12B7000C7B6E /* ReadingStatusProgress.swift in Sources */,
 				C704B6812F19BFAC000C7B6E /* Category.swift in Sources */,
 				C704B61D2F0A8DE7000C7B6E /* CoreDataError.swift in Sources */,
 				C704B66A2F186213000C7B6E /* CDSeries.swift in Sources */,
