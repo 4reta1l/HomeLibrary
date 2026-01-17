@@ -26,12 +26,12 @@ struct OverviewView: View {
                 .padding()
 
                 VStack(alignment: .leading) {
-                    Text("Number of books: \(store.books.count)")
+                    Text("Total number of books: \(store.books.count)")
                         .font(.headline)
-                    Text("Number of categories: \(store.categories.count)")
+                    Text("Total number of categories: \(store.categories.count)")
                         .font(.headline)
                 }
-                .padding(.top, -20)
+                .padding(.top, -10)
 
                 Spacer()
             }

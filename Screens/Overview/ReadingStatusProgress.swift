@@ -17,7 +17,7 @@ struct ReadingStatusProgress: View {
         HStack {
             Label(status.rawValue.capitalized, systemImage: status.displaySign)
                 .font(.subheadline)
-                .frame(width: 100, alignment: .leading)
+                .frame(width: 110, alignment: .leading)
 
             ProgressView(value: Double(count), total: Double(max(total, 1)))
                 .accentColor(statusColor)
