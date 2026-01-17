@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Publisher: Identifiable, Hashable, Equatable {
+public struct Publisher: Identifiable, Hashable, Equatable, Codable {
 
     public let id: UUID
     public let name: String
