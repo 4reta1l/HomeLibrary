@@ -21,6 +21,10 @@ struct AppView: View {
                 CategoriesView()
                     .environment(store)
             }
+            Tab("Overview", systemImage: "list.bullet") {
+                OverviewView()
+                    .environment(store)
+            }
         }
     }
 }
