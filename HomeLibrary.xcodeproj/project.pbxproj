@@ -57,7 +57,6 @@
 		C704B6962F1ADB80000C7B6E /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6952F1ADB80000C7B6E /* LibraryStore.swift */; };
 		C704B6992F1B11B2000C7B6E /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6982F1B11B2000C7B6E /* OverviewView.swift */; };
 		C704B69B2F1B12B7000C7B6E /* ReadingStatusProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */; };
-		C704B6A32F1BC36F000C7B6E /* LibraryExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6A22F1BC36F000C7B6E /* LibraryExporter.swift */; };
 		C704B6A62F1BC684000C7B6E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6A52F1BC684000C7B6E /* SettingsView.swift */; };
 		C704B6AC2F1BD2EE000C7B6E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6AB2F1BD2EE000C7B6E /* SettingsViewModel.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
@@ -126,7 +125,6 @@
 		C704B6952F1ADB80000C7B6E /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		C704B6982F1B11B2000C7B6E /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStatusProgress.swift; sourceTree = "<group>"; };
-		C704B6A22F1BC36F000C7B6E /* LibraryExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryExporter.swift; sourceTree = "<group>"; };
 		C704B6A52F1BC684000C7B6E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C704B6AB2F1BD2EE000C7B6E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -355,7 +353,6 @@
 			children = (
 				C798D4552EEB993000006414 /* Storage */,
 				C704B63C2F0C50B0000C7B6E /* Models */,
-				C704B6A22F1BC36F000C7B6E /* LibraryExporter.swift */,
 			);
 			path = LibraryModels;
 			sourceTree = "<group>";
@@ -546,7 +543,6 @@
 				C798D4652EEBA0EC00006414 /* MyLibraryViewModel.swift in Sources */,
 				C704B6772F187682000C7B6E /* EditSeriesView.swift in Sources */,
 				C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */,
-				C704B6A32F1BC36F000C7B6E /* LibraryExporter.swift in Sources */,
 				C704B63B2F0C5083000C7B6E /* Status.swift in Sources */,
 				C704B6922F1AC326000C7B6E /* EditCategoryView.swift in Sources */,
 				C704B64A2F0D4C8A000C7B6E /* EditAuthorView.swift in Sources */,
