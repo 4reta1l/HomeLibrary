@@ -13,25 +13,27 @@ struct SettingsView: View {
     @State private var exportURL: URL?
 
     var body: some View {
-        Form {
-            Section("Export") {
-                Button {
-                    exportLibrary()
-                } label: {
-                    Label("Try to export library", systemImage: "tray.and.arrow.down")
-                }
+        NavigationView {
+            Form {
+                Section("Export") {
+                    Button {
+                        exportLibrary()
+                    } label: {
+                        Label("Try to export library", systemImage: "tray.and.arrow.down")
+                    }
 
-                if let exportURL {
-                    ShareLink(
-                        item: exportURL,
-                        preview: SharePreview("Share Export")
-                    ) {
-                        Label("Export Library", systemImage: "square.and.arrow.up")
+                    if let exportURL {
+                        ShareLink(
+                            item: exportURL,
+                            preview: SharePreview("Share Export")
+                        ) {
+                            Label("Export Library", systemImage: "square.and.arrow.up")
+                        }
                     }
                 }
             }
+            .navigationTitle("Settings")
         }
-        .navigationTitle("Settings")
     }
 
     func exportLibrary() {
@@ -45,6 +47,5 @@ struct SettingsView: View {
         } catch {
             print("Export failed: \(error)")
         }
-        print("Books count: \(viewModel.books.count)")
     }
 }
