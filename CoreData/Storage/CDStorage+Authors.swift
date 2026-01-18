@@ -67,4 +67,21 @@ extension CDStorage {
             saveData()
         }
     }
+
+    func fetchOrCreateAuthor(
+        name: String,
+        context: NSManagedObjectContext
+    ) -> CDAuthor {
+        let request = CDAuthor.fetchRequest()
+        request.predicate = NSPredicate(format: "displayName == %@", name)
+
+        if let existing = try? context.fetch(request).first {
+            return existing
+        }
+
+        let author = CDAuthor(context: context)
+        author.id = UUID()
+        author.displayName = name
+        return author
+    }
 }

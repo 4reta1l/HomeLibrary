@@ -90,7 +90,7 @@ struct MyLibraryView: View {
             } label: {
                 Image(systemName: "gear")
             }
-            .sheet(isPresented: $showSettings) {
+            .sheet(isPresented: $showSettings, onDismiss: store.reloadAll) {
                 SettingsView()
             }
         }

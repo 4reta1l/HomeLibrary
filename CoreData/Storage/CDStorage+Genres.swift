@@ -39,4 +39,20 @@ extension CDStorage {
 
         saveData()
     }
+
+    func fetchOrCreateGenre(
+        name: String,
+        context: NSManagedObjectContext
+    ) -> CDGenre {
+        let request = CDGenre.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name)
+
+        if let existing = try? context.fetch(request).first {
+            return existing
+        }
+
+        let genre = CDGenre(context: context)
+        genre.name = name
+        return genre
+    }
 }

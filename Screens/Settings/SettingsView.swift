@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+internal import UniformTypeIdentifiers
 
 struct SettingsView: View {
 
-    @State private var viewModel = SettingsViewModel()
+    @Environment(LibraryStore.self) private var store
     @State private var exportURL: URL?
     @State private var exportType: ExportType?
+    @State private var showImportCSV: Bool = false
 
     enum ExportType {
         case json
@@ -44,7 +46,36 @@ struct SettingsView: View {
                         }
                     }
                 }
+
+                Section("Import") {
+                    Button {
+                        showImportCSV.toggle()
+                    } label: {
+                        Label("Import as CSV", systemImage: "square.and.arrow.down")
+                    }
+                    
+                }
             }
+            .fileImporter(
+                isPresented: $showImportCSV,
+                allowedContentTypes: [.commaSeparatedText]
+            ) { result in
+                do {
+                    let url = try result.get()
+
+                    guard url.startAccessingSecurityScopedResource() else {
+                        print("Could not access file")
+                        return
+                    }
+                    defer { url.stopAccessingSecurityScopedResource() }
+
+                    try CDStorage.shared.importBooks(from: url)
+
+                } catch {
+                    print("CSV import failed:", error)
+                }
+            }
+
             .navigationTitle("Settings")
         }
     }
@@ -54,7 +85,7 @@ struct SettingsView: View {
             .appendingPathComponent("library.json")
 
         do {
-            let data = try JSONEncoder().encode(viewModel.books)
+            let data = try JSONEncoder().encode(store.books)
             try data.write(to: url)
 
             exportURL = url
@@ -72,7 +103,7 @@ struct SettingsView: View {
 
         csv += "id,title,status,authors,genres,year,pages,isbn,category,publisher,series,notes\n"
 
-        for book in viewModel.books {
+        for book in store.books {
             let row = [
                 book.id.uuidString,
                 escape(book.title),
@@ -107,4 +138,5 @@ struct SettingsView: View {
         return value
     }
 
+    
 }
