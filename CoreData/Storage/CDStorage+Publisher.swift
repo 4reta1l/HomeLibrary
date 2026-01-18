@@ -1,0 +1,87 @@
+//
+//  CDStorage+Publisher.swift
+//  HomeLibrary
+//
+//  Created by Maksym Pyvovarov on 13/01/2026.
+//
+
+import Foundation
+import CoreData
+
+extension CDStorage {
+
+    func fetchPublishers() -> [CDPublisher] {
+        let request = CDPublisher.fetchRequest()
+
+        do {
+            return try container.viewContext.fetch(request)
+        } catch {
+            print("Error fetching publishers: \(error)")
+            return []
+        }
+    }
+
+    func fetchPublisher(id: UUID) throws -> CDPublisher {
+        let request = CDPublisher.fetchRequest()
+            .filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+        guard let publisher = results.first else {
+            throw CoreDataError.publisherNotFound
+        }
+
+        return publisher
+    }
+
+    func savePublisher(id: UUID, name: String) -> CDPublisher {
+        let publisher = CDPublisher(context: container.viewContext)
+        publisher.id = id
+        publisher.name = name
+
+        saveData()
+
+        return publisher
+    }
+
+    func updatePublisher(id: UUID, name: String) throws {
+        let request = CDPublisher.fetchRequest()
+            .filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+        if let publisher = results.first {
+            publisher.id = UUID()
+            publisher.name = name
+
+            saveData()
+        }
+    }
+
+    func deletePublisher(id: UUID) throws {
+        let request = CDPublisher.fetchRequest()
+            .filteredById(id)
+
+        let results = try container.viewContext.fetch(request)
+
+        if let deletingPublisher = results.first {
+            container.viewContext.delete(deletingPublisher)
+            saveData()
+        }
+    }
+
+    func fetchOrCreatePublisher(
+            name: String,
+            context: NSManagedObjectContext
+    ) -> CDPublisher {
+        let request = CDPublisher.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name)
+        
+        if let existing = try? context.fetch(request).first {
+            return existing
+        }
+        
+        let publisher = CDPublisher(context: context)
+        publisher.id = UUID()
+        publisher.name = name
+        return publisher
+    }
+}
