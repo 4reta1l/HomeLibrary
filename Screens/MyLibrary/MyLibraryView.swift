@@ -20,8 +20,8 @@ struct MyLibraryView: View {
 
     @State private var showAddBook: Bool = false
     @State private var tappedBook: Book?
-    @State private var showFilters = false
-
+    @State private var showFilters: Bool = false
+    @State private var showSettings: Bool = false
 
     init(state: ViewState) {
         _viewModel = State(initialValue: MyLibraryViewModel(state: state))
@@ -52,7 +52,10 @@ struct MyLibraryView: View {
                 prompt: "Search for a book"
             )
             .toolbar {
-                filtersToolBar
+                Group {
+                    filtersToolBar
+                    settingsToolBar
+                }
             }
             .popover(isPresented: $showFilters, arrowEdge: .top) {
                 FiltersView(authors: store.authors, genres: store.genres, filters: $viewModel.filters)
@@ -61,7 +64,7 @@ struct MyLibraryView: View {
     }
 
     private var filtersToolBar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .topBarTrailing) {
             Button {
                 showFilters.toggle()
             } label: {
@@ -76,6 +79,19 @@ struct MyLibraryView: View {
                 Text("Filters")
                     .font(.caption)
                     .foregroundColor(.primary)
+            }
+        }
+    }
+
+    private var settingsToolBar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                showSettings.toggle()
+            } label: {
+                Image(systemName: "gear")
+            }
+            .sheet(isPresented: $showSettings, onDismiss: store.reloadAll) {
+                SettingsView()
             }
         }
     }

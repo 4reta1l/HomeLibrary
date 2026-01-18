@@ -5,7 +5,7 @@
 //  Created by Maksym Pyvovarov on 12/12/2025.
 //
 
-public struct Genre: Hashable {
+public struct Genre: Hashable, Codable {
 
     public let name: String
 

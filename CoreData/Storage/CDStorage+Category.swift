@@ -61,4 +61,21 @@ extension CDStorage {
 
         return newCategory
     }
+
+    func fetchOrCreateCategory(
+        name: String,
+        context: NSManagedObjectContext
+    ) -> CDCategory {
+        let request = CDCategory.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name)
+
+        if let existing = try? context.fetch(request).first {
+            return existing
+        }
+
+        let category = CDCategory(context: context)
+        category.id = UUID()
+        category.name = name
+        return category
+    }
 }

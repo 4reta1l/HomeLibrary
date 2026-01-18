@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Series: Identifiable, Hashable, Equatable {
+public struct Series: Identifiable, Hashable, Equatable, Codable {
 
     public let id: UUID
     public let name: String

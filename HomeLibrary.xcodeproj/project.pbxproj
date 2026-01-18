@@ -57,6 +57,8 @@
 		C704B6962F1ADB80000C7B6E /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6952F1ADB80000C7B6E /* LibraryStore.swift */; };
 		C704B6992F1B11B2000C7B6E /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6982F1B11B2000C7B6E /* OverviewView.swift */; };
 		C704B69B2F1B12B7000C7B6E /* ReadingStatusProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */; };
+		C704B6A62F1BC684000C7B6E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6A52F1BC684000C7B6E /* SettingsView.swift */; };
+		C704B6AE2F1C6069000C7B6E /* CDStorage+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6AD2F1C6069000C7B6E /* CDStorage+Import.swift */; };
 		C798D42F2EEB877E00006414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D42E2EEB877E00006414 /* AppDelegate.swift */; };
 		C798D4312EEB877E00006414 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4302EEB877E00006414 /* SceneDelegate.swift */; };
 		C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C798D4372EEB877E00006414 /* HomeLibrary.xcdatamodeld */; };
@@ -123,6 +125,8 @@
 		C704B6952F1ADB80000C7B6E /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		C704B6982F1B11B2000C7B6E /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		C704B69A2F1B12B7000C7B6E /* ReadingStatusProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingStatusProgress.swift; sourceTree = "<group>"; };
+		C704B6A52F1BC684000C7B6E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C704B6AD2F1C6069000C7B6E /* CDStorage+Import.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Import.swift"; sourceTree = "<group>"; };
 		C798D42B2EEB877E00006414 /* HomeLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798D42E2EEB877E00006414 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C798D4302EEB877E00006414 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -285,6 +289,14 @@
 			path = Overview;
 			sourceTree = "<group>";
 		};
+		C704B6A42F1BC670000C7B6E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C704B6A52F1BC684000C7B6E /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		C798D4222EEB877E00006414 = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +332,7 @@
 		C798D4522EEB987900006414 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C704B6A42F1BC670000C7B6E /* Settings */,
 				C798D4662EF3516600006414 /* MyLibrary */,
 				C704B6862F1A9645000C7B6E /* Categories */,
 				C704B6972F1B117E000C7B6E /* Overview */,
@@ -387,6 +400,7 @@
 				C704B66B2F187128000C7B6E /* CDStorage+Series.swift */,
 				C704B67E2F19BEC3000C7B6E /* CDStorage+Category.swift */,
 				C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */,
+				C704B6AD2F1C6069000C7B6E /* CDStorage+Import.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -534,6 +548,7 @@
 				C704B64A2F0D4C8A000C7B6E /* EditAuthorView.swift in Sources */,
 				C798D4392EEB877E00006414 /* HomeLibrary.xcdatamodeld in Sources */,
 				C704B6422F0C5F72000C7B6E /* AuthorsStorage.swift in Sources */,
+				C704B6A62F1BC684000C7B6E /* SettingsView.swift in Sources */,
 				C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */,
 				C704B6852F1A8CF3000C7B6E /* AppView.swift in Sources */,
 				C798D47A2EFEB64600006414 /* CDBook.swift in Sources */,
@@ -568,6 +583,7 @@
 				C704B6612F16FF42000C7B6E /* PublishersView.swift in Sources */,
 				C798D46B2EF3573500006414 /* EditBookViewModel.swift in Sources */,
 				C704B6462F0C77A2000C7B6E /* AuthorsView.swift in Sources */,
+				C704B6AE2F1C6069000C7B6E /* CDStorage+Import.swift in Sources */,
 				C704B67F2F19BEC3000C7B6E /* CDStorage+Category.swift in Sources */,
 				C704B6392F0C5083000C7B6E /* Genre.swift in Sources */,
 				C704B65A2F16F1ED000C7B6E /* CDPublisher.swift in Sources */,
