@@ -10,7 +10,7 @@ they own, their reading progress, and organize them in categories such as genre,
 
 Key Features:
 
-1. Book Management:
+1. Book Management: \n
   o Add new books with details such as title, author, genre, publication year, ISBN, and number of pages.
   o Edit or remove book entries.
   o Search for books by title and author.
