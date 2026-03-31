@@ -97,14 +97,21 @@ struct EditBookView: View {
 
     // MARK: - Sections
 
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(.primary)
+    }
+
     private var titleSection: some View {
         Section {
-            TextField("Book title", text: $viewModel.bookTitle)
-                .font(.title3.weight(.semibold))
+            TextField("Enter title", text: $viewModel.bookTitle)
+                .font(.body)
                 .focused($focusField, equals: .bookTitle)
                 .submitLabel(.next)
                 .onSubmit { focusField = .bookPages }
-                .padding(.vertical, 4)
+        } header: {
+            sectionHeader("Title")
         }
     }
 
@@ -116,8 +123,8 @@ struct EditBookView: View {
                 rowView(
                     title: "Author",
                     value: viewModel.bookAuthors.isEmpty
-                        ? "Add"
-                        : viewModel.filteredAuthorsString(),
+                    ? "Add"
+                    : viewModel.filteredAuthorsString(),
                     isEmpty: viewModel.bookAuthors.isEmpty
                 )
             }
@@ -128,58 +135,59 @@ struct EditBookView: View {
                 rowView(
                     title: "Genre",
                     value: viewModel.bookGenres.isEmpty
-                        ? "Add"
-                        : viewModel.bookGenres.map(\.name).joined(separator: ", "),
+                    ? "Add"
+                    : viewModel.bookGenres.map(\.name).joined(separator: ", "),
                     isEmpty: viewModel.bookGenres.isEmpty
                 )
             }
+        } header: {
+            sectionHeader("Details")
         }
     }
 
     private var detailsSection: some View {
         Section {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading) {
-                    Text("Pages")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+            HStack {
+                Text("Pages")
 
-                    TextField("0", text: $viewModel.bookPages)
-                        .keyboardType(.numberPad)
-                        .focused($focusField, equals: .bookPages)
-                }
+                Spacer()
 
-                Divider()
-
-                VStack(alignment: .leading) {
-                    Text("Year")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-
-                    Picker("", selection: $viewModel.bookYear) {
-                        Text("—").tag("—")
-                        ForEach(viewModel.yearsArray.reversed(), id: \.self) {
-                            Text(String($0)).tag(String($0))
-                        }
-                    }
-                    .pickerStyle(.menu)
-                }
+                TextField("0", text: $viewModel.bookPages)
+                    .keyboardType(.numberPad)
+                    .multilineTextAlignment(.trailing)
+                    .frame(width: 80)
+                    .focused($focusField, equals: .bookPages)
             }
-            .padding(.vertical, 4)
 
-            VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text("Year")
+
+                Spacer()
+
+                Picker("", selection: $viewModel.bookYear) {
+                    Text("—").tag("—")
+                    ForEach(viewModel.yearsArray.reversed(), id: \.self) {
+                        Text(String($0)).tag(String($0))
+                    }
+                }
+                .pickerStyle(.menu)
+            }
+
+            HStack {
                 Text("Status")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+
+                Spacer()
 
                 Picker("", selection: $viewModel.bookStatus) {
                     ForEach(Status.allCases, id: \.self) {
                         Text($0.rawValue.capitalized)
                     }
                 }
-                .pickerStyle(.segmented)
+                .pickerStyle(.menu)
             }
-            .padding(.top, 6)
+
+        } header: {
+            sectionHeader("Book Info")
         }
     }
 
