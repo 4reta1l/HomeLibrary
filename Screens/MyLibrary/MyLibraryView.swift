@@ -41,32 +41,20 @@ struct MyLibraryView: View {
                 if filteredBooks.isEmpty {
                     emptyState
                 } else {
-                    List {
-                        ForEach(filteredBooks) { book in
-                            bookRowView(book)
-                                // ✅ Swipe actions for quick operations
-                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                    Button {
-                                        // toggle read status, e.g.:
-                                        // store.toggleStatus(book)
-                                    } label: {
-                                        Label("Read", systemImage: "book.closed")
-                                    }
-                                    .tint(.green)
-                                }
-                                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                    Button(role: .destructive) {
-                                        // store.delete(book)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
-                                }
+                    ZStack(alignment: .bottom) {
+                        List {
+                            ForEach(filteredBooks) { book in
+                                bookRowView(book)
+                            }
+                            Color.clear
+                                .frame(height: 80)
+                                .listRowSeparator(.hidden)
                         }
-                    }
-                    .listStyle(.plain)
-                }
+                        .listStyle(.plain)
 
-                addBookButton
+                        addBookButton
+                    }
+                }
             }
             .navigationTitle("My Library")
             .searchable(
@@ -191,15 +179,16 @@ struct MyLibraryView: View {
         Button {
             showAddBook = true
         } label: {
-            Text("Add book")
+            Label("Add book", systemImage: "plus")
                 .font(.headline)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(.blue)
+                .padding(.horizontal, 48)
+                .padding(.vertical, 15)
+                .background(.ultraThinMaterial)
                 .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal)
-                .padding(.top, 4)
+                .background(.blue)
+                .clipShape(Capsule())
+                .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
         }
+        .padding(.bottom, 12)
     }
 }
