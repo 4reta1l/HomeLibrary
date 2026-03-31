@@ -79,6 +79,7 @@ The data layer is separated to ensure:
 1. Clone the repository:
 ```bash
 git clone https://github.com/4reta1l/HomeLibrary.git
+```
 2. Open in Xcode
 open HomeLibrary.xcodeproj
 3. Run the app on simulator or device
