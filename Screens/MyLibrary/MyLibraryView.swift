@@ -28,21 +28,44 @@ struct MyLibraryView: View {
         self.state = state
     }
 
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 8) {
-                booksAmount
+    private var filteredBooks: [Book] {
+        viewModel.filteredBooks(from: store.books)
+    }
 
-                List {
-                    ForEach(viewModel.filteredBooks(from: store.books), id: \.id) { book in
-                        bookRowView(book)
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                booksAmount
+                    .padding(.vertical, 8)
+
+                if filteredBooks.isEmpty {
+                    emptyState
+                } else {
+                    List {
+                        ForEach(filteredBooks) { book in
+                            bookRowView(book)
+                                // ✅ Swipe actions for quick operations
+                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                    Button {
+                                        // toggle read status, e.g.:
+                                        // store.toggleStatus(book)
+                                    } label: {
+                                        Label("Read", systemImage: "book.closed")
+                                    }
+                                    .tint(.green)
+                                }
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                    Button(role: .destructive) {
+                                        // store.delete(book)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                        }
                     }
+                    .listStyle(.plain)
                 }
-                .sheet(item: $tappedBook) {
-                    EditBookView(
-                        state: .editBook(book: $0)
-                    )
-                }
+
                 addBookButton
             }
             .navigationTitle("My Library")
@@ -52,10 +75,21 @@ struct MyLibraryView: View {
                 prompt: "Search for a book"
             )
             .toolbar {
-                Group {
-                    filtersToolBar
-                    settingsToolBar
-                }
+                filtersToolBar
+                settingsToolBar
+            }
+            .sheet(item: $tappedBook) { book in
+                EditBookView(state: .editBook(book: book))
+            }
+            .sheet(isPresented: $showAddBook) {
+                let category: Category = {
+                    if case .forCategory(let cat) = state { return cat }
+                    return .default
+                }()
+                EditBookView(state: .addBook(category: category))
+            }
+            .sheet(isPresented: $showSettings, onDismiss: store.reloadAll) {
+                SettingsView()
             }
             .popover(isPresented: $showFilters, arrowEdge: .top) {
                 FiltersView(authors: store.authors, genres: store.genres, filters: $viewModel.filters)
@@ -63,22 +97,36 @@ struct MyLibraryView: View {
         }
     }
 
+    // MARK: - Subviews
+
+    private var booksAmount: some View {
+        let count = filteredBooks.count
+        return Text(count == 1 ? "1 book" : "\(count) books")
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
+    }
+
+    private var emptyState: some View {
+        ContentUnavailableView(
+            viewModel.searchText.isEmpty ? "No Books Yet" : "No Results",
+            systemImage: viewModel.searchText.isEmpty ? "books.vertical" : "magnifyingglass",
+            description: Text(
+                viewModel.searchText.isEmpty
+                ? "Tap \"Add book\" to start your library."
+                : "Try a different search or clear your filters."
+            )
+        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
     private var filtersToolBar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 showFilters.toggle()
             } label: {
-                RoundedRectangle(cornerRadius: 6)
-                    .frame(width: 28, height: 28)
-                    .overlay {
-                        Image(systemName: "line.3.horizontal.decrease")
-                            .font(.system(size: 12, weight: .semibold))
-
-                    }
-
-                Text("Filters")
-                    .font(.caption)
-                    .foregroundColor(.primary)
+                Label("Filters", systemImage: "line.3.horizontal.decrease")
             }
         }
     }
@@ -88,87 +136,70 @@ struct MyLibraryView: View {
             Button {
                 showSettings.toggle()
             } label: {
-                Image(systemName: "gear")
-            }
-            .sheet(isPresented: $showSettings, onDismiss: store.reloadAll) {
-                SettingsView()
+                Label("Settings", systemImage: "gear")
             }
         }
-    }
-
-    private var booksAmount: some View {
-        let count = viewModel.filteredBooks(from: store.books).count
-        return Text(count == 1 ? "1 book" : "\(count) books")
     }
 
     private func bookRowView(_ book: Book) -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(book.title)
-                    .font(.body)
-                    .bold()
-
-                HStack {
-                    Text(
-                        book.authors.isEmpty
-                        ? "Unknown author"
-                        : viewModel.filteredAuthorsString(book.authors)
-                    )
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    Spacer()
-
-                    Image(systemName: "book.pages")
-                        .padding(.trailing, -5)
-                    Text(book.displayPages)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                    Image(systemName: "calendar")
-                        .padding(.trailing, -5)
-                    Text(book.displayYear)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-
-                }
-            }
-
-            Spacer()
-
-            Image(systemName: book.status.displaySign)
-                .frame(width: 40, height: 40)
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
+        Button {
             tappedBook = book
+        } label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(book.title)
+                        .font(.body.bold())
+                        .foregroundStyle(.primary)
+
+                    HStack(spacing: 4) {
+                        Text(
+                            book.authors.isEmpty
+                            ? "Unknown author"
+                            : viewModel.filteredAuthorsString(book.authors)
+                        )
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                        Spacer()
+
+                        HStack(spacing: 2) {
+                            Image(systemName: "book.pages")
+                            Text(book.displayPages)
+                        }
+
+                        HStack(spacing: 2) {
+                            Image(systemName: "calendar")
+                            Text(book.displayYear)
+                        }
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+
+                Image(systemName: book.status.displaySign)
+                    .frame(width: 40, height: 40)
+                    .foregroundStyle(.secondary)
+            }
+            .contentShape(Rectangle())
         }
-        .opacity(tappedBook == book ? 0.24 : 1)
+        .buttonStyle(.plain)
     }
 
     private var addBookButton: some View {
-        Button(
-            action: {
-                showAddBook = true
-            }, label: {
-                Text("Add book")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(.blue)
-                    .foregroundStyle(.white)
-                    .cornerRadius(10)
-                    .padding(.horizontal)
-                    .padding(.top, -5)
-            }
-        )
-        .sheet(isPresented: $showAddBook) {
-            switch self.state {
-            case .defaultView:
-                EditBookView(state: .addBook(category: .default))
-
-            case .forCategory(let category):
-                EditBookView(state: .addBook(category: category))
-            }
+        Button {
+            showAddBook = true
+        } label: {
+            Text("Add book")
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(.blue)
+                .foregroundStyle(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal)
+                .padding(.top, 4)
         }
     }
 }
