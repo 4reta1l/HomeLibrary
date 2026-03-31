@@ -19,7 +19,7 @@ struct EditAuthorView: View {
     var onSave: (Author) -> Void
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 mainForm
             }

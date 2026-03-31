@@ -12,7 +12,7 @@ struct OverviewView: View {
     @Environment(LibraryStore.self) private var store
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
 

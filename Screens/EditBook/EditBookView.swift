@@ -20,25 +20,20 @@ struct EditBookView: View {
 
         var title: String {
             switch self {
-            case .addBook:
-                "Add book"
-            case .editBook:
-                "Edit Book"
+            case .addBook: "Add Book"
+            case .editBook: "Edit Book"
             }
         }
     }
 
     enum FocusedField {
-        case bookTitle
-        case bookPages
+        case bookTitle, bookPages
     }
 
     @State private var viewModel: EditBookViewModel
     @State private var state: ViewState
-
-    @State private var showDeleteConfirmation: Bool = false
+    @State private var showDeleteConfirmation = false
     @State private var showMoreOptions = false
-
     @FocusState private var focusField: FocusedField?
 
     @Environment(LibraryStore.self) private var store
@@ -50,178 +45,184 @@ struct EditBookView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack {
+        NavigationStack {
+            ZStack(alignment: .bottom) {
                 mainForm
 
-                Spacer()
-
-                bottomButtonsSection
+                floatingButtons
             }
-            .onAppear {
-                focusField = .bookTitle
-            }
+            .onAppear { focusField = .bookTitle }
             .navigationTitle(state.title)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                toolBarView
-            }
-            .alert("Delete book?",
-                   isPresented: $showDeleteConfirmation) {
-
+            .toolbar { toolBarView }
+            .alert("Delete Book?", isPresented: $showDeleteConfirmation) {
                 Button("Delete", role: .destructive) {
                     if let book = viewModel.editedBook {
                         try? store.deleteBook(book)
                     }
                     dismiss()
                 }
-
                 Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This action cannot be undone.")
             }
         }
     }
+
+    // MARK: - Form
 
     private var mainForm: some View {
         Form {
             titleSection
-
-            authorSection
-
-            genreSection
-
-            pagesYearSection
-
-            statusSection
-
+            authorGenreSection
+            detailsSection
             showMoreButton
 
             if showMoreOptions {
-                categoriesSection
-
-                isbnSection
-
-                seriesSection
-
-                publisherSection
-
+                additionalSection
                 notesSection
             }
         }
+        .listStyle(.insetGrouped)
         .scrollDismissesKeyboard(.immediately)
     }
 
+    // MARK: - Toolbar
+
     private var toolBarView: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
-            Button("Cancel") {
-                dismiss()
-            }
+            Button("Cancel") { dismiss() }
         }
+    }
+
+    // MARK: - Sections
+
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(.primary)
     }
 
     private var titleSection: some View {
         Section {
-            TextField("Enter book title", text: $viewModel.bookTitle)
+            TextField("Enter title", text: $viewModel.bookTitle)
+                .font(.body)
                 .focused($focusField, equals: .bookTitle)
                 .submitLabel(.next)
-                .onSubmit {
-                    focusField = .bookPages
-                }
+                .onSubmit { focusField = .bookPages }
         } header: {
-            Text("Title")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
+            sectionHeader("Title")
         }
     }
 
-    private var authorSection: some View {
+    private var authorGenreSection: some View {
         Section {
             NavigationLink {
                 AuthorsView(selectedAuthors: $viewModel.bookAuthors)
             } label: {
-                Text(viewModel.bookAuthors.isEmpty
-                     ? "Add author" : viewModel.filteredAuthorsString()
+                rowView(
+                    title: "Author",
+                    value: viewModel.bookAuthors.isEmpty
+                    ? "Add"
+                    : viewModel.filteredAuthorsString(),
+                    isEmpty: viewModel.bookAuthors.isEmpty
                 )
             }
-        } header: {
-            Text("Author")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
-        }
-    }
 
-    private var genreSection: some View {
-        Section {
             NavigationLink {
                 GenresView(selectedGenres: $viewModel.bookGenres)
             } label: {
-                HStack {
-                    Text(viewModel.bookGenres.isEmpty
-                         ? "Add genre" : viewModel.bookGenres.map(\.name).joined(separator: ", ")
-                    )
-                }
+                rowView(
+                    title: "Genre",
+                    value: viewModel.bookGenres.isEmpty
+                    ? "Add"
+                    : viewModel.bookGenres.map(\.name).joined(separator: ", "),
+                    isEmpty: viewModel.bookGenres.isEmpty
+                )
             }
         } header: {
-            Text("Genre")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
+            sectionHeader("Details")
         }
     }
 
-    private var pagesYearSection: some View {
+    private var detailsSection: some View {
         Section {
             HStack {
-                TextField("Enter amount of pages", text: $viewModel.bookPages)
-                    .keyboardType(.decimalPad)
-                    .focused($focusField, equals: .bookPages)
+                Text("Pages")
+
                 Spacer()
+
+                TextField("0", text: $viewModel.bookPages)
+                    .keyboardType(.numberPad)
+                    .multilineTextAlignment(.trailing)
+                    .frame(width: 80)
+                    .focused($focusField, equals: .bookPages)
+            }
+
+            HStack {
+                Text("Year")
+
+                Spacer()
+
                 Picker("", selection: $viewModel.bookYear) {
-                    Text("—")
-                        .tag("—")
-                    ForEach(viewModel.yearsArray.reversed(), id: \.self) { year in
-                        Text(String(year))
-                            .tag(String(year))
+                    Text("—").tag("—")
+                    ForEach(viewModel.yearsArray.reversed(), id: \.self) {
+                        Text(String($0)).tag(String($0))
                     }
                 }
                 .pickerStyle(.menu)
-                .frame(width: 100)
             }
-        } header: {
+
             HStack {
-                Text("Pages")
-                    .textCase(nil)
-                    .font(.subheadline)
-                    .bold()
-                    .padding(.leading, -5)
+                Text("Status")
+
                 Spacer()
-                Text("Publication year")
-                    .textCase(nil)
-                    .font(.subheadline)
-                    .bold()
-                    .padding(.leading, -10)
+
+                Picker("", selection: $viewModel.bookStatus) {
+                    ForEach(Status.allCases, id: \.self) {
+                        Text($0.rawValue.capitalized)
+                    }
+                }
+                .pickerStyle(.menu)
             }
+
+        } header: {
+            sectionHeader("Book Info")
         }
     }
 
-    private var statusSection: some View {
+    private var additionalSection: some View {
         Section {
-            Picker("Book status", selection: $viewModel.bookStatus) {
-                ForEach(Status.allCases, id: \.self) { status in
-                    Text(status.rawValue.capitalized)
-                }
+            NavigationLink {
+                CategoryChoosingView(selectedCategory: $viewModel.bookCategory)
+            } label: {
+                rowView(
+                    title: "Category",
+                    value: viewModel.bookCategory.name
+                )
             }
-            .pickerStyle(.menu)
-        } header: {
-            Text("Status")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
+
+            TextField("ISBN", text: $viewModel.bookIsbn)
+
+            NavigationLink {
+                SeriesView(selectedSeries: $viewModel.bookSeries)
+            } label: {
+                rowView(
+                    title: "Series",
+                    value: viewModel.bookSeries?.name ?? "Add",
+                    isEmpty: viewModel.bookSeries == nil
+                )
+            }
+
+            NavigationLink {
+                PublishersView(selectedPublisher: $viewModel.bookPublisher)
+            } label: {
+                rowView(
+                    title: "Publisher",
+                    value: viewModel.bookPublisher?.name ?? "Add",
+                    isEmpty: viewModel.bookPublisher == nil
+                )
+            }
         }
     }
 
@@ -229,93 +230,51 @@ struct EditBookView: View {
         Section {
             TextEditor(text: $viewModel.bookNotes)
                 .frame(minHeight: 120)
-                .padding(4)
-        } header: {
-            Text("Notes")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(.secondarySystemBackground))
+                )
         }
     }
 
-    private var isbnSection: some View {
+    private var showMoreButton: some View {
         Section {
-            TextField("Enter book ISBN", text: $viewModel.bookIsbn)
-        } header: {
-            Text("ISBN")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
-        }
-    }
-
-    private var publisherSection: some View {
-        Section {
-            NavigationLink {
-                PublishersView(selectedPublisher: $viewModel.bookPublisher)
+            Button {
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    showMoreOptions.toggle()
+                }
             } label: {
-                Text(viewModel.bookPublisher?.name ?? "Add publisher")
+                HStack {
+                    Text("Additional options")
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .rotationEffect(.degrees(showMoreOptions ? 180 : 0))
+                        .foregroundStyle(.secondary)
+                }
             }
-        } header: {
-            Text("Publisher")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
         }
     }
 
-    private var seriesSection: some View {
-        Section {
-            NavigationLink {
-                SeriesView(selectedSeries: $viewModel.bookSeries)
-            } label: {
-                Text(viewModel.bookSeries?.name ?? "Add series")
-            }
-        } header: {
-            Text("Series")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
-        }
-    }
-
-    private var categoriesSection: some View {
-        Section {
-            NavigationLink {
-                CategoryChoosingView(selectedCategory: $viewModel.bookCategory)
-            } label: {
-                Text(viewModel.bookCategory.name)
-            }
-        } header: {
-            Text("Categories")
-                .textCase(nil)
-                .font(.subheadline)
-                .bold()
-                .padding(.leading, -5)
-        }
-    }
+    // MARK: - Bottom Buttons
 
     private var saveButton: some View {
         Button {
-            switch self.state {
-            case .addBook:
-                try? store.addBook(viewModel.makeBook())
-            case .editBook:
-                try? store.updateBook(viewModel.makeBook())
+            switch state {
+            case .addBook: try? store.addBook(viewModel.makeBook())
+            case .editBook: try? store.updateBook(viewModel.makeBook())
             }
             dismiss()
         } label: {
-            Text("Save book")
+            Label("Save", systemImage: "checkmark")
                 .font(.headline)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .background(viewModel.bookTitle.isEmpty ? Color.gray : Color.blue)
+                .padding(.horizontal, 48)
+                .padding(.vertical, 15)
+                .background(.ultraThinMaterial)
                 .foregroundStyle(.white)
-                .cornerRadius(10)
+                .background(viewModel.bookTitle.isEmpty ? .gray : .blue)
+                .clipShape(Capsule())
+                .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
         }
         .disabled(viewModel.bookTitle.isEmpty)
     }
@@ -323,49 +282,52 @@ struct EditBookView: View {
     private var deleteButton: some View {
         Button {
             dismissKeyboard()
-            showDeleteConfirmation.toggle()
+            showDeleteConfirmation = true
         } label: {
             Image(systemName: "trash")
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.white)
+                .font(.system(size: 18, weight: .semibold))
                 .frame(width: 50, height: 50)
-                .background(state.isAddBook ? Color.gray : Color.red)
-                .cornerRadius(10)
         }
-        .disabled(state.isAddBook)
+        .background(.ultraThinMaterial)
+        .clipShape(Circle())
+        .overlay(
+            Circle()
+                .stroke(Color.red.opacity(0.3))
+        )
     }
 
-    private var bottomButtonsSection: some View {
-        HStack(spacing: 8) {
+    private var floatingButtons: some View {
+        HStack {
+            Spacer()
+
             saveButton
 
-            deleteButton
+            Spacer()
 
+            if !state.isAddBook {
+                deleteButton
+            }
         }
-        .padding(5)
-        .padding(.top, -10)
+        .padding(.horizontal, 16)
+        .padding(.bottom, 16)
     }
 
-    private var showMoreButton: some View {
-        Button {
-            withAnimation {
-                showMoreOptions.toggle()
-            }
-        } label: {
-            HStack {
-                Text(showMoreOptions ? "Hide additional options" : "Show more options")
-                Spacer()
-                Image(systemName: showMoreOptions ? "chevron.up" : "chevron.down")
-            }
+    // MARK: - Helpers
+
+    private func rowView(title: String, value: String, isEmpty: Bool = false) -> some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Text(value)
+                .foregroundStyle(isEmpty ? .secondary : .primary)
+                .lineLimit(1)
         }
     }
 
     private func dismissKeyboard() {
         UIApplication.shared.sendAction(
             #selector(UIResponder.resignFirstResponder),
-            to: nil,
-            from: nil,
-            for: nil
+            to: nil, from: nil, for: nil
         )
     }
 }

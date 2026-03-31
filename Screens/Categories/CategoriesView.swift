@@ -14,7 +14,7 @@ struct CategoriesView: View {
     @State private var showAddCategory: Bool = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 8) {
                 List {
                     ForEach(store.categories, id: \.id) { category in

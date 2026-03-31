@@ -20,7 +20,7 @@ struct EditSeriesView: View {
     var onSave: (Series) -> Void
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 mainForm
             }

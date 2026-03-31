@@ -18,7 +18,7 @@ struct EditCategoryView: View {
     var onSave: (Category) -> Void
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 mainForm
             }

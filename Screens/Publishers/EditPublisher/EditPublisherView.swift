@@ -19,7 +19,7 @@ struct EditPublisherView: View {
     var onSave: (Publisher) -> Void
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 mainForm
             }
