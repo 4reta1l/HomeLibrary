@@ -20,7 +20,7 @@ struct FiltersView: View {
     let yearsArray = Array(1800...Date().year)
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 16) {
                 Form {
                     authorsSection
