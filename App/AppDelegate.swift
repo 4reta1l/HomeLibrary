@@ -11,26 +11,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
 
-        let genres = CDStorage.shared.getGenres()
-
-        if genres.isEmpty {
-            let defaultGenres = defaultGenres.allCases
-            for genre in defaultGenres {
-                CDStorage.shared.addGenre(name: genre.displayString)
-            }
-        }
-
-        let categories = CDStorage.shared.getCategories()
-
-        if categories.isEmpty {
-            let defaultCategories = DefaultCategories.allCases
-            for category in defaultCategories {
-                let category = Category(name: category.name)
-                CDStorage.shared.addCategory(category)
-            }
-        }
+        LibrarySeeder(
+            genresStorage: CDStorage.shared,
+            categoriesStorage: CDStorage.shared
+        ).seedIfNeeded()
 
         return true
     }
