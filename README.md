@@ -1,5 +1,7 @@
 # 📚 HomeLibrary
 
+![CI](https://github.com/4reta1l/HomeLibrary/actions/workflows/ci.yml/badge.svg)
+
 iOS application for managing a personal book library, built with SwiftUI and Core Data.  
 The app allows users to organize, search, and manage their book collection with persistent storage and data portability.
 
