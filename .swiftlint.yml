@@ -9,7 +9,8 @@ excluded:
   - .derivedData
 
 disabled_rules:
-  - trailing_whitespace
+  - for_where
+  - function_parameter_count
   - todo
 
 opt_in_rules:
