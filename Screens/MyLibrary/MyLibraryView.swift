@@ -119,9 +119,9 @@ struct MyLibraryView: View {
                     .overlay {
                         Image(systemName: "line.3.horizontal.decrease")
                             .font(.system(size: 12, weight: .semibold))
-                        
+
                     }
-                
+
                 Text("Filters")
                     .font(.caption)
                     .foregroundColor(.primary)

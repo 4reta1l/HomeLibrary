@@ -212,8 +212,6 @@ extension CDStorage {
         try self.deletePublisher(id: id)
     }
 
-    
-
     func getSeries() -> [Series] {
         fetchSeries().map {
             Series(

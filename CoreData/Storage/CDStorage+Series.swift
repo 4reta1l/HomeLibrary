@@ -84,11 +84,11 @@ extension CDStorage {
     ) -> CDSeries {
         let request = CDSeries.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", name)
-        
+
         if let existing = try? context.fetch(request).first {
             return existing
         }
-        
+
         let series = CDSeries(context: context)
         series.id = UUID()
         series.name = name

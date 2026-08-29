@@ -17,7 +17,6 @@ public struct Publisher: Identifiable, Hashable, Equatable, Codable {
         self.name = name
     }
 
-
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
         lhs.name == rhs.name

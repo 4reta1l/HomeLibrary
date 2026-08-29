@@ -74,11 +74,11 @@ extension CDStorage {
     ) -> CDPublisher {
         let request = CDPublisher.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", name)
-        
+
         if let existing = try? context.fetch(request).first {
             return existing
         }
-        
+
         let publisher = CDPublisher(context: context)
         publisher.id = UUID()
         publisher.name = name

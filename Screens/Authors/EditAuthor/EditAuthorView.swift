@@ -56,7 +56,7 @@ struct EditAuthorView: View {
                     dismiss()
                 }
             }
-            
+
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     let newAuthor = Author(displayName: authorDisplayName)
