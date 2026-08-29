@@ -24,7 +24,6 @@ final class AuthorsViewModel {
         self.authors.sort {
             $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending
         }
-
     }
 
     func removeAuthor(id: UUID) {
@@ -46,5 +45,4 @@ final class AuthorsViewModel {
             authors.append(author)
         }
     }
-
 }

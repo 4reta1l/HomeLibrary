@@ -17,7 +17,6 @@ final class CategoriesViewModel {
     init(categoriesStorage: CategoriesStorage = CDStorage.shared) {
         self.categoriesStorage = categoriesStorage
         self.categories = self.categoriesStorage.getCategories()
-
     }
 
     // TODO: Update when new book added

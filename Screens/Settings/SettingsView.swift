@@ -53,7 +53,6 @@ struct SettingsView: View {
                     } label: {
                         Label("Import as CSV", systemImage: "square.and.arrow.down")
                     }
-
                 }
             }
             .fileImporter(
@@ -70,7 +69,6 @@ struct SettingsView: View {
                     defer { url.stopAccessingSecurityScopedResource() }
 
                     try CDStorage.shared.importBooks(from: url)
-
                 } catch {
                     print("CSV import failed:", error)
                 }
@@ -137,5 +135,4 @@ struct SettingsView: View {
         }
         return value
     }
-
 }

@@ -54,7 +54,6 @@ struct PublishersView: View {
                         Label("Delete", systemImage: "trash")
                     }
                 }
-
             }
         }
     }

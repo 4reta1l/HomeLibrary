@@ -45,7 +45,6 @@ struct CategoryChoosingView: View {
                 .onTapGesture {
                     selectedCategory = category
                 }
-
             }
         }
     }
