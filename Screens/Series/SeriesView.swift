@@ -54,7 +54,6 @@ struct SeriesView: View {
                         Label("Delete", systemImage: "trash")
                     }
                 }
-
             }
         }
     }

@@ -54,7 +54,6 @@ struct AuthorsView: View {
                         Label("Delete", systemImage: "trash")
                     }
                 }
-
             }
         }
     }

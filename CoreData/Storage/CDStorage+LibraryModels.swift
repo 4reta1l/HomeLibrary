@@ -280,7 +280,6 @@ extension CDStorage {
         } catch CoreDataError.categoryNotFound {
             return self.saveCategoryThenReturn(id: category.id, name: category.name)
         }
-
     }
 
     // MARK: Check Business Rules
@@ -347,5 +346,4 @@ extension CDStorage {
             try deleteSeries(series.id)
         }
     }
-
 }

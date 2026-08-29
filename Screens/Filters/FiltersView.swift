@@ -99,7 +99,6 @@ struct FiltersView: View {
                     }
                 }
             }
-
         }
     }
 

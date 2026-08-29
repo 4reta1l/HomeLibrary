@@ -19,7 +19,6 @@ struct OverviewView: View {
                     readingProgressSection
                     totalsSection
                     recommendationsSection
-
                 }
                 .padding()
             }
