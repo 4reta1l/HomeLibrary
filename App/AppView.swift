@@ -11,7 +11,7 @@ struct AppView: View {
 
     @State private var store = LibraryStore()
 
-    var body: some View{
+    var body: some View {
         TabView {
             Tab("Library", systemImage: "books.vertical") {
                 MyLibraryView(state: .defaultView)

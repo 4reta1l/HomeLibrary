@@ -212,8 +212,6 @@ extension CDStorage {
         try self.deletePublisher(id: id)
     }
 
-    
-
     func getSeries() -> [Series] {
         fetchSeries().map {
             Series(
@@ -282,7 +280,6 @@ extension CDStorage {
         } catch CoreDataError.categoryNotFound {
             return self.saveCategoryThenReturn(id: category.id, name: category.name)
         }
-
     }
 
     // MARK: Check Business Rules
@@ -349,5 +346,4 @@ extension CDStorage {
             try deleteSeries(series.id)
         }
     }
-
 }

@@ -185,7 +185,6 @@ struct EditBookView: View {
                 }
                 .pickerStyle(.menu)
             }
-
         } header: {
             sectionHeader("Book Info")
         }

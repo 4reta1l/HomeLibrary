@@ -90,7 +90,7 @@ struct EditSeriesView: View {
         }
     }
 
-    //TODO: Move out of here
+    // TODO: Move out of here
     func filteredAuthorsString() -> String {
         selectedAuthors
         .sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }

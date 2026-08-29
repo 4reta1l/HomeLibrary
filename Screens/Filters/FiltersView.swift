@@ -48,11 +48,15 @@ struct FiltersView: View {
         }
     }
 
+    // TODO: Text condition duplicated for genres as well
     var authorsSection: some View {
         Section(header: Text("Authors")) {
             NavigationLink(destination: AuthorsFilterView(authors: authors, filters: $filters)) {
                 Text(filters.selectedAuthors.isEmpty
-                     ? "No selected authors" : filters.selectedAuthors.sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
+                     ? "No selected authors"
+                     : filters.selectedAuthors.sorted {
+                    $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending
+                }
                     .map(\.displayName)
                     .joined(separator: ", ")
                 )
@@ -75,13 +79,14 @@ struct FiltersView: View {
         }
     }
 
-
-
     var genresSection: some View {
         Section(header: Text("Genres")) {
             NavigationLink(destination: GenresFilterView(genres: genres, filters: $filters)) {
                 Text(filters.selectedGenres.isEmpty
-                     ? "No selected genres" : filters.selectedGenres.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+                     ? "No selected genres"
+                     : filters.selectedGenres.sorted {
+                    $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+                }
                     .map(\.name)
                     .joined(separator: ", ")
                 )
@@ -101,7 +106,6 @@ struct FiltersView: View {
                     }
                 }
             }
-
         }
     }
 

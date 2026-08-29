@@ -19,7 +19,6 @@ struct OverviewView: View {
                     readingProgressSection
                     totalsSection
                     recommendationsSection
-
                 }
                 .padding()
             }
@@ -182,4 +181,3 @@ private extension OverviewView {
         store.books.filter { $0.status == .completed }.count
     }
 }
-

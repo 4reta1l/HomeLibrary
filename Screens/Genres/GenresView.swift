@@ -44,5 +44,3 @@ struct GenresView: View {
         }
     }
 }
-
-

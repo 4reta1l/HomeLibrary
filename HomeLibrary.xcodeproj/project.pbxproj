@@ -72,6 +72,7 @@
 		C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */; };
 		C798D47A2EFEB64600006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4792EFEB64600006414 /* CDBook.swift */; };
 		C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */; };
+		C7D5EB4C3042184D00D044FA /* LibrarySeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		C798D4762EFE125C00006414 /* CDStorage+LibraryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+LibraryModels.swift"; sourceTree = "<group>"; };
 		C798D4792EFEB64600006414 /* CDBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBook.swift; sourceTree = "<group>"; };
 		C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Extension.swift"; sourceTree = "<group>"; };
+		C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySeeder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,6 +327,7 @@
 				C798D43F2EEB878100006414 /* Info.plist */,
 				C704B6842F1A8CF2000C7B6E /* AppView.swift */,
 				C704B6952F1ADB80000C7B6E /* LibraryStore.swift */,
+				C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				C798D4272EEB877E00006414 /* Sources */,
 				C798D4282EEB877E00006414 /* Frameworks */,
 				C798D4292EEB877E00006414 /* Resources */,
+				C7D5EB4D304311B700D044FA /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -519,6 +523,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C7D5EB4D304311B700D044FA /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin:/usr/local/bin\"\n\nif command -v swiftlint >/dev/null 2>&1; then\n  swiftlint lint --quiet\nelse\n  echo \"warning: SwiftLint not installed — run: brew install swiftlint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C798D4272EEB877E00006414 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -550,6 +576,7 @@
 				C704B6422F0C5F72000C7B6E /* AuthorsStorage.swift in Sources */,
 				C704B6A62F1BC684000C7B6E /* SettingsView.swift in Sources */,
 				C798D4772EFE125C00006414 /* CDStorage+LibraryModels.swift in Sources */,
+				C7D5EB4C3042184D00D044FA /* LibrarySeeder.swift in Sources */,
 				C704B6852F1A8CF3000C7B6E /* AppView.swift in Sources */,
 				C798D47A2EFEB64600006414 /* CDBook.swift in Sources */,
 				C704B65C2F16F42D000C7B6E /* CDStorage+Publisher.swift in Sources */,
@@ -698,7 +725,7 @@
 				DEVELOPMENT_TEAM = GR3N378FP5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -763,7 +790,7 @@
 				DEVELOPMENT_TEAM = GR3N378FP5;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
