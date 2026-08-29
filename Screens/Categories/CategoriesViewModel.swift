@@ -20,7 +20,7 @@ final class CategoriesViewModel {
 
     }
 
-    //TODO: Update when new book added
+    // TODO: Update when new book added
     func amountForSpecificCategory(_ category: Category) -> String {
         do {
             let cdCategoryBooks = try CDStorage.shared.fetchCategoryByName(name: category.name).books

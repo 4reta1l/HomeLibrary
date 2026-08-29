@@ -18,7 +18,6 @@ public struct Category: Identifiable, Hashable, Equatable, Codable {
         self.name = name
     }
 
-
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
         lhs.name == rhs.name

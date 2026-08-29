@@ -53,7 +53,7 @@ struct SettingsView: View {
                     } label: {
                         Label("Import as CSV", systemImage: "square.and.arrow.down")
                     }
-                    
+
                 }
             }
             .fileImporter(
@@ -138,5 +138,4 @@ struct SettingsView: View {
         return value
     }
 
-    
 }

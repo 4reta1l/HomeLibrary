@@ -182,4 +182,3 @@ private extension OverviewView {
         store.books.filter { $0.status == .completed }.count
     }
 }
-

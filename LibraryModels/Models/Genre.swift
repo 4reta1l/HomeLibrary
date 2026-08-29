@@ -18,7 +18,7 @@ public struct Genre: Hashable, Codable {
     }
 }
 
-public enum defaultGenres: String, CaseIterable {
+public enum DefaultGenres: String, CaseIterable {
     case general
     case fantasy
     case horror
@@ -32,7 +32,7 @@ public enum defaultGenres: String, CaseIterable {
     case fairyTale
 }
 
-public extension defaultGenres {
+public extension DefaultGenres {
     var displayString: String {
         switch self {
         case .general: "General"

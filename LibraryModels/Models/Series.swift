@@ -19,7 +19,6 @@ public struct Series: Identifiable, Hashable, Equatable, Codable {
         self.authors = authors
     }
 
-
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
         lhs.name == rhs.name &&

@@ -75,8 +75,6 @@ struct FiltersView: View {
         }
     }
 
-
-
     var genresSection: some View {
         Section(header: Text("Genres")) {
             NavigationLink(destination: GenresFilterView(genres: genres, filters: $filters)) {
