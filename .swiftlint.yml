@@ -1,0 +1,49 @@
+included:
+  - App
+  - CoreData
+  - LibraryModels
+  - Screens
+
+excluded:
+  - .build
+  - .derivedData
+
+disabled_rules:
+  - trailing_whitespace
+  - todo
+
+opt_in_rules:
+  - closure_spacing
+  - empty_count
+  - operator_usage_whitespace
+  - redundant_nil_coalescing
+  - vertical_whitespace_closing_braces
+
+line_length:
+  warning: 140
+  error: 220
+  ignores_comments: true
+  ignores_urls: true
+
+file_length:
+  warning: 500
+  error: 900
+
+type_body_length:
+  warning: 350
+  error: 600
+
+function_body_length:
+  warning: 60
+  error: 120
+
+identifier_name:
+  min_length: 2
+  excluded:
+    - id
+    - to
+    - at
+    - x
+    - y
+
+reporter: "xcode"
