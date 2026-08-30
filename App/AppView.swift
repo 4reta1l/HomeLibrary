@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct AppView: View {
-
-    @State private var store = LibraryStore()
+    let store: LibraryStore
 
     var body: some View {
         TabView {
