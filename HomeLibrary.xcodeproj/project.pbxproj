@@ -14,6 +14,7 @@
 		42EF50A7EFC6F0B86846E2DA /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB589E14BEB3F2B281F6E6C5 /* DateExtensionTests.swift */; };
 		6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A833FC13280B8604F196419 /* Foundation.framework */; };
 		7A850DF4661FC9A28BC86280 /* FakePublishersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */; };
+		A73D115A412C7103258D0FF4 /* BookLookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B61F72219FE518E9F89248 /* BookLookupService.swift */; };
 		C4A8C9E6693735C2C23816AC /* LibraryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E527BAF12F699D0F027923C /* LibraryStoreTests.swift */; };
 		C61CA2B05276DBBBF030EBF6 /* FakeAuthorsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827C64000AA09DDC344AB800 /* FakeAuthorsStorage.swift */; };
 		C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B60F2F0A69A6000C7B6E /* CDGenre.swift */; };
@@ -83,6 +84,7 @@
 		C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */; };
 		C7D5EB4C3042184D00D044FA /* LibrarySeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */; };
 		E7961A17DF09879CD8A03A8B /* FakeBooksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02FC130BF919E28621427B5 /* FakeBooksStorage.swift */; };
+		F6917D6E1F4479A6CFC24C73 /* OpenLibraryBookLookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DFD59B4D721194FAEFF8D2 /* OpenLibraryBookLookupService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,7 @@
 
 /* Begin PBXFileReference section */
 		109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeCategoriesStorage.swift; sourceTree = "<group>"; };
+		56DFD59B4D721194FAEFF8D2 /* OpenLibraryBookLookupService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenLibraryBookLookupService.swift; sourceTree = "<group>"; };
 		5A833FC13280B8604F196419 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6E527BAF12F699D0F027923C /* LibraryStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LibraryStoreTests.swift; sourceTree = "<group>"; };
 		6F8134F09A2C7773521FBDFD /* HomeLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +177,7 @@
 		C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySeeder.swift; sourceTree = "<group>"; };
 		CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeGenresStorage.swift; sourceTree = "<group>"; };
 		D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakePublishersStorage.swift; sourceTree = "<group>"; };
+		D2B61F72219FE518E9F89248 /* BookLookupService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BookLookupService.swift; sourceTree = "<group>"; };
 		E5764D748E5860CB6CC22EA4 /* EditBookViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EditBookViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +200,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03F19071CFE5B6B3C6A9AA6C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D2B61F72219FE518E9F89248 /* BookLookupService.swift */,
+				56DFD59B4D721194FAEFF8D2 /* OpenLibraryBookLookupService.swift */,
+			);
+			name = Networking;
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		17C7641DC09D0D88D92ECA4A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,6 +432,7 @@
 				C798D42C2EEB877E00006414 /* Products */,
 				786926F92B416C8855A9278D /* Frameworks */,
 				329E34DC1089BA57015DDB6C /* HomeLibraryTests */,
+				03F19071CFE5B6B3C6A9AA6C /* Networking */,
 			);
 			sourceTree = "<group>";
 		};
@@ -779,6 +794,8 @@
 				C704B6392F0C5083000C7B6E /* Genre.swift in Sources */,
 				C704B65A2F16F1ED000C7B6E /* CDPublisher.swift in Sources */,
 				C704B6632F16FF60000C7B6E /* PublishersViewModel.swift in Sources */,
+				A73D115A412C7103258D0FF4 /* BookLookupService.swift in Sources */,
+				F6917D6E1F4479A6CFC24C73 /* OpenLibraryBookLookupService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
