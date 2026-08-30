@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A833FC13280B8604F196419 /* Foundation.framework */; };
 		C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B60F2F0A69A6000C7B6E /* CDGenre.swift */; };
 		C704B6172F0A835E000C7B6E /* CDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6162F0A835E000C7B6E /* CDStorage.swift */; };
 		C704B6192F0A838C000C7B6E /* CDStorage+Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */; };
@@ -75,7 +76,19 @@
 		C7D5EB4C3042184D00D044FA /* LibrarySeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3E85314FC40EBFC2EC05FA4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C798D4232EEB877E00006414 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C798D42A2EEB877E00006414;
+			remoteInfo = HomeLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		5A833FC13280B8604F196419 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6F8134F09A2C7773521FBDFD /* HomeLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C704B60F2F0A69A6000C7B6E /* CDGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDGenre.swift; sourceTree = "<group>"; };
 		C704B6162F0A835E000C7B6E /* CDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDStorage.swift; sourceTree = "<group>"; };
 		C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Genres.swift"; sourceTree = "<group>"; };
@@ -147,6 +160,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1FDB0EC2FED849CA1631DC07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C798D4282EEB877E00006414 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -157,6 +178,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17C7641DC09D0D88D92ECA4A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5A833FC13280B8604F196419 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		329E34DC1089BA57015DDB6C /* HomeLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = HomeLibraryTests;
+			path = HomeLibraryTests;
+			sourceTree = "<group>";
+		};
+		786926F92B416C8855A9278D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17C7641DC09D0D88D92ECA4A /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C704B61E2F0AC0A8000C7B6E /* Genres */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +353,8 @@
 				C798D4572EEB995600006414 /* CoreData */,
 				C798D45B2EEB99E400006414 /* Assets */,
 				C798D42C2EEB877E00006414 /* Products */,
+				786926F92B416C8855A9278D /* Frameworks */,
+				329E34DC1089BA57015DDB6C /* HomeLibraryTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -315,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				C798D42B2EEB877E00006414 /* HomeLibrary.app */,
+				6F8134F09A2C7773521FBDFD /* HomeLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -458,6 +506,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C4E16CEC6F1A738FBF715EB3 /* HomeLibraryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19F7C71331D75C2E4C0951BD /* Build configuration list for PBXNativeTarget "HomeLibraryTests" */;
+			buildPhases = (
+				93C7E6689323A1EC3F408E52 /* Sources */,
+				1FDB0EC2FED849CA1631DC07 /* Frameworks */,
+				DDCE28D64AC1A91A84854BC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C7E61798C997C4CDE733DC8 /* PBXTargetDependency */,
+			);
+			name = HomeLibraryTests;
+			productName = HomeLibraryTests;
+			productReference = 6F8134F09A2C7773521FBDFD /* HomeLibraryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C798D42A2EEB877E00006414 /* HomeLibrary */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C798D4412EEB878100006414 /* Build configuration list for PBXNativeTarget "HomeLibrary" */;
@@ -472,8 +538,6 @@
 			dependencies = (
 			);
 			name = HomeLibrary;
-			packageProductDependencies = (
-			);
 			productName = HomeLibrary;
 			productReference = C798D42B2EEB877E00006414 /* HomeLibrary.app */;
 			productType = "com.apple.product-type.application";
@@ -488,6 +552,10 @@
 				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 2610;
 				TargetAttributes = {
+					C4E16CEC6F1A738FBF715EB3 = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = C798D42A2EEB877E00006414;
+					};
 					C798D42A2EEB877E00006414 = {
 						CreatedOnToolsVersion = 26.1.1;
 					};
@@ -508,6 +576,7 @@
 			projectRoot = "";
 			targets = (
 				C798D42A2EEB877E00006414 /* HomeLibrary */,
+				C4E16CEC6F1A738FBF715EB3 /* HomeLibraryTests */,
 			);
 		};
 /* End PBXProject section */
@@ -518,6 +587,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C798D43B2EEB878100006414 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDCE28D64AC1A91A84854BC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +622,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		93C7E6689323A1EC3F408E52 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C798D4272EEB877E00006414 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -620,7 +703,34 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5C7E61798C997C4CDE733DC8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HomeLibrary;
+			target = C798D42A2EEB877E00006414 /* HomeLibrary */;
+			targetProxy = 3E85314FC40EBFC2EC05FA4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		BC9A2F6AE8B96489251163AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GR3N378FP5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxpyvovarov.HomeLibraryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HomeLibrary.app/HomeLibrary";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		C798D4422EEB878100006414 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -810,9 +920,35 @@
 			};
 			name = Release;
 		};
+		CA5D1226611CC8FBC87CCCFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GR3N378FP5;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxpyvovarov.HomeLibraryTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HomeLibrary.app/HomeLibrary";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		19F7C71331D75C2E4C0951BD /* Build configuration list for PBXNativeTarget "HomeLibraryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC9A2F6AE8B96489251163AD /* Release */,
+				CA5D1226611CC8FBC87CCCFD /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C798D4262EEB877E00006414 /* Build configuration list for PBXProject "HomeLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
