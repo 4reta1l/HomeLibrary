@@ -107,11 +107,103 @@ struct EditBookViewModelTests {
         #expect(viewModel.filteredAuthorsString() == "Frank Herbert, Isaac Asimov, Ursula K. Le Guin")
     }
 
-    private func makeAddBookViewModel() -> EditBookViewModel {
+    @Test func applyScannedISBN_setsBookIsbnImmediately() {
+        let viewModel = makeAddBookViewModel()
+
+        viewModel.applyScannedISBN("9780441013593")
+
+        #expect(viewModel.bookIsbn == "9780441013593")
+    }
+
+    @Test func applyLookupResult_fillsEmptyFieldsOnly() {
+        let viewModel = makeAddBookViewModel()
+        viewModel.bookTitle = "Existing Title"
+
+        viewModel.applyLookupResult(
+            BookLookupResult(
+                title: "Scanned Title",
+                authors: ["Frank Herbert"],
+                publisher: "Ace Books",
+                year: 1990,
+                pages: 412,
+                genres: ["Science Fiction"]
+            )
+        )
+
+        #expect(viewModel.bookTitle == "Existing Title")
+        #expect(viewModel.bookAuthors.map(\.displayName) == ["Frank Herbert"])
+        #expect(viewModel.bookGenres.map(\.name) == ["Science Fiction"])
+        #expect(viewModel.bookPublisher?.name == "Ace Books")
+        #expect(viewModel.bookPages == "412")
+        #expect(viewModel.bookYear == "1990")
+    }
+
+    @Test func applyLookupResult_reusesExistingAuthorGenrePublisherByName() {
+        let existingAuthor = Author(displayName: "Frank Herbert")
+        let existingGenre = Genre(name: "Science Fiction")
+        let existingPublisher = Publisher(name: "Ace Books")
+
+        let viewModel = makeAddBookViewModel(
+            authorsStorage: FakeAuthorsStorage(authors: [existingAuthor]),
+            publishersStorage: FakePublishersStorage(publishers: [existingPublisher]),
+            genresStorage: FakeGenresStorage(genres: [existingGenre])
+        )
+
+        viewModel.applyLookupResult(
+            BookLookupResult(
+                title: nil,
+                authors: ["frank herbert"],
+                publisher: "ACE BOOKS",
+                year: nil,
+                pages: nil,
+                genres: ["science fiction"]
+            )
+        )
+
+        #expect(viewModel.bookAuthors == [existingAuthor])
+        #expect(viewModel.bookGenres == [existingGenre])
+        #expect(viewModel.bookPublisher == existingPublisher)
+    }
+
+    @Test func applyLookupResult_leavesAlreadyFilledFieldsUntouched() {
+        let viewModel = makeAddBookViewModel()
+        let existingAuthor = Author(displayName: "Already Set")
+        viewModel.bookAuthors = [existingAuthor]
+        viewModel.bookPages = "100"
+        viewModel.bookYear = "1999"
+        viewModel.bookPublisher = Publisher(name: "Existing Publisher")
+
+        viewModel.applyLookupResult(
+            BookLookupResult(
+                title: nil,
+                authors: ["Someone Else"],
+                publisher: "Other Publisher",
+                year: 2020,
+                pages: 999,
+                genres: []
+            )
+        )
+
+        #expect(viewModel.bookAuthors == [existingAuthor])
+        #expect(viewModel.bookPages == "100")
+        #expect(viewModel.bookYear == "1999")
+        #expect(viewModel.bookPublisher?.name == "Existing Publisher")
+    }
+
+    private func makeAddBookViewModel(
+        authorsStorage: AuthorsStorage = FakeAuthorsStorage(),
+        publishersStorage: PublishersStorage = FakePublishersStorage(),
+        genresStorage: GenresStorage = FakeGenresStorage(),
+        bookLookupService: BookLookupService = FakeBookLookupService()
+    ) -> EditBookViewModel {
         let category = Category(name: "Owned")
         return EditBookViewModel(
             state: .addBook(category: category),
-            categoriesStorage: FakeCategoriesStorage(categories: [category])
+            categoriesStorage: FakeCategoriesStorage(categories: [category]),
+            bookLookupService: bookLookupService,
+            authorsStorage: authorsStorage,
+            publishersStorage: publishersStorage,
+            genresStorage: genresStorage
         )
     }
 }

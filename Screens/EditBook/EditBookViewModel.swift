@@ -27,10 +27,27 @@ final class EditBookViewModel {
 
     var editedBook: Book?
 
+    var isScannerPresented = false
+    var isLookingUpBook = false
+    var lookupErrorMessage: String?
+
+    private let bookLookupService: BookLookupService
+    private let authorsStorage: AuthorsStorage
+    private let publishersStorage: PublishersStorage
+    private let genresStorage: GenresStorage
+
     init(
         state: EditBookView.ViewState,
-        categoriesStorage: CategoriesStorage = CDStorage.shared
+        categoriesStorage: CategoriesStorage = CDStorage.shared,
+        bookLookupService: BookLookupService = OpenLibraryBookLookupService(),
+        authorsStorage: AuthorsStorage = CDStorage.shared,
+        publishersStorage: PublishersStorage = CDStorage.shared,
+        genresStorage: GenresStorage = CDStorage.shared
     ) {
+        self.bookLookupService = bookLookupService
+        self.authorsStorage = authorsStorage
+        self.publishersStorage = publishersStorage
+        self.genresStorage = genresStorage
 
         switch state {
         case .addBook(let category):
@@ -86,5 +103,70 @@ final class EditBookViewModel {
             series: bookSeries,
             category: bookCategory
         )
+    }
+
+    // MARK: - Barcode Scan
+
+    func applyScannedISBN(_ isbn: String) {
+        bookIsbn = isbn
+        lookupErrorMessage = nil
+
+        Task {
+            await lookUpBook(isbn: isbn)
+        }
+    }
+
+    @MainActor
+    private func lookUpBook(isbn: String) async {
+        isLookingUpBook = true
+        defer { isLookingUpBook = false }
+
+        do {
+            let result = try await bookLookupService.lookup(isbn: isbn)
+            applyLookupResult(result)
+        } catch BookLookupError.notFound {
+            lookupErrorMessage = "No book found for this ISBN."
+        } catch {
+            lookupErrorMessage = "Couldn't fetch book details. Please fill them in manually."
+        }
+    }
+
+    func applyLookupResult(_ result: BookLookupResult) {
+        if bookTitle.isEmpty, let title = result.title {
+            bookTitle = title
+        }
+
+        if bookAuthors.isEmpty, !result.authors.isEmpty {
+            let existingAuthors = authorsStorage.getAuthors()
+            bookAuthors = result.authors.map { name in
+                existingAuthors.first {
+                    $0.displayName.localizedCaseInsensitiveCompare(name) == .orderedSame
+                } ?? Author(displayName: name)
+            }
+        }
+
+        if bookGenres.isEmpty, !result.genres.isEmpty {
+            let existingGenres = genresStorage.getGenres()
+            bookGenres = result.genres.map { name in
+                existingGenres.first {
+                    $0.name.localizedCaseInsensitiveCompare(name) == .orderedSame
+                } ?? Genre(name: name)
+            }
+        }
+
+        if bookPublisher == nil, let publisherName = result.publisher {
+            let existingPublisher = publishersStorage.getPublishers().first {
+                $0.name.localizedCaseInsensitiveCompare(publisherName) == .orderedSame
+            }
+            bookPublisher = existingPublisher ?? Publisher(name: publisherName)
+        }
+
+        if bookPages.isEmpty, let pages = result.pages {
+            bookPages = String(pages)
+        }
+
+        if bookYear.isEmpty || bookYear == "—", let year = result.year {
+            bookYear = String(year)
+        }
     }
 }

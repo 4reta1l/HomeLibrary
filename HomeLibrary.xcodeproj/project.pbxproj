@@ -17,6 +17,7 @@
 		57C481D3B776F7E5D637695F /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72172A8456DF509A853A625C /* BarcodeScannerView.swift */; };
 		6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A833FC13280B8604F196419 /* Foundation.framework */; };
 		7A850DF4661FC9A28BC86280 /* FakePublishersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */; };
+		A6AA9194DF4EC0829C984FA2 /* FakeBookLookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BE86009C1D7A9C1FD3A72 /* FakeBookLookupService.swift */; };
 		A73D115A412C7103258D0FF4 /* BookLookupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B61F72219FE518E9F89248 /* BookLookupService.swift */; };
 		C4A8C9E6693735C2C23816AC /* LibraryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E527BAF12F699D0F027923C /* LibraryStoreTests.swift */; };
 		C61CA2B05276DBBBF030EBF6 /* FakeAuthorsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827C64000AA09DDC344AB800 /* FakeAuthorsStorage.swift */; };
@@ -104,6 +105,7 @@
 		109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeCategoriesStorage.swift; sourceTree = "<group>"; };
 		3616FFA2B1E7A8843AFE6CD8 /* StubURLProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StubURLProtocol.swift; sourceTree = "<group>"; };
 		4F1589E3F1D38822A877F22D /* OpenLibraryBookLookupServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenLibraryBookLookupServiceTests.swift; sourceTree = "<group>"; };
+		568BE86009C1D7A9C1FD3A72 /* FakeBookLookupService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeBookLookupService.swift; sourceTree = "<group>"; };
 		56DFD59B4D721194FAEFF8D2 /* OpenLibraryBookLookupService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenLibraryBookLookupService.swift; sourceTree = "<group>"; };
 		5A833FC13280B8604F196419 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6E527BAF12F699D0F027923C /* LibraryStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LibraryStoreTests.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */,
 				109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */,
 				3616FFA2B1E7A8843AFE6CD8 /* StubURLProtocol.swift */,
+				568BE86009C1D7A9C1FD3A72 /* FakeBookLookupService.swift */,
 			);
 			name = Fakes;
 			path = Fakes;
@@ -742,6 +745,7 @@
 				42EF50A7EFC6F0B86846E2DA /* DateExtensionTests.swift in Sources */,
 				3348149BBDADDFCFAA7B0D9F /* StubURLProtocol.swift in Sources */,
 				0907EE86BCD7F574075720B4 /* OpenLibraryBookLookupServiceTests.swift in Sources */,
+				A6AA9194DF4EC0829C984FA2 /* FakeBookLookupService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
