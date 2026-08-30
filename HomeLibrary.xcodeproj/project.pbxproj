@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CE763E3C6058A51032A3BFF /* FakeGenresStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */; };
+		3EFD219BF425C2034DA5BF7C /* FakeCategoriesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */; };
 		6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A833FC13280B8604F196419 /* Foundation.framework */; };
+		7A850DF4661FC9A28BC86280 /* FakePublishersStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */; };
+		C61CA2B05276DBBBF030EBF6 /* FakeAuthorsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827C64000AA09DDC344AB800 /* FakeAuthorsStorage.swift */; };
 		C704B6102F0A69A6000C7B6E /* CDGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B60F2F0A69A6000C7B6E /* CDGenre.swift */; };
 		C704B6172F0A835E000C7B6E /* CDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6162F0A835E000C7B6E /* CDStorage.swift */; };
 		C704B6192F0A838C000C7B6E /* CDStorage+Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */; };
@@ -74,6 +78,7 @@
 		C798D47A2EFEB64600006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4792EFEB64600006414 /* CDBook.swift */; };
 		C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */; };
 		C7D5EB4C3042184D00D044FA /* LibrarySeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */; };
+		E7961A17DF09879CD8A03A8B /* FakeBooksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02FC130BF919E28621427B5 /* FakeBooksStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +92,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeCategoriesStorage.swift; sourceTree = "<group>"; };
 		5A833FC13280B8604F196419 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6F8134F09A2C7773521FBDFD /* HomeLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		827C64000AA09DDC344AB800 /* FakeAuthorsStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeAuthorsStorage.swift; sourceTree = "<group>"; };
+		A02FC130BF919E28621427B5 /* FakeBooksStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeBooksStorage.swift; sourceTree = "<group>"; };
 		C704B60F2F0A69A6000C7B6E /* CDGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDGenre.swift; sourceTree = "<group>"; };
 		C704B6162F0A835E000C7B6E /* CDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDStorage.swift; sourceTree = "<group>"; };
 		C704B6182F0A838C000C7B6E /* CDStorage+Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDStorage+Genres.swift"; sourceTree = "<group>"; };
@@ -157,6 +165,8 @@
 		C798D4792EFEB64600006414 /* CDBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBook.swift; sourceTree = "<group>"; };
 		C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Extension.swift"; sourceTree = "<group>"; };
 		C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySeeder.swift; sourceTree = "<group>"; };
+		CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeGenresStorage.swift; sourceTree = "<group>"; };
+		D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakePublishersStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +199,7 @@
 		329E34DC1089BA57015DDB6C /* HomeLibraryTests */ = {
 			isa = PBXGroup;
 			children = (
+				9662F77AE96234B70DEEE546 /* Fakes */,
 			);
 			name = HomeLibraryTests;
 			path = HomeLibraryTests;
@@ -200,6 +211,19 @@
 				17C7641DC09D0D88D92ECA4A /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9662F77AE96234B70DEEE546 /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				A02FC130BF919E28621427B5 /* FakeBooksStorage.swift */,
+				827C64000AA09DDC344AB800 /* FakeAuthorsStorage.swift */,
+				CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */,
+				D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */,
+				109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */,
+			);
+			name = Fakes;
+			path = Fakes;
 			sourceTree = "<group>";
 		};
 		C704B61E2F0AC0A8000C7B6E /* Genres */ = {
@@ -626,6 +650,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7961A17DF09879CD8A03A8B /* FakeBooksStorage.swift in Sources */,
+				C61CA2B05276DBBBF030EBF6 /* FakeAuthorsStorage.swift in Sources */,
+				2CE763E3C6058A51032A3BFF /* FakeGenresStorage.swift in Sources */,
+				7A850DF4661FC9A28BC86280 /* FakePublishersStorage.swift in Sources */,
+				3EFD219BF425C2034DA5BF7C /* FakeCategoriesStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
