@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0907EE86BCD7F574075720B4 /* OpenLibraryBookLookupServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1589E3F1D38822A877F22D /* OpenLibraryBookLookupServiceTests.swift */; };
 		1D63669B14CF2C3D6CD07271 /* EditBookViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5764D748E5860CB6CC22EA4 /* EditBookViewModelTests.swift */; };
 		1E4206CAF73001859D745B9D /* BookExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64F03D3757C27C5E4258334 /* BookExtensionTests.swift */; };
 		2CE763E3C6058A51032A3BFF /* FakeGenresStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */; };
+		3348149BBDADDFCFAA7B0D9F /* StubURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3616FFA2B1E7A8843AFE6CD8 /* StubURLProtocol.swift */; };
 		3EFD219BF425C2034DA5BF7C /* FakeCategoriesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */; };
 		42EF50A7EFC6F0B86846E2DA /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB589E14BEB3F2B281F6E6C5 /* DateExtensionTests.swift */; };
 		6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A833FC13280B8604F196419 /* Foundation.framework */; };
@@ -99,6 +101,8 @@
 
 /* Begin PBXFileReference section */
 		109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeCategoriesStorage.swift; sourceTree = "<group>"; };
+		3616FFA2B1E7A8843AFE6CD8 /* StubURLProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StubURLProtocol.swift; sourceTree = "<group>"; };
+		4F1589E3F1D38822A877F22D /* OpenLibraryBookLookupServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenLibraryBookLookupServiceTests.swift; sourceTree = "<group>"; };
 		56DFD59B4D721194FAEFF8D2 /* OpenLibraryBookLookupService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OpenLibraryBookLookupService.swift; sourceTree = "<group>"; };
 		5A833FC13280B8604F196419 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6E527BAF12F699D0F027923C /* LibraryStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LibraryStoreTests.swift; sourceTree = "<group>"; };
@@ -210,6 +214,15 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		1648A78AAB2569412B1B6A7E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4F1589E3F1D38822A877F22D /* OpenLibraryBookLookupServiceTests.swift */,
+			);
+			name = Networking;
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		17C7641DC09D0D88D92ECA4A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +238,7 @@
 				73B42A6C22FF5E235A08E89B /* Screens */,
 				E0CDB2E8AC6D5183F5519B8D /* App */,
 				3B6A72C81C283F1FCBE131B2 /* LibraryModels */,
+				1648A78AAB2569412B1B6A7E /* Networking */,
 			);
 			name = HomeLibraryTests;
 			path = HomeLibraryTests;
@@ -274,6 +288,7 @@
 				CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */,
 				D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */,
 				109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */,
+				3616FFA2B1E7A8843AFE6CD8 /* StubURLProtocol.swift */,
 			);
 			name = Fakes;
 			path = Fakes;
@@ -722,6 +737,8 @@
 				C4A8C9E6693735C2C23816AC /* LibraryStoreTests.swift in Sources */,
 				1E4206CAF73001859D745B9D /* BookExtensionTests.swift in Sources */,
 				42EF50A7EFC6F0B86846E2DA /* DateExtensionTests.swift in Sources */,
+				3348149BBDADDFCFAA7B0D9F /* StubURLProtocol.swift in Sources */,
+				0907EE86BCD7F574075720B4 /* OpenLibraryBookLookupServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
