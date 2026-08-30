@@ -28,7 +28,8 @@ final class EditBookViewModel {
     var editedBook: Book?
 
     init(
-        state: EditBookView.ViewState
+        state: EditBookView.ViewState,
+        categoriesStorage: CategoriesStorage = CDStorage.shared
     ) {
 
         switch state {
@@ -38,7 +39,7 @@ final class EditBookViewModel {
             bookYear = "—"
 
             do {
-                let realCategory = try CDStorage.shared.getCategoryByName(category.name)
+                let realCategory = try categoriesStorage.getCategoryByName(category.name)
                 bookCategory = realCategory
             } catch {
                 bookCategory = Category.default
