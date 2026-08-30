@@ -10,50 +10,73 @@ import Foundation
 @Observable
 final class LibraryStore {
 
-    private let storage = CDStorage.shared
+    // MARK: - Dependencies
 
-    var books: [Book] = []
-    var categories: [Category] = []
-    var authors: [Author] = []
-    var genres: [Genre] = []
+    private let booksStorage: BooksStorage
+    private let authorsStorage: AuthorsStorage
+    private let genresStorage: GenresStorage
+    private let categoriesStorage: CategoriesStorage
 
-    init() {
+    // MARK: - State
+
+    private(set) var books: [Book] = []
+    private(set) var categories: [Category] = []
+    private(set) var authors: [Author] = []
+    private(set) var genres: [Genre] = []
+
+    // MARK: - Init
+
+    init(
+        booksStorage: BooksStorage,
+        authorsStorage: AuthorsStorage,
+        genresStorage: GenresStorage,
+        categoriesStorage: CategoriesStorage
+    ) {
+        self.booksStorage = booksStorage
+        self.authorsStorage = authorsStorage
+        self.genresStorage = genresStorage
+        self.categoriesStorage = categoriesStorage
         reloadAll()
     }
 
+    // MARK: - Loading
+
     func reloadAll() {
-        self.books = self.storage.getBooks().reversed()
-        self.categories = self.storage.getCategories()
-        self.authors = storage.getAuthors()
-        self.genres = storage.getGenres()
+        books = booksStorage.getBooks().reversed()
+        categories = categoriesStorage.getCategories()
+        authors = authorsStorage.getAuthors()
+        genres = genresStorage.getGenres()
     }
 
+    // MARK: - Books
+
     func addBook(_ book: Book) throws {
-        try self.storage.addBook(book)
+        try booksStorage.addBook(book)
         reloadAll()
     }
 
     func updateBook(_ book: Book) throws {
-        try self.storage.updateBook(book)
+        try booksStorage.updateBook(book)
         reloadAll()
     }
 
     func deleteBook(_ book: Book) throws {
-        try self.storage.deleteBook(book)
+        try booksStorage.deleteBook(book)
         reloadAll()
     }
 
+    // MARK: - Categories
+
     func addCategory(_ category: Category) {
-        self.storage.addCategory(category)
+        categoriesStorage.addCategory(category)
         reloadAll()
     }
+
+    // MARK: - Presentation
+    // Belongs in the view layer — moves out in Phase 3.4.
 
     func displayBooksCountForCategory(_ category: Category) -> String {
         let filteredBooksCount = books.filter { $0.category == category }.count
-        if filteredBooksCount == 1 {
-            return "1 book"
-        } else {
-            return "\(filteredBooksCount) books"
-        }
+        return filteredBooksCount == 1 ? "1 book" : "\(filteredBooksCount) books"
     }
 }
