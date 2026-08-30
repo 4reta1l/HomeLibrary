@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D63669B14CF2C3D6CD07271 /* EditBookViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5764D748E5860CB6CC22EA4 /* EditBookViewModelTests.swift */; };
 		2CE763E3C6058A51032A3BFF /* FakeGenresStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */; };
 		3EFD219BF425C2034DA5BF7C /* FakeCategoriesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109A1422B327747E28BD2436 /* FakeCategoriesStorage.swift */; };
 		6E2309A30EBF5782B6432DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A833FC13280B8604F196419 /* Foundation.framework */; };
@@ -167,6 +168,7 @@
 		C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySeeder.swift; sourceTree = "<group>"; };
 		CCCBECE012AD98AF7B263A53 /* FakeGenresStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakeGenresStorage.swift; sourceTree = "<group>"; };
 		D1E05024DAA70730EB18C5D4 /* FakePublishersStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FakePublishersStorage.swift; sourceTree = "<group>"; };
+		E5764D748E5860CB6CC22EA4 /* EditBookViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EditBookViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,9 +202,28 @@
 			isa = PBXGroup;
 			children = (
 				9662F77AE96234B70DEEE546 /* Fakes */,
+				73B42A6C22FF5E235A08E89B /* Screens */,
 			);
 			name = HomeLibraryTests;
 			path = HomeLibraryTests;
+			sourceTree = "<group>";
+		};
+		5231D364ECF0C88439D6AAAE /* EditBook */ = {
+			isa = PBXGroup;
+			children = (
+				E5764D748E5860CB6CC22EA4 /* EditBookViewModelTests.swift */,
+			);
+			name = EditBook;
+			path = EditBook;
+			sourceTree = "<group>";
+		};
+		73B42A6C22FF5E235A08E89B /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				5231D364ECF0C88439D6AAAE /* EditBook */,
+			);
+			name = Screens;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		786926F92B416C8855A9278D /* Frameworks */ = {
@@ -655,6 +676,7 @@
 				2CE763E3C6058A51032A3BFF /* FakeGenresStorage.swift in Sources */,
 				7A850DF4661FC9A28BC86280 /* FakePublishersStorage.swift in Sources */,
 				3EFD219BF425C2034DA5BF7C /* FakeCategoriesStorage.swift in Sources */,
+				1D63669B14CF2C3D6CD07271 /* EditBookViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
