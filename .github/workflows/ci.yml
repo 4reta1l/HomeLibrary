@@ -45,6 +45,17 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             | xcbeautify --renderer github-actions
 
+      - name: Test
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project HomeLibrary.xcodeproj \
+            -scheme HomeLibrary \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -derivedDataPath .derivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify --renderer github-actions
+
   lint:
     name: SwiftLint
     runs-on: ubuntu-latest
