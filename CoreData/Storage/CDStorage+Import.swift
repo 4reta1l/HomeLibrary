@@ -19,15 +19,11 @@ extension CDStorage {
         context.performAndWait {
             do {
                 let csv = try String(contentsOf: url, encoding: .utf8)
-                let rows = csv.components(separatedBy: .newlines)
+                let rows = try CSVParser().parse(csv)
 
                 guard rows.count > 1 else { return }
 
-                // Skip header
-                for row in rows.dropFirst() {
-                    let columns = self.parseCSVRow(row)
-                    guard !columns.isEmpty else { continue }
-
+                for columns in rows.dropFirst() {
                     self.createCDBook(from: columns, context: context)
                 }
 
@@ -39,28 +35,6 @@ extension CDStorage {
                 print("CSV import failed:", error)
             }
         }
-    }
-
-    // MARK: - CSV Parsing
-
-    private func parseCSVRow(_ row: String) -> [String] {
-        var result: [String] = []
-        var current = ""
-        var insideQuotes = false
-
-        for char in row {
-            if char == "\"" {
-                insideQuotes.toggle()
-            } else if char == "," && !insideQuotes {
-                result.append(current)
-                current = ""
-            } else {
-                current.append(char)
-            }
-        }
-
-        result.append(current)
-        return result.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
     }
 
     private func createCDBook(from columns: [String], context: NSManagedObjectContext) {

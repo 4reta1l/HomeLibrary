@@ -163,6 +163,11 @@
 			path = HomeLibraryTests;
 			sourceTree = "<group>";
 		};
+		C7D5EB5D3047380C00D044FA /* CSV */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CSV;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +386,7 @@
 		C798D4542EEB98EA00006414 /* LibraryModels */ = {
 			isa = PBXGroup;
 			children = (
+				C7D5EB5D3047380C00D044FA /* CSV */,
 				C798D4552EEB993000006414 /* Storage */,
 				C704B63C2F0C50B0000C7B6E /* Models */,
 			);
@@ -498,6 +504,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C7D5EB5D3047380C00D044FA /* CSV */,
 			);
 			name = HomeLibrary;
 			packageProductDependencies = (
