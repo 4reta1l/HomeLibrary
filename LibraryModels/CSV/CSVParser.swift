@@ -1,14 +1,16 @@
 //
 //  CSVParser.swift
-//  HomeLibraryTests
+//  HomeLibrary
 //
 //  Created by Maksym Pyvovarov on 01/09/2026.
 //
 
 import Foundation
 
-/// CSV parsing extracted from CDStorage+Import.
-/// Behaviour is intentionally unchanged from the original implementation.
+/// Parses CSV text according to RFC 4180.
+///
+/// A field wrapped in double quotes may contain commas, line breaks and
+/// escaped quotes (a literal `"` is written as `""`).
 public struct CSVParser {
 
     public enum ParseError: Error, Equatable {
@@ -17,30 +19,83 @@ public struct CSVParser {
 
     public init() {}
 
+    /// Splits a CSV document into rows of fields. Rows that are entirely
+    /// empty are dropped, so a trailing newline does not produce a blank row.
     public func parse(_ text: String) throws -> [[String]] {
-        text
-            .components(separatedBy: .newlines)
-            .map(parseRow)
-            .filter { !$0.allSatisfy(\.isEmpty) }
-    }
+        let characters = Array(text)
+        var rows: [[String]] = []
+        var row: [String] = []
+        var index = 0
 
-    private func parseRow(_ row: String) -> [String] {
-        var result: [String] = []
-        var current = ""
-        var insideQuotes = false
+        while index < characters.count {
+            let result = try scanField(characters, from: index)
+            row.append(result.field)
+            index = result.next
 
-        for character in row {
-            if character == "\"" {
-                insideQuotes.toggle()
-            } else if character == "," && !insideQuotes {
-                result.append(current)
-                current = ""
-            } else {
-                current.append(character)
+            if result.endsRow {
+                rows.append(row)
+                row = []
             }
         }
 
-        result.append(current)
-        return result.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        if !row.isEmpty {
+            rows.append(row)
+        }
+
+        return rows.filter { !$0.allSatisfy(\.isEmpty) }
+    }
+
+    /// Reads one field starting at `start`.
+    /// - Returns: the field's value, the index to continue from, and whether
+    ///   this field was the last one in its row.
+    private func scanField(
+        _ characters: [Character],
+        from start: Int
+    ) throws -> (field: String, next: Int, endsRow: Bool) {
+
+        var field = ""
+        var index = start
+        var insideQuotes = false
+
+        while index < characters.count {
+            let character = characters[index]
+
+            if insideQuotes {
+                if character == "\"" {
+                    if index + 1 < characters.count, characters[index + 1] == "\"" {
+                        field.append("\"")      // escaped quote
+                        index += 2
+                    } else {
+                        insideQuotes = false    // closing quote
+                        index += 1
+                    }
+                } else {
+                    field.append(character)     // commas and newlines are literal here
+                    index += 1
+                }
+                continue
+            }
+
+            switch character {
+            case "\"":
+                insideQuotes = true
+                index += 1
+            case ",":
+                return (field, index + 1, false)
+            case "\n":
+                return (field, index + 1, true)
+            case "\r":
+                index += 1                      // skip the CR of a CRLF pair
+            default:
+                field.append(character)
+                index += 1
+            }
+        }
+
+        if insideQuotes {
+            throw ParseError.unterminatedQuote
+        }
+
+        return (field, index, true)
     }
 }
