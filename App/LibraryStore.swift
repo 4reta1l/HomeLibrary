@@ -10,14 +10,13 @@ import Foundation
 @Observable
 final class LibraryStore {
 
-    private let importer: LibraryImporting
-
     // MARK: - Dependencies
 
     private let booksStorage: BooksStorage
     private let authorsStorage: AuthorsStorage
     private let genresStorage: GenresStorage
     private let categoriesStorage: CategoriesStorage
+    private let importer: LibraryImporting
 
     // MARK: - State
 
