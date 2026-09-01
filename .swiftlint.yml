@@ -3,6 +3,7 @@ included:
   - CoreData
   - LibraryModels
   - Screens
+  - HomeLibraryTests
 
 excluded:
   - .build

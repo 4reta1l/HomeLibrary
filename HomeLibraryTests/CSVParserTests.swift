@@ -8,7 +8,7 @@
 import Testing
 @testable import HomeLibrary
 
-struct CSVParserTests { 
+struct CSVParserTests {
 
     private let sut = CSVParser()
 
