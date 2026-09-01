@@ -20,6 +20,7 @@ extension CDStorage {
     }
 
     func saveBook(
+        id: UUID,
         title: String,
         authors: Set<CDAuthor>,
         notes: String?,
@@ -33,7 +34,7 @@ extension CDStorage {
         category: CDCategory
     ) throws {
         let newBook = CDBook(context: container.viewContext)
-        newBook.id = UUID()
+        newBook.id = id
         newBook.title = title
         newBook.authors = authors
         newBook.notes = notes
