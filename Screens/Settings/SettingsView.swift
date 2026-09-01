@@ -97,42 +97,14 @@ struct SettingsView: View {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("library.csv")
 
-        var csv = ""
-
-        csv += "id,title,status,authors,genres,year,pages,isbn,category,publisher,series,notes\n"
-
-        for book in store.books {
-            let row = [
-                book.id.uuidString,
-                escape(book.title),
-                book.status.rawValue,
-                escape(book.authors.map(\.displayName).joined(separator: "; ")),
-                escape(book.genres.map(\.name).joined(separator: "; ")),
-                book.year.map(String.init) ?? "",
-                book.pages.map(String.init) ?? "",
-                book.isbn ?? "",
-                escape(book.category.name),
-                book.publisher?.name ?? "",
-                book.series?.name ?? "",
-                escape(book.notes ?? "")
-            ]
-
-            csv += row.joined(separator: ",") + "\n"
-        }
-
         do {
+            let csv = CSVExporter().export(store.books)
             try csv.write(to: url, atomically: true, encoding: .utf8)
+
             exportURL = url
             exportType = .csv
         } catch {
-            print("CSV export failed:", error)
+            print("CSV export failed: \(error)")
         }
-    }
-
-    private func escape(_ value: String) -> String {
-        if value.contains(",") || value.contains("\"") || value.contains("\n") {
-            return "\"\(value.replacingOccurrences(of: "\"", with: "\"\""))\""
-        }
-        return value
     }
 }

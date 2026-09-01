@@ -18,8 +18,10 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
         container = NSPersistentContainer(name: "HomeLibrary")
 
         if inMemory {
-            container.persistentStoreDescriptions.first?.url =
-            URL(fileURLWithPath: "/dev/null")
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
+            description.shouldAddStoreAsynchronously = false
+            container.persistentStoreDescriptions = [description]
         }
 
         container.loadPersistentStores { _, error in
