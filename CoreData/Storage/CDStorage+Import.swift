@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-extension CDStorage {
+extension CDStorage: LibraryImporting {
 
     // MARK: - Public API
 

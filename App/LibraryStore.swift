@@ -10,6 +10,8 @@ import Foundation
 @Observable
 final class LibraryStore {
 
+    private let importer: LibraryImporting
+
     // MARK: - Dependencies
 
     private let booksStorage: BooksStorage
@@ -30,12 +32,14 @@ final class LibraryStore {
         booksStorage: BooksStorage,
         authorsStorage: AuthorsStorage,
         genresStorage: GenresStorage,
-        categoriesStorage: CategoriesStorage
+        categoriesStorage: CategoriesStorage,
+        importer: LibraryImporting
     ) {
         self.booksStorage = booksStorage
         self.authorsStorage = authorsStorage
         self.genresStorage = genresStorage
         self.categoriesStorage = categoriesStorage
+        self.importer = importer
         reloadAll()
     }
 
@@ -78,5 +82,12 @@ final class LibraryStore {
     func displayBooksCountForCategory(_ category: Category) -> String {
         let filteredBooksCount = books.filter { $0.category == category }.count
         return filteredBooksCount == 1 ? "1 book" : "\(filteredBooksCount) books"
+    }
+
+    // MARK: - Import
+
+    func importBooks(from url: URL) throws {
+        try importer.importBooks(from: url)
+        reloadAll()
     }
 }

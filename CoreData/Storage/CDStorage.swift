@@ -29,6 +29,7 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
                 assertionFailure("Failed to load Core Data stack: \(error)")
             }
         }
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
     func saveData(_ context: NSManagedObjectContext? = nil) {

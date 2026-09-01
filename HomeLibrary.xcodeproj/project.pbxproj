@@ -73,6 +73,8 @@
 		C798D47A2EFEB64600006414 /* CDBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D4792EFEB64600006414 /* CDBook.swift */; };
 		C798D47D2EFEB6F100006414 /* NSFetchRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */; };
 		C7D5EB4C3042184D00D044FA /* LibrarySeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */; };
+		C7D5EB7630474D6300D044FA /* LibraryImporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB7530474D6300D044FA /* LibraryImporting.swift */; };
+		C7D5EB7730474D6300D044FA /* LibraryImporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5EB7530474D6300D044FA /* LibraryImporting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +157,7 @@
 		C798D47C2EFEB6F100006414 /* NSFetchRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchRequest+Extension.swift"; sourceTree = "<group>"; };
 		C7D5EB4B3042184D00D044FA /* LibrarySeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySeeder.swift; sourceTree = "<group>"; };
 		C7D5EB52304736C800D044FA /* HomeLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7D5EB7530474D6300D044FA /* LibraryImporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryImporting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -402,6 +405,7 @@
 				C704B65D2F16F55F000C7B6E /* PublishersStorage.swift */,
 				C704B66D2F187351000C7B6E /* SeriesStorage.swift */,
 				C704B6822F19C7A4000C7B6E /* CategoriesStorage.swift */,
+				C7D5EB7530474D6300D044FA /* LibraryImporting.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -628,6 +632,7 @@
 				C704B6202F0AC0F0000C7B6E /* GenresView.swift in Sources */,
 				C704B6682F18412E000C7B6E /* Series.swift in Sources */,
 				C704B6992F1B11B2000C7B6E /* OverviewView.swift in Sources */,
+				C7D5EB7630474D6300D044FA /* LibraryImporting.swift in Sources */,
 				C704B64F2F14027E000C7B6E /* Set+Extension.swift in Sources */,
 				C704B68A2F1A97C7000C7B6E /* CategoriesViewModel.swift in Sources */,
 				C704B61B2F0A83BA000C7B6E /* GenresStorage.swift in Sources */,
@@ -694,6 +699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7D5EB7730474D6300D044FA /* LibraryImporting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

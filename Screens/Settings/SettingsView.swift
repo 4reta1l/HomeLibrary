@@ -11,9 +11,12 @@ internal import UniformTypeIdentifiers
 struct SettingsView: View {
 
     @Environment(LibraryStore.self) private var store
+
     @State private var exportURL: URL?
     @State private var exportType: ExportType?
-    @State private var showImportCSV: Bool = false
+    @State private var showImportCSV = false
+    @State private var errorMessage: String?
+    @State private var isShowingError = false
 
     enum ExportType {
         case json
@@ -55,30 +58,24 @@ struct SettingsView: View {
                     }
                 }
             }
+            .navigationTitle("Settings")
             .fileImporter(
                 isPresented: $showImportCSV,
                 allowedContentTypes: [.commaSeparatedText]
             ) { result in
-                do {
-                    let url = try result.get()
-
-                    guard url.startAccessingSecurityScopedResource() else {
-                        print("Could not access file")
-                        return
-                    }
-                    defer { url.stopAccessingSecurityScopedResource() }
-
-                    try CDStorage.shared.importBooks(from: url)
-                } catch {
-                    print("CSV import failed:", error)
-                }
+                importLibraryCSV(from: result)
             }
-
-            .navigationTitle("Settings")
+            .alert("Something went wrong", isPresented: $isShowingError) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(errorMessage ?? "Unknown error")
+            }
         }
     }
 
-    func exportLibraryJSON() {
+    // MARK: - Export
+
+    private func exportLibraryJSON() {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("library.json")
 
@@ -89,11 +86,11 @@ struct SettingsView: View {
             exportURL = url
             exportType = .json
         } catch {
-            print("Export failed: \(error)")
+            show(error)
         }
     }
 
-    func exportLibraryCSV() {
+    private func exportLibraryCSV() {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("library.csv")
 
@@ -104,7 +101,36 @@ struct SettingsView: View {
             exportURL = url
             exportType = .csv
         } catch {
-            print("CSV export failed: \(error)")
+            show(error)
         }
+    }
+
+    // MARK: - Import
+
+    private func importLibraryCSV(from result: Result<URL, any Error>) {
+        do {
+            let url = try result.get()
+
+            guard url.startAccessingSecurityScopedResource() else {
+                show(message: "Could not open the selected file.")
+                return
+            }
+            defer { url.stopAccessingSecurityScopedResource() }
+
+            try store.importBooks(from: url)
+        } catch {
+            show(error)
+        }
+    }
+
+    // MARK: - Errors
+
+    private func show(_ error: any Error) {
+        show(message: error.localizedDescription)
+    }
+
+    private func show(message: String) {
+        errorMessage = message
+        isShowingError = true
     }
 }
