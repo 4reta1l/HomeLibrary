@@ -13,8 +13,15 @@ import Foundation
 /// escaped quotes (a literal `"` is written as `""`).
 public struct CSVParser {
 
-    public enum ParseError: Error, Equatable {
+    public enum ParseError: Error, Equatable, LocalizedError {
         case unterminatedQuote
+
+        public var errorDescription: String? {
+            switch self {
+            case .unterminatedQuote:
+                "The file contains a quotation mark that is never closed."
+            }
+        }
     }
 
     public init() {}
