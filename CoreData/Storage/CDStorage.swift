@@ -14,12 +14,17 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
 
     let container: NSPersistentContainer
 
-    private init() {
+    init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "HomeLibrary")
+
+        if inMemory {
+            container.persistentStoreDescriptions.first?.url =
+            URL(fileURLWithPath: "/dev/null")
+        }
 
         container.loadPersistentStores { _, error in
             if let error {
-                print("Error loading core data \(error)")
+                assertionFailure("Failed to load Core Data stack: \(error)")
             }
         }
     }
