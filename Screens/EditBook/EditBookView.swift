@@ -66,6 +66,24 @@ struct EditBookView: View {
             } message: {
                 Text("This action cannot be undone.")
             }
+            .alert(
+                "Lookup Failed",
+                isPresented: Binding(
+                    get: { viewModel.lookupErrorMessage != nil },
+                    set: { isPresented in
+                        if !isPresented { viewModel.lookupErrorMessage = nil }
+                    }
+                )
+            ) {
+                Button("OK") {}
+            } message: {
+                Text(viewModel.lookupErrorMessage ?? "")
+            }
+            .sheet(isPresented: $viewModel.isScannerPresented) {
+                BarcodeScannerView { isbn in
+                    viewModel.applyScannedISBN(isbn)
+                }
+            }
         }
     }
 
@@ -201,7 +219,20 @@ struct EditBookView: View {
                 )
             }
 
-            TextField("ISBN", text: $viewModel.bookIsbn)
+            HStack {
+                TextField("ISBN", text: $viewModel.bookIsbn)
+
+                if viewModel.isLookingUpBook {
+                    ProgressView()
+                } else {
+                    Button {
+                        dismissKeyboard()
+                        viewModel.isScannerPresented = true
+                    } label: {
+                        Image(systemName: "barcode.viewfinder")
+                    }
+                }
+            }
 
             NavigationLink {
                 SeriesView(selectedSeries: $viewModel.bookSeries)
