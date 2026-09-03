@@ -32,7 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             booksStorage: storage,
             authorsStorage: storage,
             genresStorage: storage,
-            categoriesStorage: storage
+            categoriesStorage: storage,
+            importer: storage
         )
 
         let window = UIWindow(windowScene: scene)

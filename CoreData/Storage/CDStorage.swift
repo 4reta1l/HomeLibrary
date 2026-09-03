@@ -14,14 +14,22 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
 
     let container: NSPersistentContainer
 
-    private init() {
+    init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "HomeLibrary")
+
+        if inMemory {
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
+            description.shouldAddStoreAsynchronously = false
+            container.persistentStoreDescriptions = [description]
+        }
 
         container.loadPersistentStores { _, error in
             if let error {
-                print("Error loading core data \(error)")
+                assertionFailure("Failed to load Core Data stack: \(error)")
             }
         }
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
     func saveData(_ context: NSManagedObjectContext? = nil) {

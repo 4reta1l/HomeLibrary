@@ -78,6 +78,7 @@ extension CDStorage {
         let category = try self.fetchOrSaveCategory(book.category)
 
         try self.saveBook(
+            id: book.id,
             title: book.title,
             authors: Set(authors),
             notes: book.notes,

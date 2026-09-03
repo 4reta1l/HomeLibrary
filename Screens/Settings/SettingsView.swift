@@ -11,9 +11,12 @@ internal import UniformTypeIdentifiers
 struct SettingsView: View {
 
     @Environment(LibraryStore.self) private var store
+
     @State private var exportURL: URL?
     @State private var exportType: ExportType?
-    @State private var showImportCSV: Bool = false
+    @State private var showImportCSV = false
+    @State private var errorMessage: String?
+    @State private var isShowingError = false
 
     enum ExportType {
         case json
@@ -55,30 +58,24 @@ struct SettingsView: View {
                     }
                 }
             }
+            .navigationTitle("Settings")
             .fileImporter(
                 isPresented: $showImportCSV,
                 allowedContentTypes: [.commaSeparatedText]
             ) { result in
-                do {
-                    let url = try result.get()
-
-                    guard url.startAccessingSecurityScopedResource() else {
-                        print("Could not access file")
-                        return
-                    }
-                    defer { url.stopAccessingSecurityScopedResource() }
-
-                    try CDStorage.shared.importBooks(from: url)
-                } catch {
-                    print("CSV import failed:", error)
-                }
+                importLibraryCSV(from: result)
             }
-
-            .navigationTitle("Settings")
+            .alert("Something went wrong", isPresented: $isShowingError) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(errorMessage ?? "Unknown error")
+            }
         }
     }
 
-    func exportLibraryJSON() {
+    // MARK: - Export
+
+    private func exportLibraryJSON() {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("library.json")
 
@@ -89,50 +86,51 @@ struct SettingsView: View {
             exportURL = url
             exportType = .json
         } catch {
-            print("Export failed: \(error)")
+            show(error)
         }
     }
 
-    func exportLibraryCSV() {
+    private func exportLibraryCSV() {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("library.csv")
 
-        var csv = ""
-
-        csv += "id,title,status,authors,genres,year,pages,isbn,category,publisher,series,notes\n"
-
-        for book in store.books {
-            let row = [
-                book.id.uuidString,
-                escape(book.title),
-                book.status.rawValue,
-                escape(book.authors.map(\.displayName).joined(separator: "; ")),
-                escape(book.genres.map(\.name).joined(separator: "; ")),
-                book.year.map(String.init) ?? "",
-                book.pages.map(String.init) ?? "",
-                book.isbn ?? "",
-                escape(book.category.name),
-                book.publisher?.name ?? "",
-                book.series?.name ?? "",
-                escape(book.notes ?? "")
-            ]
-
-            csv += row.joined(separator: ",") + "\n"
-        }
-
         do {
+            let csv = CSVExporter().export(store.books)
             try csv.write(to: url, atomically: true, encoding: .utf8)
+
             exportURL = url
             exportType = .csv
         } catch {
-            print("CSV export failed:", error)
+            show(error)
         }
     }
 
-    private func escape(_ value: String) -> String {
-        if value.contains(",") || value.contains("\"") || value.contains("\n") {
-            return "\"\(value.replacingOccurrences(of: "\"", with: "\"\""))\""
+    // MARK: - Import
+
+    private func importLibraryCSV(from result: Result<URL, any Error>) {
+        do {
+            let url = try result.get()
+
+            guard url.startAccessingSecurityScopedResource() else {
+                show(message: "Could not open the selected file.")
+                return
+            }
+            defer { url.stopAccessingSecurityScopedResource() }
+
+            try store.importBooks(from: url)
+        } catch {
+            show(error)
         }
-        return value
+    }
+
+    // MARK: - Errors
+
+    private func show(_ error: any Error) {
+        show(message: error.localizedDescription)
+    }
+
+    private func show(message: String) {
+        errorMessage = message
+        isShowingError = true
     }
 }

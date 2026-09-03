@@ -4,6 +4,7 @@ included:
   - LibraryModels
   - Networking
   - Screens
+  - HomeLibraryTests
 
 excluded:
   - .build
@@ -13,6 +14,7 @@ disabled_rules:
   - for_where
   - function_parameter_count
   - todo
+  - large_tuple
 
 opt_in_rules:
   - closure_spacing

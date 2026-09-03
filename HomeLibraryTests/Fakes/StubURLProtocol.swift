@@ -10,11 +10,11 @@ final class StubURLProtocol: URLProtocol {
     static var stubHandler: ((URLRequest) -> (Data, HTTPURLResponse))?
     static var stubError: Error?
 
-    override class func canInit(with request: URLRequest) -> Bool {
+    override static func canInit(with request: URLRequest) -> Bool {
         true
     }
 
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+    override static func canonicalRequest(for request: URLRequest) -> URLRequest {
         request
     }
 
