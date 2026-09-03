@@ -76,7 +76,8 @@ struct LibraryStoreTests {
             booksStorage: booksStorage,
             authorsStorage: FakeAuthorsStorage(),
             genresStorage: FakeGenresStorage(),
-            categoriesStorage: FakeCategoriesStorage()
+            categoriesStorage: FakeCategoriesStorage(),
+            importer: FakeLibraryImporting()
         )
     }
 

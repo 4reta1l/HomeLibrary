@@ -8,112 +8,87 @@
 import Foundation
 import CoreData
 
-extension CDStorage {
+extension CDStorage: LibraryImporting {
 
     // MARK: - Public API
 
-    /// Import books from CSV file URL
+    /// Import books from a CSV file URL. Rows are matched to existing books by id.
     func importBooks(from url: URL) throws {
+        let text = try String(contentsOf: url, encoding: .utf8)
+        let rows = try CSVParser().parse(text)
+
+        guard let header = rows.first else { return }
+        let headers = header.map { $0.trimmingCharacters(in: .whitespaces) }
+
         let context = container.newBackgroundContext()
+        var thrownError: Error?
 
         context.performAndWait {
             do {
-                let csv = try String(contentsOf: url, encoding: .utf8)
-                let rows = csv.components(separatedBy: .newlines)
-
-                guard rows.count > 1 else { return }
-
-                // Skip header
-                for row in rows.dropFirst() {
-                    let columns = self.parseCSVRow(row)
-                    guard !columns.isEmpty else { continue }
-
-                    self.createCDBook(from: columns, context: context)
+                for fields in rows.dropFirst() {
+                    let row = CSVRow(headers: headers, fields: fields)
+                    try self.upsertBook(from: row, context: context)
                 }
-
-                if context.hasChanges {
-                    try context.save()
-                }
+                if context.hasChanges { try context.save() }
             } catch {
                 context.rollback()
-                print("CSV import failed:", error)
-            }
-        }
-    }
-
-    // MARK: - CSV Parsing
-
-    private func parseCSVRow(_ row: String) -> [String] {
-        var result: [String] = []
-        var current = ""
-        var insideQuotes = false
-
-        for char in row {
-            if char == "\"" {
-                insideQuotes.toggle()
-            } else if char == "," && !insideQuotes {
-                result.append(current)
-                current = ""
-            } else {
-                current.append(char)
+                thrownError = error
             }
         }
 
-        result.append(current)
-        return result.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        if let thrownError { throw thrownError }
     }
 
-    private func createCDBook(from columns: [String], context: NSManagedObjectContext) {
+    // MARK: - Row mapping
 
-        guard columns.count >= 12 else { return }
+    private func upsertBook(from row: CSVRow, context: NSManagedObjectContext) throws {
+        guard let title = row["title"] else { return }
 
-        let book = CDBook(context: context)
-        book.id = UUID()
-        book.title = columns[1]
-        book.rawStatus = columns[2]
+        let id = row["id"].flatMap { UUID(uuidString: $0) } ?? UUID()
 
-        book.year = Int(columns[5]).map { NSNumber(value: $0) }
-        book.pages = Int(columns[6]).map { NSNumber(value: $0) }
-        book.isbn = columns[7].isEmpty ? nil : columns[7]
-        book.notes = columns[11].isEmpty ? nil : columns[11]
+        let request = CDBook.fetchRequest().filteredById(id)
+        let book = try context.fetch(request).first ?? CDBook(context: context)
+
+        book.id = id
+        book.title = title
+        book.rawStatus = row["status"] ?? Status.unread.rawValue
+        book.year = row["year"].flatMap { Int($0) }.map { NSNumber(value: $0) }
+        book.pages = row["pages"].flatMap { Int($0) }.map { NSNumber(value: $0) }
+        book.isbn = row["isbn"]
+        book.notes = row["notes"]
 
         book.category = fetchOrCreateCategory(
-            name: columns[8],
+            name: row["category"] ?? Category.default.name,
             context: context
         )
 
-        book.publisher = fetchOrCreatePublisher(
-            name: columns[9],
-            context: context
-        )
+        book.publisher = row["publisher"].map {
+            fetchOrCreatePublisher(name: $0, context: context)
+        }
 
-        if !columns[10].isEmpty {
-            book.series = fetchOrCreateSeries(
-                name: columns[10],
-                context: context
-            )
+        book.series = row["series"].map {
+            fetchOrCreateSeries(name: $0, context: context)
         }
 
         book.authors = Set(
-            columns[3]
-                .split(separator: ";")
-                .map {
-                    fetchOrCreateAuthor(
-                        name: $0.trimmingCharacters(in: .whitespaces),
-                        context: context
-                    )
-                }
+            splitList(row["authors"]).map {
+                fetchOrCreateAuthor(name: $0, context: context)
+            }
         )
 
         book.genres = Set(
-            columns[4]
-                .split(separator: ";")
-                .map {
-                    fetchOrCreateGenre(
-                        name: $0.trimmingCharacters(in: .whitespaces),
-                        context: context
-                    )
-                }
+            splitList(row["genres"]).map {
+                fetchOrCreateGenre(name: $0, context: context)
+            }
         )
+    }
+
+    /// Splits a semicolon-separated cell ("Tolkien; Lewis") into trimmed values.
+    private func splitList(_ value: String?) -> [String] {
+        guard let value else { return [] }
+        return value
+            .split(separator: ";")
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
     }
 }
