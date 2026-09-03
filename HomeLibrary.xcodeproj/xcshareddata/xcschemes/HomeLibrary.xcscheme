@@ -29,7 +29,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C7D5EB51304736C800D044FA"
+               BlueprintIdentifier = "C4E16CEC6F1A738FBF715EB3"
                BuildableName = "HomeLibraryTests.xctest"
                BlueprintName = "HomeLibraryTests"
                ReferencedContainer = "container:HomeLibrary.xcodeproj">
@@ -48,7 +48,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C7D5EB51304736C800D044FA"
+               BlueprintIdentifier = "C4E16CEC6F1A738FBF715EB3"
                BuildableName = "HomeLibraryTests.xctest"
                BlueprintName = "HomeLibraryTests"
                ReferencedContainer = "container:HomeLibrary.xcodeproj">

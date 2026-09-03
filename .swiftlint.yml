@@ -2,6 +2,7 @@ included:
   - App
   - CoreData
   - LibraryModels
+  - Networking
   - Screens
   - HomeLibraryTests
 
