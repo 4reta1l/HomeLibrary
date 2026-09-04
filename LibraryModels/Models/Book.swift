@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Book: Identifiable, Equatable, Hashable, Codable {
+public nonisolated struct Book: Identifiable, Equatable, Hashable, Codable {
 
     public let id: UUID
     public let title: String

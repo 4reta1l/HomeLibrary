@@ -5,7 +5,7 @@
 //  Created by Maksym Pyvovarov on 12/12/2025.
 //
 
-public enum Status: String, CaseIterable, Codable {
+public nonisolated enum Status: String, CaseIterable, Codable {
     case unread
     case reading
     case completed

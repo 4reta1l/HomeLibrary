@@ -5,7 +5,7 @@
 //  Created by Maksym Pyvovarov on 12/12/2025.
 //
 
-public struct Genre: Hashable, Codable {
+public nonisolated struct Genre: Hashable, Codable {
 
     public let name: String
 
@@ -18,7 +18,7 @@ public struct Genre: Hashable, Codable {
     }
 }
 
-public enum DefaultGenres: String, CaseIterable {
+public nonisolated enum DefaultGenres: String, CaseIterable {
     case general
     case fantasy
     case horror
