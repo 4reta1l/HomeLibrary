@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Category: Identifiable, Hashable, Equatable, Codable {
+public nonisolated struct Category: Identifiable, Hashable, Equatable, Codable {
 
     public let id: UUID
     public let name: String
@@ -28,7 +28,7 @@ public struct Category: Identifiable, Hashable, Equatable, Codable {
     }
 }
 
-public enum DefaultCategories: CaseIterable {
+public nonisolated enum DefaultCategories: CaseIterable {
     case owned
     case wishlist
     case currentlyReading
