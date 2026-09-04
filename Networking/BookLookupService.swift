@@ -9,7 +9,7 @@ protocol BookLookupService {
     func lookup(isbn: String) async throws -> BookLookupResult
 }
 
-struct BookLookupResult: Equatable {
+nonisolated struct BookLookupResult: Equatable {
     let title: String?
     let authors: [String]
     let publisher: String?
@@ -18,7 +18,7 @@ struct BookLookupResult: Equatable {
     let genres: [String]
 }
 
-enum BookLookupError: Error, Equatable {
+nonisolated enum BookLookupError: Error, Equatable {
     case invalidISBN
     case notFound
     case network
