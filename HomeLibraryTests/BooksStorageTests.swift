@@ -28,4 +28,23 @@ struct BooksStorageTests {
 
         #expect(sut.getBooks().contains { $0.id == book.id })
     }
+
+    @Test("Saving a book with a genre unknown to storage creates the genre instead of failing")
+    func addBookWithNewGenrePersistsGenre() throws {
+        let sut = CDStorage(inMemory: true)
+        let book = Book(
+            id: UUID(),
+            title: "Dune",
+            authors: [],
+            genres: [Genre(name: "Sci-Fi")],
+            status: .unread,
+            series: nil,
+            category: .default
+        )
+
+        try sut.addBook(book)
+
+        #expect(sut.getBooks().first?.genres == [Genre(name: "Sci-Fi")])
+        #expect(sut.getGenres().contains(Genre(name: "Sci-Fi")))
+    }
 }
