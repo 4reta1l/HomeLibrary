@@ -34,14 +34,14 @@ struct MyLibraryView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                booksAmount
-                    .padding(.vertical, 8)
+            ZStack(alignment: .bottomTrailing) {
+                VStack(spacing: 0) {
+                    booksAmount
+                        .padding(.vertical, 8)
 
-                if filteredBooks.isEmpty {
-                    emptyState
-                } else {
-                    ZStack(alignment: .bottom) {
+                    if filteredBooks.isEmpty {
+                        emptyState
+                    } else {
                         List {
                             ForEach(filteredBooks) { book in
                                 bookRowView(book)
@@ -51,10 +51,10 @@ struct MyLibraryView: View {
                                 .listRowSeparator(.hidden)
                         }
                         .listStyle(.plain)
-
-                        addBookButton
                     }
                 }
+
+                addBookButton
             }
             .navigationTitle("My Library")
             .searchable(
@@ -102,7 +102,7 @@ struct MyLibraryView: View {
             systemImage: viewModel.searchText.isEmpty ? "books.vertical" : "magnifyingglass",
             description: Text(
                 viewModel.searchText.isEmpty
-                ? "Tap \"Add book\" to start your library."
+                ? "Tap the + button to start your library."
                 : "Try a different search or clear your filters."
             )
         )
@@ -188,16 +188,16 @@ struct MyLibraryView: View {
         Button {
             showAddBook = true
         } label: {
-            Label("Add book", systemImage: "plus")
-                .font(.headline)
-                .padding(.horizontal, 48)
-                .padding(.vertical, 15)
-                .background(.ultraThinMaterial)
+            Image(systemName: "plus")
+                .font(.system(size: 22, weight: .semibold))
                 .foregroundStyle(.white)
+                .frame(width: 56, height: 56)
+                .background(.ultraThinMaterial)
                 .background(.blue)
-                .clipShape(Capsule())
+                .clipShape(Circle())
                 .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
         }
+        .padding(.trailing, 16)
         .padding(.bottom, 12)
     }
 }
