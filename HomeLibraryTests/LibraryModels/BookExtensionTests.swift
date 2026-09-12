@@ -51,11 +51,34 @@ struct BookExtensionTests {
         #expect(makeBook(year: 1965).displayYear == "1965")
     }
 
+    @Test func displayCount_usesSingularForOneBook() {
+        let category = HomeLibrary.Category(name: "Owned")
+        let books = [makeBook(category: category)]
+
+        #expect(books.displayCount(for: category) == "1 book")
+    }
+
+    @Test func displayCount_usesPluralForMultipleBooks() {
+        let category = HomeLibrary.Category(name: "Owned")
+        let books = [makeBook(category: category), makeBook(category: category)]
+
+        #expect(books.displayCount(for: category) == "2 books")
+    }
+
+    @Test func displayCount_usesPluralForZeroBooks() {
+        let category = HomeLibrary.Category(name: "Owned")
+        let otherCategory = HomeLibrary.Category(name: "Wishlist")
+        let books = [makeBook(category: otherCategory)]
+
+        #expect(books.displayCount(for: category) == "0 books")
+    }
+
     private func makeBook(
         notes: String? = nil,
         isbn: String? = nil,
         pages: Int? = nil,
-        year: Int? = nil
+        year: Int? = nil,
+        category: HomeLibrary.Category = HomeLibrary.Category(name: "Owned")
     ) -> Book {
         Book(
             id: UUID(),
@@ -68,7 +91,7 @@ struct BookExtensionTests {
             pages: pages,
             year: year,
             series: nil,
-            category: Category(name: "Owned")
+            category: category
         )
     }
 }

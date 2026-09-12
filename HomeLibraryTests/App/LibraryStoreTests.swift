@@ -43,34 +43,6 @@ struct LibraryStoreTests {
         #expect(store.books.isEmpty)
     }
 
-    @Test func displayBooksCountForCategory_usesSingularForOneBook() {
-        let category = Category(name: "Owned")
-        let store = makeStore(booksStorage: FakeBooksStorage(books: [makeBook(title: "Dune", category: category)]))
-
-        #expect(store.displayBooksCountForCategory(category) == "1 book")
-    }
-
-    @Test func displayBooksCountForCategory_usesPluralForMultipleBooks() {
-        let category = Category(name: "Owned")
-        let books = [
-            makeBook(title: "Dune", category: category),
-            makeBook(title: "Dune Messiah", category: category)
-        ]
-        let store = makeStore(booksStorage: FakeBooksStorage(books: books))
-
-        #expect(store.displayBooksCountForCategory(category) == "2 books")
-    }
-
-    @Test func displayBooksCountForCategory_usesPluralForZeroBooks() {
-        let category = Category(name: "Owned")
-        let otherCategory = Category(name: "Wishlist")
-        let store = makeStore(
-            booksStorage: FakeBooksStorage(books: [makeBook(title: "Dune", category: otherCategory)])
-        )
-
-        #expect(store.displayBooksCountForCategory(category) == "0 books")
-    }
-
     private func makeStore(booksStorage: FakeBooksStorage) -> LibraryStore {
         LibraryStore(
             booksStorage: booksStorage,

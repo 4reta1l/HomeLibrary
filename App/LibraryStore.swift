@@ -75,14 +75,6 @@ final class LibraryStore {
         reloadAll()
     }
 
-    // MARK: - Presentation
-    // Belongs in the view layer — moves out in Phase 3.4.
-
-    func displayBooksCountForCategory(_ category: Category) -> String {
-        let filteredBooksCount = books.filter { $0.category == category }.count
-        return filteredBooksCount == 1 ? "1 book" : "\(filteredBooksCount) books"
-    }
-
     // MARK: - Import
 
     func importBooks(from url: URL) throws {
