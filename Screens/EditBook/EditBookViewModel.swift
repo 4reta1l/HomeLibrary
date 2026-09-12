@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: Protocol
 @Observable
 final class EditBookViewModel {
 
@@ -80,13 +79,6 @@ final class EditBookViewModel {
     }
 
     let yearsArray = Array(1800...Date().year)
-
-    func filteredAuthorsString() -> String {
-        bookAuthors
-        .sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
-        .map(\.displayName)
-        .joined(separator: ", ")
-    }
 
     func makeBook() -> Book {
         Book(

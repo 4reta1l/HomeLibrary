@@ -96,17 +96,6 @@ struct EditBookViewModelTests {
         #expect(book.isbn == "123")
     }
 
-    @Test func filteredAuthorsString_sortsAuthorsAlphabetically() {
-        let viewModel = makeAddBookViewModel()
-        viewModel.bookAuthors = [
-            Author(displayName: "Ursula K. Le Guin"),
-            Author(displayName: "Isaac Asimov"),
-            Author(displayName: "Frank Herbert")
-        ]
-
-        #expect(viewModel.filteredAuthorsString() == "Frank Herbert, Isaac Asimov, Ursula K. Le Guin")
-    }
-
     @Test func applyScannedISBN_setsBookIsbnImmediately() {
         let viewModel = makeAddBookViewModel()
 

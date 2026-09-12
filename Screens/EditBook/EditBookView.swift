@@ -167,7 +167,7 @@ struct EditBookView: View {
                     title: "Author",
                     value: viewModel.bookAuthors.isEmpty
                     ? "Add"
-                    : viewModel.filteredAuthorsString(),
+                    : viewModel.bookAuthors.displayJoinedNames,
                     isEmpty: viewModel.bookAuthors.isEmpty
                 )
             }

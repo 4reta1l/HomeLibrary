@@ -152,7 +152,7 @@ struct MyLibraryView: View {
                         Text(
                             book.authors.isEmpty
                             ? "Unknown author"
-                            : viewModel.filteredAuthorsString(book.authors)
+                            : book.authors.displayJoinedNames
                         )
                         .font(.caption)
                         .foregroundStyle(.secondary)

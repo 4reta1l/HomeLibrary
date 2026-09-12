@@ -69,13 +69,4 @@ final class MyLibraryViewModel {
         guard let year = Int(filters.selectedYear) else { return true }
         return book.year == year
     }
-
-    func filteredAuthorsString(_ authors: [Author]) -> String {
-        authors
-            .sorted {
-                $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending
-            }
-            .map(\.displayName)
-            .joined(separator: ", ")
-    }
 }
