@@ -149,8 +149,10 @@ extension CDStorage {
         return genres
     }
 
+    // Note: not on the book-save path (backs App/LibrarySeeder only, which has no UI to
+    // surface an error to), so it still swallows a save failure like saveCategory does.
     func addGenre(name: String) {
-        self.saveGenre(name: name)
+        _ = try? self.saveGenre(name: name)
     }
 
     // MARK: Authors
@@ -162,8 +164,8 @@ extension CDStorage {
             }
     }
 
-    private func saveThenReturnAuthor(_ author: Author) -> CDAuthor {
-        self.saveAuthor(
+    private func saveThenReturnAuthor(_ author: Author) throws -> CDAuthor {
+        try self.saveAuthor(
             id: author.id,
             displayName: author.displayName
         )
@@ -173,7 +175,7 @@ extension CDStorage {
         do {
             return try fetchAuthor(id: author.id)
         } catch CoreDataError.authorNotFound {
-            return self.saveThenReturnAuthor(author)
+            return try self.saveThenReturnAuthor(author)
         }
     }
 
@@ -190,8 +192,8 @@ extension CDStorage {
             }
     }
 
-    private func saveThenReturnPublisher(_ publisher: Publisher) -> CDPublisher {
-        self.savePublisher(
+    private func saveThenReturnPublisher(_ publisher: Publisher) throws -> CDPublisher {
+        try self.savePublisher(
             id: publisher.id,
             name: publisher.name
         )
@@ -205,7 +207,7 @@ extension CDStorage {
         do {
             return try fetchPublisher(id: publisher.id)
         } catch CoreDataError.publisherNotFound {
-            return self.saveThenReturnPublisher(publisher)
+            return try self.saveThenReturnPublisher(publisher)
         }
     }
 
@@ -230,7 +232,7 @@ extension CDStorage {
             try fetchOrSaveAuthor($0)
         }
 
-        return self.saveSeries(
+        return try self.saveSeries(
             id: series.id,
             name: series.name,
             authors: Set(authors)
@@ -279,7 +281,7 @@ extension CDStorage {
         do {
             return try self.fetchCategoryByName(name: category.name)
         } catch CoreDataError.categoryNotFound {
-            return self.saveCategoryThenReturn(id: category.id, name: category.name)
+            return try self.saveCategoryThenReturn(id: category.id, name: category.name)
         }
     }
 

@@ -47,4 +47,16 @@ struct BooksStorageTests {
         #expect(sut.getBooks().first?.genres == [Genre(name: "Sci-Fi")])
         #expect(sut.getGenres().contains(Genre(name: "Sci-Fi")))
     }
+
+    @Test("A Core Data validation failure is thrown by saveData, not swallowed")
+    func saveDataThrowsOnValidationFailure() {
+        let sut = CDStorage(inMemory: true)
+        // CDBook.title is a required attribute; leaving it unset makes the save fail
+        // validation, which is what saveData used to catch, print, and discard.
+        _ = CDBook(context: sut.container.viewContext)
+
+        #expect(throws: (any Error).self) {
+            try sut.saveData()
+        }
+    }
 }

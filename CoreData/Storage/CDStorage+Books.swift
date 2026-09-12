@@ -47,7 +47,7 @@ extension CDStorage {
         newBook.series = series
         newBook.category = category
 
-        self.saveData()
+        try self.saveData()
     }
 
     func updateBook(
@@ -83,7 +83,7 @@ extension CDStorage {
             existingBook.series = series
             existingBook.category = category
 
-            self.saveData()
+            try self.saveData()
         }
     }
 
@@ -95,7 +95,7 @@ extension CDStorage {
 
         if let deletingBook = results.first {
             container.viewContext.delete(deletingBook)
-            saveData()
+            try saveData()
         }
     }
 }

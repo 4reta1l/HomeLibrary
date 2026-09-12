@@ -197,6 +197,7 @@ struct MyLibraryView: View {
                 .clipShape(Circle())
                 .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
         }
+        .accessibilityLabel("Add book")
         .padding(.trailing, 16)
         .padding(.bottom, 12)
     }

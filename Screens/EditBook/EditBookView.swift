@@ -34,6 +34,7 @@ struct EditBookView: View {
     @State private var state: ViewState
     @State private var showDeleteConfirmation = false
     @State private var showMoreOptions = false
+    @State private var saveErrorMessage: String?
     @FocusState private var focusField: FocusedField?
 
     @Environment(LibraryStore.self) private var store
@@ -57,28 +58,24 @@ struct EditBookView: View {
             .toolbar { toolBarView }
             .alert("Delete Book?", isPresented: $showDeleteConfirmation) {
                 Button("Delete", role: .destructive) {
-                    if let book = viewModel.editedBook {
-                        try? store.deleteBook(book)
+                    guard let book = viewModel.editedBook else {
+                        dismiss()
+                        return
                     }
-                    dismiss()
+
+                    do {
+                        try store.deleteBook(book)
+                        dismiss()
+                    } catch {
+                        saveErrorMessage = "Couldn't delete this book. Please try again."
+                    }
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
                 Text("This action cannot be undone.")
             }
-            .alert(
-                "Lookup Failed",
-                isPresented: Binding(
-                    get: { viewModel.lookupErrorMessage != nil },
-                    set: { isPresented in
-                        if !isPresented { viewModel.lookupErrorMessage = nil }
-                    }
-                )
-            ) {
-                Button("OK") {}
-            } message: {
-                Text(viewModel.lookupErrorMessage ?? "")
-            }
+            .errorAlert("Lookup Failed", message: $viewModel.lookupErrorMessage)
+            .errorAlert("Couldn't Save", message: $saveErrorMessage)
             .sheet(isPresented: $viewModel.isScannerPresented) {
                 BarcodeScannerView { isbn in
                     viewModel.applyScannedISBN(isbn)
@@ -311,11 +308,15 @@ struct EditBookView: View {
 
     private var saveButton: some View {
         Button {
-            switch state {
-            case .addBook: try? store.addBook(viewModel.makeBook())
-            case .editBook: try? store.updateBook(viewModel.makeBook())
+            do {
+                switch state {
+                case .addBook: try store.addBook(viewModel.makeBook())
+                case .editBook: try store.updateBook(viewModel.makeBook())
+                }
+                dismiss()
+            } catch {
+                saveErrorMessage = "Couldn't save this book. Please try again."
             }
-            dismiss()
         } label: {
             Label("Save", systemImage: "checkmark")
                 .font(.headline)
@@ -331,20 +332,25 @@ struct EditBookView: View {
     }
 
     private var scanButton: some View {
-        circleButton(systemImage: "barcode.viewfinder", tint: .blue) {
+        circleButton(systemImage: "barcode.viewfinder", tint: .blue, accessibilityLabel: "Scan barcode") {
             dismissKeyboard()
             viewModel.isScannerPresented = true
         }
     }
 
     private var deleteButton: some View {
-        circleButton(systemImage: "trash", tint: .red) {
+        circleButton(systemImage: "trash", tint: .red, accessibilityLabel: "Delete book") {
             dismissKeyboard()
             showDeleteConfirmation = true
         }
     }
 
-    private func circleButton(systemImage: String, tint: Color, action: @escaping () -> Void) -> some View {
+    private func circleButton(
+        systemImage: String,
+        tint: Color,
+        accessibilityLabel: String,
+        action: @escaping () -> Void
+    ) -> some View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .resizable()
@@ -359,6 +365,7 @@ struct EditBookView: View {
             Circle()
                 .stroke(tint.opacity(0.3))
         )
+        .accessibilityLabel(accessibilityLabel)
     }
 
     private var floatingButtons: some View {
@@ -397,5 +404,32 @@ struct EditBookView: View {
             #selector(UIResponder.resignFirstResponder),
             to: nil, from: nil, for: nil
         )
+    }
+}
+
+private struct ErrorAlertModifier: ViewModifier {
+    let title: String
+    @Binding var message: String?
+
+    func body(content: Content) -> some View {
+        content.alert(
+            title,
+            isPresented: Binding(
+                get: { message != nil },
+                set: { isPresented in
+                    if !isPresented { message = nil }
+                }
+            )
+        ) {
+            Button("OK") {}
+        } message: {
+            Text(message ?? "")
+        }
+    }
+}
+
+private extension View {
+    func errorAlert(_ title: String, message: Binding<String?>) -> some View {
+        modifier(ErrorAlertModifier(title: title, message: message))
     }
 }

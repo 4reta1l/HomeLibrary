@@ -34,11 +34,11 @@ extension CDStorage {
     }
 
     @discardableResult
-    func saveGenre(name: String) -> CDGenre {
+    func saveGenre(name: String) throws -> CDGenre {
         let genre = CDGenre(context: container.viewContext)
         genre.name = name
 
-        saveData()
+        try saveData()
 
         return genre
     }
@@ -47,7 +47,7 @@ extension CDStorage {
         do {
             return try fetchGenre(name: genre.name)
         } catch CoreDataError.genreNotFound {
-            return self.saveGenre(name: genre.name)
+            return try self.saveGenre(name: genre.name)
         }
     }
 

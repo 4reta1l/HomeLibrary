@@ -42,14 +42,8 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
-    func saveData(_ context: NSManagedObjectContext? = nil) {
+    func saveData(_ context: NSManagedObjectContext? = nil) throws {
         let context = context ?? container.viewContext
-
-        do {
-            try context.save()
-        } catch {
-            let nserror = error as NSError
-            print("Error while saving \(nserror), \(nserror.userInfo)")
-        }
+        try context.save()
     }
 }
