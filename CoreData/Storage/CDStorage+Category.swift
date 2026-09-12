@@ -32,12 +32,15 @@ extension CDStorage {
         return category
     }
 
+    // Note: unlike saveCategoryThenReturn, this isn't on the book-save path (it backs the
+    // standalone "add category" screens), so it isn't part of this throws chain yet and
+    // still swallows a save failure rather than surfacing it to those screens.
     func saveCategory(id: UUID, name: String) {
         let newCategory = CDCategory(context: container.viewContext)
         newCategory.id = id
         newCategory.name = name
 
-        saveData()
+        try? saveData()
     }
 
     func updateCategory(id: UUID, name: String) throws {
@@ -48,16 +51,16 @@ extension CDStorage {
             categoryToUpdate.id = id
             categoryToUpdate.name = name
 
-            saveData()
+            try saveData()
         }
     }
 
-    func saveCategoryThenReturn(id: UUID, name: String) -> CDCategory {
+    func saveCategoryThenReturn(id: UUID, name: String) throws -> CDCategory {
         let newCategory = CDCategory(context: container.viewContext)
         newCategory.id = id
         newCategory.name = name
 
-        saveData()
+        try saveData()
 
         return newCategory
     }

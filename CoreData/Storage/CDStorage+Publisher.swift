@@ -33,12 +33,12 @@ extension CDStorage {
         return publisher
     }
 
-    func savePublisher(id: UUID, name: String) -> CDPublisher {
+    func savePublisher(id: UUID, name: String) throws -> CDPublisher {
         let publisher = CDPublisher(context: container.viewContext)
         publisher.id = id
         publisher.name = name
 
-        saveData()
+        try saveData()
 
         return publisher
     }
@@ -52,7 +52,7 @@ extension CDStorage {
             publisher.id = UUID()
             publisher.name = name
 
-            saveData()
+            try saveData()
         }
     }
 
@@ -64,7 +64,7 @@ extension CDStorage {
 
         if let deletingPublisher = results.first {
             container.viewContext.delete(deletingPublisher)
-            saveData()
+            try saveData()
         }
     }
 

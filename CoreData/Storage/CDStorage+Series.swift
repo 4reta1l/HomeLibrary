@@ -37,13 +37,13 @@ extension CDStorage {
         id: UUID,
         name: String,
         authors: Set<CDAuthor>
-    ) -> CDSeries {
+    ) throws -> CDSeries {
         let newSeries = CDSeries(context: container.viewContext)
         newSeries.id = id
         newSeries.name = name
         newSeries.authors = authors
 
-        saveData()
+        try saveData()
 
         return newSeries
     }
@@ -62,7 +62,7 @@ extension CDStorage {
             seriesToUpdate.name = name
             seriesToUpdate.authors = authors
 
-            saveData()
+            try saveData()
         }
     }
 
@@ -74,7 +74,7 @@ extension CDStorage {
 
         if let seletingSeries = results.first {
             container.viewContext.delete(seletingSeries)
-            saveData()
+            try saveData()
         }
     }
 
