@@ -66,7 +66,12 @@ final class OpenLibraryBookLookupService: BookLookupService {
             publisher: response.publishers?.first?.name,
             year: response.publishDate.flatMap(Self.extractYear),
             pages: response.numberOfPages,
-            genres: Array((response.subjects ?? []).prefix(3).map(\.name))
+            genres: Array(
+                (response.subjects ?? [])
+                    .filter { !Self.isSeriesSubject($0) }
+                    .prefix(3)
+                    .map(\.name)
+            )
         )
     }
 
@@ -75,6 +80,13 @@ final class OpenLibraryBookLookupService: BookLookupService {
             .split(separator: " ")
             .compactMap { Int($0.filter(\.isNumber)) }
             .first { $0 > 1000 && $0 < 3000 }
+    }
+
+    // OpenLibrary lists the book's series among "subjects" as e.g. "Serie:The_Foo_Bar",
+    // using its own subjects/serie:... namespace rather than the series field on the book.
+    private static func isSeriesSubject(_ subject: OpenLibrarySubject) -> Bool {
+        let name = subject.name.lowercased()
+        return name.hasPrefix("serie:") || name.hasPrefix("series:")
     }
 }
 
