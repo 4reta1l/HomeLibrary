@@ -58,7 +58,7 @@ struct EditSeriesView: View {
                 AuthorsView(selectedAuthors: $selectedAuthors)
             } label: {
                 Text(selectedAuthors.isEmpty
-                     ? "Necessary to add author" : filteredAuthorsString()
+                     ? "Necessary to add author" : selectedAuthors.displayJoinedNames
                 )
             }
         } header: {
@@ -88,13 +88,5 @@ struct EditSeriesView: View {
                 .disabled(seriesName.isEmpty || selectedAuthors.isEmpty)
             }
         }
-    }
-
-    // TODO: Move out of here
-    func filteredAuthorsString() -> String {
-        selectedAuthors
-        .sorted { $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending }
-        .map(\.displayName)
-        .joined(separator: ", ")
     }
 }

@@ -11,6 +11,7 @@ internal import UniformTypeIdentifiers
 struct SettingsView: View {
 
     @Environment(LibraryStore.self) private var store
+    @Environment(\.dismiss) private var dismiss
 
     @State private var exportURL: URL?
     @State private var exportType: ExportType?
@@ -59,6 +60,11 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
             .fileImporter(
                 isPresented: $showImportCSV,
                 allowedContentTypes: [.commaSeparatedText]

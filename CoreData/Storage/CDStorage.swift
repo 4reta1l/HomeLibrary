@@ -12,10 +12,20 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
 
     public static let shared = CDStorage()
 
+    // Loading the same .xcdatamodeld into more than one NSManagedObjectModel instance makes
+    // +entity resolution for CDBook/CDGenre/etc. ambiguous across instances. Every CDStorage
+    // (the shared one and any ad-hoc ones tests create) must share this single instance.
+    private static let managedObjectModel: NSManagedObjectModel = {
+        guard let model = NSManagedObjectModel.mergedModel(from: nil) else {
+            fatalError("Failed to load HomeLibrary Core Data model")
+        }
+        return model
+    }()
+
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "HomeLibrary")
+        container = NSPersistentContainer(name: "HomeLibrary", managedObjectModel: Self.managedObjectModel)
 
         if inMemory {
             let description = NSPersistentStoreDescription()

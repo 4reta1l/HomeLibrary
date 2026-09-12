@@ -48,54 +48,45 @@ struct FiltersView: View {
         }
     }
 
-    // TODO: Text condition duplicated for genres as well
     var authorsSection: some View {
-        Section(header: Text("Authors")) {
-            NavigationLink(destination: AuthorsFilterView(authors: authors, filters: $filters)) {
-                Text(filters.selectedAuthors.isEmpty
-                     ? "No selected authors"
-                     : filters.selectedAuthors.sorted {
-                    $0.displayName.localizedCaseInsensitiveCompare($1.displayName) == .orderedAscending
-                }
-                    .map(\.displayName)
-                    .joined(separator: ", ")
-                )
-            }
-
-            if !filters.selectedAuthors.isEmpty {
-                Button {
-                    withAnimation {
-                        filters.selectedAuthors.removeAll()
-                    }
-                } label: {
-                    HStack {
-                        Spacer()
-                        Text("Clear")
-                            .foregroundStyle(.red)
-                        Spacer()
-                    }
-                }
-            }
-        }
+        filterSection(
+            header: "Authors",
+            isEmpty: filters.selectedAuthors.isEmpty,
+            selectedText: Array(filters.selectedAuthors).displayJoinedNames,
+            emptyText: "No selected authors",
+            destination: AuthorsFilterView(authors: authors, filters: $filters),
+            onClear: { filters.selectedAuthors.removeAll() }
+        )
     }
 
     var genresSection: some View {
-        Section(header: Text("Genres")) {
-            NavigationLink(destination: GenresFilterView(genres: genres, filters: $filters)) {
-                Text(filters.selectedGenres.isEmpty
-                     ? "No selected genres"
-                     : filters.selectedGenres.sorted {
-                    $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
-                }
-                    .map(\.name)
-                    .joined(separator: ", ")
-                )
+        filterSection(
+            header: "Genres",
+            isEmpty: filters.selectedGenres.isEmpty,
+            selectedText: Array(filters.selectedGenres).displayJoinedNames,
+            emptyText: "No selected genres",
+            destination: GenresFilterView(genres: genres, filters: $filters),
+            onClear: { filters.selectedGenres.removeAll() }
+        )
+    }
+
+    private func filterSection<Destination: View>(
+        header: String,
+        isEmpty: Bool,
+        selectedText: String,
+        emptyText: String,
+        destination: Destination,
+        onClear: @escaping () -> Void
+    ) -> some View {
+        Section(header: Text(header)) {
+            NavigationLink(destination: destination) {
+                Text(isEmpty ? emptyText : selectedText)
             }
 
-            if !filters.selectedGenres.isEmpty {
+            if !isEmpty {
                 Button {
                     withAnimation {
-                        filters.selectedGenres.removeAll()
+                        onClear()
                     }
                 } label: {
                     HStack {

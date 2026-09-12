@@ -36,6 +36,48 @@ struct OpenLibraryBookLookupServiceTests {
         #expect(result.genres == ["Science Fiction", "Adventure"])
     }
 
+    @Test func lookup_capitalizesFirstLetterOfGenres() async throws {
+        let isbn = "9780441013593"
+        let json = """
+        {
+            "ISBN:\(isbn)": {
+                "title": "Dune",
+                "subjects": [{ "name": "science fiction" }, { "name": "adventure" }]
+            }
+        }
+        """
+        let service = makeService(jsonResponse: json)
+
+        let result = try await service.lookup(isbn: isbn)
+
+        #expect(result.genres == ["Science fiction", "Adventure"])
+    }
+
+    @Test func lookup_excludesSeriesSubjectFromGenres() async throws {
+        let isbn = "9780141346809"
+        let json = """
+        {
+            "ISBN:\(isbn)": {
+                "title": "Percy Jackson and the Lightning Thief",
+                "authors": [{ "name": "Rick Riordan" }],
+                "publishers": [{ "name": "Puffin" }],
+                "publish_date": "2013",
+                "subjects": [
+                    { "name": "Serie:Percy_Jackson_and_the_Olympians" },
+                    { "name": "Fiction" },
+                    { "name": "Greek Mythology" },
+                    { "name": "Juvenile fiction" }
+                ]
+            }
+        }
+        """
+        let service = makeService(jsonResponse: json)
+
+        let result = try await service.lookup(isbn: isbn)
+
+        #expect(result.genres == ["Fiction", "Greek Mythology", "Juvenile fiction"])
+    }
+
     @Test func lookup_throwsNotFoundWhenBibKeyMissing() async throws {
         let service = makeService(jsonResponse: "{}")
 

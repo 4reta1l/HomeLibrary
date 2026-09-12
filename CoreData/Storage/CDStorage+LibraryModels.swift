@@ -68,7 +68,7 @@ extension CDStorage {
 
         let genres = try book.genres
             .map {
-                try self.fetchGenre(name: $0.name)
+                try self.fetchOrSaveGenre($0)
             }
 
         let publisher = try self.fetchOrSavePublisher(book.publisher)
@@ -101,7 +101,7 @@ extension CDStorage {
 
         let genres = try book.genres
             .map {
-                try self.fetchGenre(name: $0.name)
+                try self.fetchOrSaveGenre($0)
             }
 
         let publisher = try fetchOrSavePublisher(book.publisher)

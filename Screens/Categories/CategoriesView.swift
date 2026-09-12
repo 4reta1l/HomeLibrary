@@ -24,7 +24,7 @@ struct CategoriesView: View {
                             HStack {
                                 Text(category.name)
                                 Spacer()
-                                Text(store.displayBooksCountForCategory(category))
+                                Text(store.books.displayCount(for: category))
                             }
                         }
                     }

@@ -28,3 +28,10 @@ extension Book {
         year.map { "\($0)" } ?? "—"
     }
 }
+
+extension Array where Element == Book {
+    func displayCount(for category: Category) -> String {
+        let count = filter { $0.category == category }.count
+        return count == 1 ? "1 book" : "\(count) books"
+    }
+}
