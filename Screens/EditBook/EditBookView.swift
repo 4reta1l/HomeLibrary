@@ -191,7 +191,7 @@ struct EditBookView: View {
     private var detailsSection: some View {
         Section {
             HStack {
-                Text("Pages")
+                Text("Pages:")
 
                 Spacer()
 
@@ -203,7 +203,7 @@ struct EditBookView: View {
             }
 
             HStack {
-                Text("Year")
+                Text("Year:")
 
                 Spacer()
 
@@ -217,7 +217,7 @@ struct EditBookView: View {
             }
 
             HStack {
-                Text("Status")
+                Text("Status:")
 
                 Spacer()
 
@@ -268,13 +268,24 @@ struct EditBookView: View {
 
     private var notesSection: some View {
         Section {
-            TextEditor(text: $viewModel.bookNotes)
-                .frame(minHeight: 120)
-                .padding(8)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(.secondarySystemBackground))
-                )
+            ZStack(alignment: .topLeading) {
+                if viewModel.bookNotes.isEmpty {
+                    Text("Write your notes here…")
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 13)
+                        .padding(.vertical, 16)
+                        .allowsHitTesting(false)
+                }
+
+                TextEditor(text: $viewModel.bookNotes)
+                    .frame(minHeight: 120)
+                    .padding(8)
+                    .scrollContentBackground(.hidden)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(.secondarySystemBackground))
+            )
         }
     }
 
@@ -373,7 +384,7 @@ struct EditBookView: View {
 
     private func rowView(title: String, value: String, isEmpty: Bool = false) -> some View {
         HStack {
-            Text(title)
+            Text("\(title):")
             Spacer()
             Text(value)
                 .foregroundStyle(isEmpty ? .secondary : .primary)
