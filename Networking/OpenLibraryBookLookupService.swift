@@ -70,7 +70,7 @@ final class OpenLibraryBookLookupService: BookLookupService {
                 (response.subjects ?? [])
                     .filter { !Self.isSeriesSubject($0) }
                     .prefix(3)
-                    .map(\.name)
+                    .map { Self.capitalizingFirstLetter($0.name) }
             )
         )
     }
@@ -87,6 +87,11 @@ final class OpenLibraryBookLookupService: BookLookupService {
     private static func isSeriesSubject(_ subject: OpenLibrarySubject) -> Bool {
         let name = subject.name.lowercased()
         return name.hasPrefix("serie:") || name.hasPrefix("series:")
+    }
+
+    private static func capitalizingFirstLetter(_ name: String) -> String {
+        guard let first = name.first else { return name }
+        return first.uppercased() + name.dropFirst()
     }
 }
 

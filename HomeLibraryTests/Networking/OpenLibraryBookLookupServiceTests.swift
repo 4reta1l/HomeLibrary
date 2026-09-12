@@ -36,6 +36,23 @@ struct OpenLibraryBookLookupServiceTests {
         #expect(result.genres == ["Science Fiction", "Adventure"])
     }
 
+    @Test func lookup_capitalizesFirstLetterOfGenres() async throws {
+        let isbn = "9780441013593"
+        let json = """
+        {
+            "ISBN:\(isbn)": {
+                "title": "Dune",
+                "subjects": [{ "name": "science fiction" }, { "name": "adventure" }]
+            }
+        }
+        """
+        let service = makeService(jsonResponse: json)
+
+        let result = try await service.lookup(isbn: isbn)
+
+        #expect(result.genres == ["Science fiction", "Adventure"])
+    }
+
     @Test func lookup_excludesSeriesSubjectFromGenres() async throws {
         let isbn = "9780141346809"
         let json = """
