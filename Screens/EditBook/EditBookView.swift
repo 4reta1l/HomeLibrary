@@ -92,6 +92,7 @@ struct EditBookView: View {
     private var mainForm: some View {
         Form {
             titleSection
+            isbnSection
             authorGenreSection
             detailsSection
             showMoreButton
@@ -103,6 +104,9 @@ struct EditBookView: View {
         }
         .listStyle(.insetGrouped)
         .scrollDismissesKeyboard(.immediately)
+        .safeAreaInset(edge: .bottom) {
+            Color.clear.frame(height: 70)
+        }
     }
 
     // MARK: - Toolbar
@@ -130,6 +134,27 @@ struct EditBookView: View {
                 .onSubmit { focusField = .bookPages }
         } header: {
             sectionHeader("Title")
+        }
+    }
+
+    private var isbnSection: some View {
+        Section {
+            HStack {
+                TextField("ISBN", text: $viewModel.bookIsbn)
+
+                if viewModel.isLookingUpBook {
+                    ProgressView()
+                } else {
+                    Button {
+                        dismissKeyboard()
+                        viewModel.isScannerPresented = true
+                    } label: {
+                        Image(systemName: "barcode.viewfinder")
+                    }
+                }
+            }
+        } header: {
+            sectionHeader("ISBN")
         }
     }
 
@@ -219,21 +244,6 @@ struct EditBookView: View {
                 )
             }
 
-            HStack {
-                TextField("ISBN", text: $viewModel.bookIsbn)
-
-                if viewModel.isLookingUpBook {
-                    ProgressView()
-                } else {
-                    Button {
-                        dismissKeyboard()
-                        viewModel.isScannerPresented = true
-                    } label: {
-                        Image(systemName: "barcode.viewfinder")
-                    }
-                }
-            }
-
             NavigationLink {
                 SeriesView(selectedSeries: $viewModel.bookSeries)
             } label: {
@@ -309,33 +319,50 @@ struct EditBookView: View {
         .disabled(viewModel.bookTitle.isEmpty)
     }
 
+    private var scanButton: some View {
+        circleButton(systemImage: "barcode.viewfinder", tint: .blue) {
+            dismissKeyboard()
+            viewModel.isScannerPresented = true
+        }
+    }
+
     private var deleteButton: some View {
-        Button {
+        circleButton(systemImage: "trash", tint: .red) {
             dismissKeyboard()
             showDeleteConfirmation = true
-        } label: {
-            Image(systemName: "trash")
-                .font(.system(size: 18, weight: .semibold))
+        }
+    }
+
+    private func circleButton(systemImage: String, tint: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
                 .frame(width: 50, height: 50)
         }
         .background(.ultraThinMaterial)
+        .foregroundStyle(tint)
         .clipShape(Circle())
         .overlay(
             Circle()
-                .stroke(Color.red.opacity(0.3))
+                .stroke(tint.opacity(0.3))
         )
     }
 
     private var floatingButtons: some View {
-        HStack {
-            Spacer()
-
+        ZStack {
             saveButton
+                .frame(maxWidth: .infinity, alignment: .center)
 
-            Spacer()
+            HStack {
+                scanButton
 
-            if !state.isAddBook {
-                deleteButton
+                Spacer()
+
+                if !state.isAddBook {
+                    deleteButton
+                }
             }
         }
         .padding(.horizontal, 16)
