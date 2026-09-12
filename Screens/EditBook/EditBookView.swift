@@ -331,20 +331,25 @@ struct EditBookView: View {
     }
 
     private var scanButton: some View {
-        circleButton(systemImage: "barcode.viewfinder", tint: .blue) {
+        circleButton(systemImage: "barcode.viewfinder", tint: .blue, accessibilityLabel: "Scan barcode") {
             dismissKeyboard()
             viewModel.isScannerPresented = true
         }
     }
 
     private var deleteButton: some View {
-        circleButton(systemImage: "trash", tint: .red) {
+        circleButton(systemImage: "trash", tint: .red, accessibilityLabel: "Delete book") {
             dismissKeyboard()
             showDeleteConfirmation = true
         }
     }
 
-    private func circleButton(systemImage: String, tint: Color, action: @escaping () -> Void) -> some View {
+    private func circleButton(
+        systemImage: String,
+        tint: Color,
+        accessibilityLabel: String,
+        action: @escaping () -> Void
+    ) -> some View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .resizable()
@@ -359,6 +364,7 @@ struct EditBookView: View {
             Circle()
                 .stroke(tint.opacity(0.3))
         )
+        .accessibilityLabel(accessibilityLabel)
     }
 
     private var floatingButtons: some View {
