@@ -59,4 +59,20 @@ struct BooksStorageTests {
             try sut.saveData()
         }
     }
+
+    @Test("A failed save doesn't poison later saves")
+    func failedSaveLeavesContextUsable() throws {
+        let sut = CDStorage(inMemory: true)
+        // CDBook.title is a required attribute; leaving it unset makes the save fail
+        // validation. saveData must roll the failed insert back so it doesn't keep
+        // failing validation on every save after it.
+        _ = CDBook(context: sut.container.viewContext)
+
+        #expect(throws: (any Error).self) {
+            try sut.saveData()
+        }
+
+        sut.addCategory(Category(name: "Owned"))
+        #expect(sut.getCategories().count == 1)
+    }
 }
