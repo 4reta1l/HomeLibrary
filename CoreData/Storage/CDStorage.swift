@@ -44,6 +44,11 @@ final class CDStorage: BooksStorage, AuthorsStorage, GenresStorage, PublishersSt
 
     func saveData(_ context: NSManagedObjectContext? = nil) throws {
         let context = context ?? container.viewContext
-        try context.save()
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
+            throw error
+        }
     }
 }
