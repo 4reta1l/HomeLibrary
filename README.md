@@ -1,87 +1,145 @@
 # 📚 HomeLibrary
 
+> A personal book library manager for iOS - built with SwiftUI, Core Data, and MVVM.
+
+![Swift](https://img.shields.io/badge/Swift-5-orange)
+![iOS](https://img.shields.io/badge/iOS-18-blue)
 ![CI](https://github.com/4reta1l/HomeLibrary/actions/workflows/ci.yml/badge.svg)
 
-iOS application for managing a personal book library, built with SwiftUI and Core Data.  
-The app allows users to organize, search, and manage their book collection with persistent storage and data portability.
+HomeLibrary helps you organize, search, and manage your personal book
+collection. It uses Core Data for persistent storage and supports
+CSV/JSON import & export so your library is never locked in.
 
 ---
 
-## 🚀 Features
+## 🎥 Demo
 
-- Add, edit, and delete books
-- Organize books with structured data
-- Search, filter, and sort books
-- Persistent storage using Core Data
-- Import and export library data (CSV, JSON)
-- Clean and responsive UI built with SwiftUI
-
----
-
-## 🛠 Tech Stack
-
-- **Language:** Swift  
-- **UI:** SwiftUI (+ UIKit where needed)  
-- **Architecture:** MVVM  
-- **Persistence:** Core Data  
-- **Tools:** Xcode, Git  
-
----
-
-## 🏗 Architecture
-
-The app follows the **MVVM (Model-View-ViewModel)** pattern:
-
-- **View** – SwiftUI views responsible for UI rendering  
-- **ViewModel** – handles business logic and state management  
-- **Model** – Core Data entities and data structures  
-
-The data layer is separated to ensure:
-- maintainability  
-- scalability  
-- clear separation of concerns  
-
----
-
-## 💾 Data Management
-
-- Implemented **Core Data** with relationships between entities  
-- Supports persistent storage of the entire library  
-- Provides **data export/import (CSV, JSON)** for backup and portability  
-
----
-
-## 🔍 Key Highlights
-
-- Designed scalable architecture using MVVM  
-- Implemented efficient data querying (search & filtering)  
-- Focused on clean code and maintainability  
-- Built as a product-style application rather than a demo  
+>  **Watch Demo:** [Watch a 2-minutes walkthrough](https://www.youtube.com/shorts/YzL1I5QJ0EM)
 
 ---
 
 ## 📸 Screenshots
 
-### My Library
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/b61fa143-cfa3-4d39-b9cc-ce13251dce71" />
-
-### Add/Edit Book
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/ac92084c-1825-42c9-8409-4a885ad0a869" />
-
-### Categories
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/4dddc6fa-1c2f-4f44-8200-69d3b0cbf820" />
-
-### Overview
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/0280a866-bb6b-4180-987a-8770b5160913" />
+| My Library | Add / Edit Book | Categories | Overview |
+|:---:|:---:|:---:|:---:|
+| ![Library](Docs/screenshots/library.PNG) | ![Add](Docs/screenshots/edit.PNG) | ![Categories](Docs/screenshots/categories.PNG) | ![Overview](Docs/screenshots/overview.PNG) |
 
 ---
 
-## 📦 Getting Started
+## ✨ Features
 
-1. Clone the repository:
+- ➕ Add, edit, and delete books with structured metadata
+- 🗂 Organize with categories, authors, and genres using Core Data relationships
+- 🔍 Search and filter your library in real time
+- 💾 Persistent storage via Core Data with context rollback on save failure
+- 📤 Import / export library data as CSV or JSON for backup and portability
+- 📷 Barcode scanning to auto-fill book data
+- 🎨 Clean, responsive UI built entirely in SwiftUI
+- 🧪 Unit tests covering storage logic and CSV parsing
+- ⚙️ CI on every push via GitHub Actions
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Language | Swift 5 |
+| UI | SwiftUI (UIKit where needed) |
+| Architecture | MVVM |
+| Persistence | Core Data |
+| Testing | Swift Testing (`@Test`, `#expect`) |
+| Tooling | Xcode, Git, SwiftLint, GitHub Actions |  
+
+---
+
+## 🏗 Architecture
+
+The app follows **MVVM**:
+```text
+┌─────────────┐     ┌──────────────┐     ┌──────────────┐
+│   View      │ ──▶ │  ViewModel   │ ──▶ │    Model     │
+│  (SwiftUI)  │ ◀── │ (state/logic)│ ◀── │ (Core Data)  │
+└─────────────┘     └──────────────┘     └──────────────┘
+```
+- **View** - SwiftUI views, purely declarative, no business logic
+- **ViewModel** - `@Observable` classes holding state, filtering, and formatting
+- **Model** - Core Data entities + plain value types (`Book`, `Author`, `Category`, `Genre`, `Publisher`)
+
+The persistence layer is protocol-oriented: `CDStorage` conforms to
+storage protocols (`BooksStorage`, `AuthorsStorage`, `CategoriesStorage`,
+etc.), which allows fast, isolated unit tests using fakes instead of a
+real Core Data stack.
+
+---
+
+## 💾 Data Management
+
+- Core Data with **relationships** between `Book` and its `Author`,
+`Category`, and `Genre` entities
+- Context rollback on save failure - no silent data loss
+- User-facing error surfacing in `EditBookView` when a save fails
+- **CSV / JSON export** for backup and portability
+- **CSV / JSON import** with a hand-rolled RFC 4180 CSV parser
+- Data migrations handled via a versioned `managedObjectModel`
+
+---
+
+## 🔍 Key Highlights
+
+- Scalable **MVVM** architecture with protocol-oriented storage
+- Efficient data querying for **search** and **filter**
+- **Testable business logic** decoupled from SwiftUI
+- **Product-style implementation** — handles empty states, error states,
+and context rollback
+- Continuous refactoring visible in commit history (shared formatting 
+extracted, duplicated views deduped, save failures surfaced)
+
+---
+
+## 🚀 Getting Started
+
+### Requirements
+
+- macOS with **Xcode 26.6+**
+- **iOS 18+** simulator or device
+
+### Run it
+
 ```bash
 git clone https://github.com/4reta1l/HomeLibrary.git
-```
-2. Open in Xcode
+cd HomeLibrary
 open HomeLibrary.xcodeproj
-3. Run the app on simulator or device
+```
+Then press **⌘R** in Xcode.
+
+### Run tests
+
+```bash
+xcodebuild test \
+  -scheme HomeLibrary \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+```
+
+---
+
+## 🧪 Testing & CI
+
+- Unit tests written with Swift Testing (`@Test`, `#expect`)
+- Coverage includes:
+  - `LibraryStore` (load, add, update, delete, search/filter/sort)
+  - CSV parsing and round-trip (`CSVParserTests`, `CSVRoundTripTests`)
+  - Core Data smoke tests (`StorageSmokeTests`)
+- Fakes (`FakeBooksStorage`, `FakeAuthorsStorage`, ...) enable isolated tests
+- GitHub Actions runs **build + tests + SwiftLint (`--strict`)** on every push
+- CI uses `xcbeautify` for readable logs and cancels outdated runs
+
+---
+
+## 👤 Author
+
+**4reta1l**
+- GitHub: [4reta1l](https://github.com/4reta1l)
+- University GitHub: [Maksym Pyvovarov](https://github.com/MaksymPyvovarov)
+- LinkedIn: [Maksym Pyvovarov](https://www.linkedin.com/in/maksym-pyvovarov/)
+- Email: [maxpyvovarov@gmail.com](mailto:maxpyvovarov@gmail.com)
