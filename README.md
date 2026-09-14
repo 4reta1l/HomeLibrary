@@ -85,6 +85,18 @@ real Core Data stack.
 
 ---
 
+## 🔍 Key Highlights
+
+- Scalable **MVVM** architecture with protocol-oriented storage
+- Efficient data querying for **search** and **filter**
+- **Testable business logic** decoupled from SwiftUI
+- **Product-style implementation** — handles empty states, error states,
+and context rollback
+- Continuous refactoring visible in commit history (shared formatting 
+extracted, duplicated views deduped, save failures surfaced)
+
+---
+
 ## 🚀 Getting Started
 
 ### Requirements
@@ -100,3 +112,34 @@ cd HomeLibrary
 open HomeLibrary.xcodeproj
 ```
 Then press **⌘R** in Xcode.
+
+### Run tests
+
+```bash
+xcodebuild test \
+  -scheme HomeLibrary \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+```
+
+---
+
+## 🧪 Testing & CI
+
+- Unit tests written with Swift Testing (`@Test`, `#expect`)
+- Coverage includes:
+  - `LibraryStore` (load, add, update, delete, search/filter/sort)
+  - CSV parsing and round-trip (`CSVParserTests`, `CSVRoundTripTests`)
+  - Core Data smoke tests (`StorageSmokeTests`)
+- Fakes (`FakeBooksStorage`, `FakeAuthorsStorage`, ...) enable isolated tests
+- GitHub Actions runs **build + tests + SwiftLint (`--strict`)** on every push
+- CI uses `xcbeautify` for readable logs and cancels outdated runs
+
+---
+
+## 👤 Author
+
+**4reta1l**
+- GitHub: [4reta1l](https://github.com/4reta1l)
+- University GitHub: [Maksym Pyvovarov](https://github.com/MaksymPyvovarov)
+- LinkedIn: [Maksym Pyvovarov](https://www.linkedin.com/in/maksym-pyvovarov/)
+- Email: [maxpyvovarov@gmail.com](mailto:maxpyvovarov@gmail.com)
