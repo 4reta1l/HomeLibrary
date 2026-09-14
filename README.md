@@ -22,7 +22,7 @@ CSV/JSON import & export so your library is never locked in.
 
 | My Library | Add / Edit Book | Categories | Overview |
 |:---:|:---:|:---:|:---:|
-| ![Library](Documents/screenshots/library.png) | ![Add](Documents/screenshots/edit.png) | ![Categories](Documents/screenshots/categories.png) | ![Overview](Documents/screenshots/overview.png) |
+| ![Library](Docs/screenshots/library.png) | ![Add](Docs/screenshots/edit.png) | ![Categories](Docs/screenshots/categories.png) | ![Overview](Docs/screenshots/overview.png) |
 
 ---
 
