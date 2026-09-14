@@ -57,10 +57,12 @@ CSV/JSON import & export so your library is never locked in.
 
 The app follows **MVVM**:
 
+```text
 ┌─────────────┐     ┌──────────────┐     ┌──────────────┐
 │   View      │ ──▶ │  ViewModel   │ ──▶ │    Model     │
 │  (SwiftUI)  │ ◀── │ (state/logic)│ ◀── │ (Core Data)  │
 └─────────────┘     └──────────────┘     └──────────────┘
+```
 
 - **View** - SwiftUI views, purely declarative, no business logic
 - **ViewModel** - `@Observable` classes holding state, filtering, and formatting
