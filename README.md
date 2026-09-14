@@ -26,70 +26,75 @@ CSV/JSON import & export so your library is never locked in.
 
 ---
 
+## ✨ Features
+
+- ➕ Add, edit, and delete books with structured metadata
+- 🗂 Organize with categories, authors, and genres using Core Data relationships
+- 🔍 Search and filter your library in real time
+- 💾 Persistent storage via Core Data with context rollback on save failure
+- 📤 Import / export library data as CSV or JSON for backup and portability
+- 📷 Barcode scanning to auto-fill book data
+- 🎨 Clean, responsive UI built entirely in SwiftUI
+- 🧪 Unit tests covering storage logic and CSV parsing
+- ⚙️ CI on every push via GitHub Actions
+
+---
+
 ## 🛠 Tech Stack
 
-- **Language:** Swift  
-- **UI:** SwiftUI (+ UIKit where needed)  
-- **Architecture:** MVVM  
-- **Persistence:** Core Data  
-- **Tools:** Xcode, Git  
+| Layer | Technology |
+|---|---|
+| Language | Swift 5 |
+| UI | SwiftUI (UIKit where needed) |
+| Architecture | MVVM |
+| Persistence | Core Data |
+| Testing | Swift Testing (`@Test`, `#expect`) |
+| Tooling | Xcode, Git, SwiftLint, GitHub Actions |  
 
 ---
 
 ## 🏗 Architecture
 
-The app follows the **MVVM (Model-View-ViewModel)** pattern:
+The app follows **MVVM**:
+┌─────────────┐     ┌──────────────┐     ┌──────────────┐
+│   View      │ ──▶ │  ViewModel   │ ──▶ │    Model     │
+│  (SwiftUI)  │ ◀── │ (state/logic)│ ◀── │ (Core Data)  │
+└─────────────┘     └──────────────┘     └──────────────┘
+- **View** - SwiftUI views, purely declarative, no business logic
+- **ViewModel** - `@Observable` classes holding state, filtering, and formatting
+- **Model** - Core Data entities + plain value types (`Book`, `Author`, `Category`, `Genre`, `Publisher`)
 
-- **View** – SwiftUI views responsible for UI rendering  
-- **ViewModel** – handles business logic and state management  
-- **Model** – Core Data entities and data structures  
-
-The data layer is separated to ensure:
-- maintainability  
-- scalability  
-- clear separation of concerns  
+The persistence layer is protocol-oriented: `CDStorage` conforms to
+storage protocols (`BooksStorage`, `AuthorsStorage`, `CategoriesStorage`,
+etc.), which allows fast, isolated unit tests using fakes instead of a
+real Core Data stack.
 
 ---
 
 ## 💾 Data Management
 
-- Implemented **Core Data** with relationships between entities  
-- Supports persistent storage of the entire library  
-- Provides **data export/import (CSV, JSON)** for backup and portability  
+- Core Data with **relationships** between `Book` and its `Author`,
+`Category`, and `Genre` entities
+- Context rollback on save failure - no silent data loss
+- User-facing error surfacing in `EditBookView` when a save fails
+- **CSV / JSON export** for backup and portability
+- **CSV / JSON import** with a hand-rolled RFC 4180 CSV parser
+- Data migrations handled via a versioned `managedObjectModel`
 
 ---
 
-## 🔍 Key Highlights
+## 🚀 Getting Started
 
-- Designed scalable architecture using MVVM  
-- Implemented efficient data querying (search & filtering)  
-- Focused on clean code and maintainability  
-- Built as a product-style application rather than a demo  
+### Requirements
 
----
+- macOS with **Xcode 26.6+**
+- **iOS 18+** simulator or device
 
-## 📸 Screenshots
+### Run it
 
-### My Library
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/b61fa143-cfa3-4d39-b9cc-ce13251dce71" />
-
-### Add/Edit Book
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/ac92084c-1825-42c9-8409-4a885ad0a869" />
-
-### Categories
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/4dddc6fa-1c2f-4f44-8200-69d3b0cbf820" />
-
-### Overview
-<img width="1179" height="2556" alt="image" src="https://github.com/user-attachments/assets/0280a866-bb6b-4180-987a-8770b5160913" />
-
----
-
-## 📦 Getting Started
-
-1. Clone the repository:
 ```bash
 git clone https://github.com/4reta1l/HomeLibrary.git
-```
-2. Open in Xcode
+cd HomeLibrary
 open HomeLibrary.xcodeproj
-3. Run the app on simulator or device
+```
+Then press **⌘R** in Xcode.
