@@ -24,43 +24,66 @@ CSV/JSON import & export so your library is never locked in.
 |:---:|:---:|:---:|:---:|
 | ![Library](Docs/screenshots/library.PNG) | ![Add](Docs/screenshots/edit.PNG) | ![Categories](Docs/screenshots/categories.PNG) | ![Overview](Docs/screenshots/overview.PNG) |
 
+| Settings | Filters | Search | Barcode |
+|:---:|:---:|:---:|:---:|
+| ![Library](Docs/screenshots/settings.PNG) | ![Add](Docs/screenshots/filters.PNG) | ![Categories](Docs/screenshots/search.PNG) | ![Overview](Docs/screenshots/barcode.PNG) |
+
 ---
 
 ## ✨ Features
 
-- ➕ Add, edit, and delete books with structured metadata
-- 🗂 Organize with categories, authors, and genres using Core Data relationships
-- 🔍 Search and filter your library in real time
-- 💾 Persistent storage via Core Data with context rollback on save failure
-- 📤 Import / export library data as CSV or JSON for backup and portability
-- 📷 Barcode scanning to auto-fill book data
-- 🎨 Clean, responsive UI built entirely in SwiftUI
-- 🧪 Unit tests covering storage logic and CSV parsing
-- ⚙️ CI on every push via GitHub Actions
+- 📚 Add, edit, and delete books
+- 🔎 Search and filter the library
+- 🏷️ Organize books by authors, genres, categories, and publishers
+- 📷 Scan ISBN barcodes
+- 🌐 Automatically retrieve book metadata
+- 📥 Import books from CSV
+- 📤 Export the library to CSV and JSON
+- 💾 Persistent local storage with Core Data
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Engineering Highlights
 
-| Layer | Technology |
-|---|---|
-| Language | Swift 5 |
-| UI | SwiftUI (UIKit where needed) |
-| Architecture | MVVM |
-| Persistence | Core Data |
-| Testing | Swift Testing (`@Test`, `#expect`) |
-| Tooling | Xcode, Git, SwiftLint, GitHub Actions |  
+- MVVM architecture
+- Protocol-based storage abstraction
+- Dependency injection for testability
+- Core Data with model versioning
+- RFC 4180-compatible CSV parsing
+- Unit and integration-style tests using Swift Testing
+- GitHub Actions CI
+- SwiftLint with strict mode
+- User-facing persistence error handling
 
 ---
 
-## 🏗 Architecture
+## 🏗️ Architecture
 
-The app follows **MVVM**:
+HomeLibrary follows MVVM with a protocol-based persistence layer.
+
 ```text
-┌─────────────┐     ┌──────────────┐     ┌──────────────┐
-│   View      │ ──▶ │  ViewModel   │ ──▶ │    Model     │
-│  (SwiftUI)  │ ◀── │ (state/logic)│ ◀── │ (Core Data)  │
-└─────────────┘     └──────────────┘     └──────────────┘
+┌─────────────────────┐
+│     SwiftUI Views   │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      ViewModels     │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    LibraryStore     │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Storage Protocols  │
+└──────────┬──────────┘
+           │
+      ┌────┴─────┐
+      ▼          ▼
+ Core Data     Fakes
 ```
 - **View** - SwiftUI views, purely declarative, no business logic
 - **ViewModel** - `@Observable` classes holding state, filtering, and formatting
@@ -85,15 +108,16 @@ real Core Data stack.
 
 ---
 
-## 🔍 Key Highlights
+## 🧪 Testing & CI
 
-- Scalable **MVVM** architecture with protocol-oriented storage
-- Efficient data querying for **search** and **filter**
-- **Testable business logic** decoupled from SwiftUI
-- **Product-style implementation** — handles empty states, error states,
-and context rollback
-- Continuous refactoring visible in commit history (shared formatting 
-extracted, duplicated views deduped, save failures surfaced)
+- Unit tests written with Swift Testing (`@Test`, `#expect`)
+- Coverage includes:
+  - `LibraryStore` (load, add, update, delete, search/filter/sort)
+  - CSV parsing and round-trip (`CSVParserTests`, `CSVRoundTripTests`)
+  - Core Data smoke tests (`StorageSmokeTests`)
+- Fakes (`FakeBooksStorage`, `FakeAuthorsStorage`, ...) enable isolated tests
+- GitHub Actions runs **build + tests + SwiftLint (`--strict`)** on every push
+- CI uses `xcbeautify` for readable logs and cancels outdated runs
 
 ---
 
@@ -120,19 +144,6 @@ xcodebuild test \
   -scheme HomeLibrary \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 ```
-
----
-
-## 🧪 Testing & CI
-
-- Unit tests written with Swift Testing (`@Test`, `#expect`)
-- Coverage includes:
-  - `LibraryStore` (load, add, update, delete, search/filter/sort)
-  - CSV parsing and round-trip (`CSVParserTests`, `CSVRoundTripTests`)
-  - Core Data smoke tests (`StorageSmokeTests`)
-- Fakes (`FakeBooksStorage`, `FakeAuthorsStorage`, ...) enable isolated tests
-- GitHub Actions runs **build + tests + SwiftLint (`--strict`)** on every push
-- CI uses `xcbeautify` for readable logs and cancels outdated runs
 
 ---
 
