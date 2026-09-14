@@ -1,20 +1,28 @@
 # 📚 HomeLibrary
 
+> A personal book library manager for iOS - built with SwiftUI, Core Data, and MVVM.
+
+![Swift](https://img.shields.io/badge/Swift-5-orange)
+![iOS](https://img.shields.io/badge/iOS-18-blue)
 ![CI](https://github.com/4reta1l/HomeLibrary/actions/workflows/ci.yml/badge.svg)
 
-iOS application for managing a personal book library, built with SwiftUI and Core Data.  
-The app allows users to organize, search, and manage their book collection with persistent storage and data portability.
+HomeLibrary helps you organize, search, and manage your personal book
+collection. It uses Core Data for persistent storage and supports
+CSV/JSON import & export so your library is never locked in.
 
 ---
 
-## 🚀 Features
+## 🎥 Demo
 
-- Add, edit, and delete books
-- Organize books with structured data
-- Search, filter, and sort books
-- Persistent storage using Core Data
-- Import and export library data (CSV, JSON)
-- Clean and responsive UI built with SwiftUI
+>  **Watch Demo:** [Watch a 2-minutes walkthrough](https://www.youtube.com/shorts/YzL1I5QJ0EM)
+
+---
+
+## 📸 Screenshots
+
+| My Library | Add / Edit Book | Categories | Overview |
+|:---:|:---:|:---:|:---:|
+| ![Library](Docs/screenshots/library.png) | ![Add](Docs/screenshots/edit.png) | ![Categories](Docs/screenshots/categories.png) | ![Overview](Docs/screenshots/overview.png) |
 
 ---
 
